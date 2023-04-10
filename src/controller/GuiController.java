@@ -34,7 +34,7 @@ public class GuiController {
 
         try {
             domainManager = new DAOManager();
-        } catch (ClassNotFoundException | SQLException ex) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(frameMenu, ex);
             System.exit(-1);
         }
