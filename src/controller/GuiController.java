@@ -12,10 +12,11 @@ import gui.Listas.DialogListaTurma;
 import gui.FrameMenu;
 import javax.swing.JDialog;
 import java.awt.Frame;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class GuiController {
+
+    private static GuiController guiController;
 
     private FrameMenu frameMenu = null;
     private DialogCadastroTurma dialogCadastroTurma = null;
@@ -30,14 +31,22 @@ public class GuiController {
 
     DAOManager domainManager;
 
-    public GuiController() {
-
+    private GuiController() {
         try {
             domainManager = new DAOManager();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(frameMenu, ex);
             System.exit(-1);
         }
+    }
+
+    public static GuiController getInstance() {
+        if (guiController == null) {
+            guiController = new GuiController();
+            return guiController;
+        }
+
+        return guiController;
     }
 
     public void abrirMenu() {
@@ -113,7 +122,7 @@ public class GuiController {
 
     public static void main(String args[]) {
 
-        GuiController guiController = new GuiController();
+        GuiController guiController = GuiController.getInstance();
         guiController.abrirMenu();
     }
 }
