@@ -2,13 +2,12 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class ConexaoOracle {
 
     private static Connection conexao;
 
-    public static Connection estabelecerConexao() throws ClassNotFoundException, SQLException {
+    public static Connection estabelecerConexao() throws Exception {
 
         if (conexao == null) {
             String servidor = "localhost:1521";
