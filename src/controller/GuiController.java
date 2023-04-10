@@ -33,7 +33,7 @@ public class GuiController {
 
     private GuiController() {
         try {
-            domainManager = new DAOManager();
+            domainManager = DAOManager.getInstance();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(frameMenu, ex);
             System.exit(-1);
