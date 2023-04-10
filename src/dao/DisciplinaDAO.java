@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DisciplinaDAO {
 
-    public List<Disciplina> getList() throws ClassNotFoundException, SQLException {
+    public List<Disciplina> getList() throws Exception {
 
         Statement statement;
         statement = ConexaoOracle.estabelecerConexao().createStatement();
