@@ -6,7 +6,7 @@ package minhaescola;
 
 /**
  *
- * @author CONEXOS
+ * @author Allan Neves Melquíades Silva
  */
 public class MinhaEscola {
 
