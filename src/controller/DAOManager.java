@@ -30,7 +30,7 @@ public class DAOManager {
     }
 
     public List<Disciplina> listarDisciplinas() throws Exception {
-        return disciplinaDAO.getList();
+        return disciplinaDAO.findList();
     }
 
 }
