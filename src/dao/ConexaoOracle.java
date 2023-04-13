@@ -13,7 +13,7 @@ public class ConexaoOracle {
             String servidor = "localhost:1521";
             String login = "ALLAN";
             String senha = "123";
-            String nomeBanco = "CPAEREA";
+            String nomeBanco = "PDB_MINHA_ESCOLA";
             String url = "jdbc:oracle:thin:@//" + servidor + "/" + nomeBanco;
 
             Class.forName("oracle.jdbc.OracleDriver");
