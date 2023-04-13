@@ -6,12 +6,12 @@ import java.sql.ResultSet;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DisciplinaDAO {
+public class DisciplinaDAO extends DAOConfig {
 
     public List<Disciplina> findList() throws Exception {
 
-        Statement statement;
-        statement = ConexaoOracle.estabelecerConexao().createStatement();
+        Statement statement = createStatement();
+        
         List<Disciplina> disciplinasList = new LinkedList();
         Disciplina disciplina;
 
@@ -46,7 +46,7 @@ public class DisciplinaDAO {
     }
 
     public static void insert(Disciplina body) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
     public static void update(Disciplina body) throws Exception {
