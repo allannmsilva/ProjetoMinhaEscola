@@ -17,7 +17,15 @@ public class Disciplina {
         this.codigoDisciplina = codigoDisciplina;
         this.descricaoDisciplina = descricaoDisciplina;
     }
+    
+    public long getCodigoDisciplina() {
+        return codigoDisciplina;
+    }
 
+    public void setCodigoDisciplina(long codigoDisciplina) {
+        this.codigoDisciplina = codigoDisciplina;
+    }
+    
     public String getDescricaoDisciplina() {
         return descricaoDisciplina;
     }
@@ -25,4 +33,5 @@ public class Disciplina {
     public void setDescricaoDisciplina(String descricaoDisciplina) {
         this.descricaoDisciplina = descricaoDisciplina;
     }
+    
 }
