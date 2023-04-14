@@ -1,15 +1,15 @@
 
 package dao;
 
+import domain.Aluno;
 import factoryMethod.Pessoa;
 import factoryMethod.PessoaFactory;
 
 public class AlunoDAO implements PessoaFactory {
 
     @Override
-    public void insert(Pessoa pessoa) {
-        
-        
+    public Pessoa insert() {
+        return null;
     }
     
 }

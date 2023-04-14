@@ -9,5 +9,5 @@ package factoryMethod;
  * @author Allan, Bruno, Amanda
  */
 public interface PessoaFactory {
-    public void insert(Pessoa pessoa);
+    public Pessoa insert();
 }
