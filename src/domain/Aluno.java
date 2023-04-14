@@ -1,48 +1,26 @@
 package domain;
 
+import factoryMethod.Pessoa;
 import java.util.Date;
 
-public class Aluno {
+public class Aluno extends Pessoa {
 
-    private long rg;
+    private long codigoAluno;
     private long turma;
-    private String nome;
-    private Date dataNascimento;
-
-    public Aluno() {
-    }
 
     public Aluno(long rg, String nome, Date dataNascimento, long turma) {
-        this.rg = rg;
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
+        super(rg, nome, dataNascimento);
         this.turma = turma;
     }
 
-    public long getRg() {
-        return rg;
+    public long getCodigoAluno() {
+        return codigoAluno;
     }
 
-    public void setRg(long rg) {
-        this.rg = rg;
+    public void setCodigoAluno(long codigoAluno) {
+        this.codigoAluno = codigoAluno;
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public Date getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(Date dataNascimento) {
-        this.dataNascimento = dataNascimento;
-    }
-
+    
     public long getTurma() {
         return turma;
     }
@@ -50,7 +28,17 @@ public class Aluno {
     public void setTurma(long turma) {
         this.turma = turma;
     }
-    
-    
+
+    @Override
+    public void exibirInformacoesPessoais() {
+        System.out.println( //
+                "RG: " + this.getRg()
+                + //
+                " Nome: " + this.getNome()
+                + //
+                " Turma: " + this.getTurma()
+                + //
+                " Data de Nascimento: " + this.getDataNascimento());
+    }
 
 }
