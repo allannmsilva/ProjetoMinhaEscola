@@ -1,17 +1,11 @@
 package domain;
 
 import factoryMethod.Pessoa;
-import java.util.Date;
 
 public class Aluno extends Pessoa {
 
     private long codigoAluno;
     private long turma;
-
-    public Aluno(long rg, String nome, Date dataNascimento, long turma) {
-        super(rg, nome, dataNascimento);
-        this.turma = turma;
-    }
 
     public long getCodigoAluno() {
         return codigoAluno;
@@ -20,7 +14,7 @@ public class Aluno extends Pessoa {
     public void setCodigoAluno(long codigoAluno) {
         this.codigoAluno = codigoAluno;
     }
-    
+
     public long getTurma() {
         return turma;
     }
@@ -33,12 +27,16 @@ public class Aluno extends Pessoa {
     public void exibirInformacoesPessoais() {
         System.out.println( //
                 "RG: " + this.getRg()
+                + "\n"
+                +//
+                "Nome: " + this.getNome()
+                + "\n"
                 + //
-                " Nome: " + this.getNome()
+                "Data de Nascimento: " + this.getDataNascimento()
+                + "\n"
                 + //
-                " Turma: " + this.getTurma()
-                + //
-                " Data de Nascimento: " + this.getDataNascimento());
+                "Turma: " + this.getTurma()
+                + "\n");
     }
 
 }

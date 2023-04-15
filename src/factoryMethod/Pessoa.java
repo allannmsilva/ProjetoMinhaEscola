@@ -15,12 +15,6 @@ public abstract class Pessoa {
     private long rg;
     private String nome;
     private Date dataNascimento;
-
-    public Pessoa(long rg, String nome, Date dataNascimento) {
-        this.rg = rg;
-        this.nome = nome;
-        this.dataNascimento = dataNascimento;
-    }
     
     public long getRg() {
         return rg;

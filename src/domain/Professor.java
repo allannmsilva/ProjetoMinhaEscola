@@ -1,20 +1,14 @@
-
 package domain;
 
 import factoryMethod.Pessoa;
-import java.util.Date;
 
 public class Professor extends Pessoa {
 
     private long codigoProfessor;
-    private String formacao; 
+    private String formacao;
     private double salario;
 
-    public Professor(long codigoProfessor, String formacao, double salario, long rg, String nome, Date dataNascimento) {
-        super(rg, nome, dataNascimento);
-        this.codigoProfessor = codigoProfessor;
-        this.formacao = formacao;
-        this.salario = salario;
+    public Professor() {
     }
 
     public long getCodigoProfessor() {
@@ -43,7 +37,21 @@ public class Professor extends Pessoa {
 
     @Override
     public void exibirInformacoesPessoais() {
-        
+        System.out.println( //
+                "RG: " + this.getRg()
+                + "\n"
+                +//
+                "Nome: " + this.getNome()
+                + "\n"
+                +//
+                "Data de Nascimento: " + this.getDataNascimento()
+                + "\n"
+                +//
+                "Formação: " + this.getFormacao()
+                + "\n"
+                +//
+                "Salário: " + this.getSalario()
+                + "\n");
     }
 
 }
