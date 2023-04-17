@@ -5,6 +5,9 @@
 package gui.Listas;
 
 import controller.GuiController;
+import domain.Disciplina;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,11 +16,19 @@ import controller.GuiController;
 public class DialogListaDisciplina extends javax.swing.JDialog {
 
     private GuiController guiController;
-    
-    public DialogListaDisciplina(java.awt.Frame parent, boolean modal, GuiController guiController) {
+
+    public DialogListaDisciplina(java.awt.Frame parent, boolean modal, GuiController guiController) throws Exception {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
+        List<Disciplina> disciplinas = guiController.getDbManager().listarDisciplinas();
+        for (Disciplina disciplina : disciplinas) {
+            ((DefaultTableModel) tblDisciplinas.getModel()).addRow(new String[6]);
+            int idxLinha = tblDisciplinas.getRowCount() - 1;
+            int col = 0;
+            tblDisciplinas.setValueAt(disciplina.getCodigoDisciplina(), idxLinha, col++);
+            tblDisciplinas.setValueAt(disciplina.getDescricaoDisciplina(), idxLinha, col++);
+        }
     }
 
     /**
@@ -43,7 +54,7 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
         tblDisciplinas.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         tblDisciplinas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+
             },
             new String [] {
                 "Código", "Descrição"
@@ -52,11 +63,19 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
             Class[] types = new Class [] {
                 java.lang.Long.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
+        tblDisciplinas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane1.setViewportView(tblDisciplinas);
 
         pnlListaDisciplinas.add(jScrollPane1);
