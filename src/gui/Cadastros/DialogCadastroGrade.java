@@ -17,8 +17,8 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
     public DialogCadastroGrade(java.awt.Frame parent, boolean modal, GuiController guiController) {
         super(parent, modal);
         this.guiController = guiController;
-        guiController.showDisciplinasComboBox(cbbDisciplinaGrade);
         initComponents();
+        guiController.showDisciplinasComboBox(cbbDisciplinaGrade);
     }
 
     /**
@@ -84,8 +84,6 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Disciplina");
-
-        cbbDisciplinaGrade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout pnlDadosGradeLayout = new javax.swing.GroupLayout(pnlDadosGrade);
         pnlDadosGrade.setLayout(pnlDadosGradeLayout);

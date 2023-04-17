@@ -22,7 +22,7 @@ public class DisciplinaDAO {
         ResultSet resultSet = statement.executeQuery(sql);
 
         while (resultSet.next()) {
-            disciplina = new Disciplina(resultSet.getLong("codigoDisciplina"), resultSet.getString("descricaoDisciplina"));
+            disciplina = new Disciplina(resultSet.getLong("CODIGO_DISCIPLINA"), resultSet.getString("DESCRICAO_DISCIPLINA"));
             disciplinasList.add(disciplina);
         }
 
