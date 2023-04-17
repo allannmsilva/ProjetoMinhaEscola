@@ -33,4 +33,11 @@ public class DAOManager {
         return disciplinaDAO.findList();
     }
 
+    public long inserirDisciplina(String descricaoDisciplina) throws Exception {
+        Disciplina newDisc = new Disciplina(descricaoDisciplina);
+
+        disciplinaDAO.insert(newDisc);
+        return newDisc.getCodigoDisciplina();
+    }
+
 }

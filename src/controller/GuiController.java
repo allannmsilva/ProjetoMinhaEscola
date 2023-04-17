@@ -1,5 +1,6 @@
 package controller;
 
+import domain.Disciplina;
 import gui.Cadastros.DialogCadastroAluno;
 import gui.Cadastros.DialogCadastroAno;
 import gui.Cadastros.DialogCadastroDisciplina;
@@ -12,6 +13,9 @@ import gui.Listas.DialogListaTurma;
 import gui.FrameMenu;
 import javax.swing.JDialog;
 import java.awt.Frame;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class GuiController {
@@ -29,11 +33,11 @@ public class GuiController {
     private DialogCadastroGrade dialogCadastroGrade = null;
     private DialogListaGrade dialogListaGrade = null;
 
-    DAOManager domainManager;
+    DAOManager dbManager;
 
     private GuiController() {
         try {
-            domainManager = DAOManager.getInstance();
+            dbManager = DAOManager.getInstance();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(frameMenu, ex);
             System.exit(-1);
@@ -47,6 +51,10 @@ public class GuiController {
         }
 
         return guiController;
+    }
+
+    public DAOManager getDbManager() {
+        return dbManager;
     }
 
     public void abrirMenu() {
@@ -120,9 +128,13 @@ public class GuiController {
         abrirDialog(frameMenu, dialogListaGrade, DialogListaGrade.class);
     }
 
-    public static void main(String args[]) {
-
-        GuiController guiController = GuiController.getInstance();
-        guiController.abrirMenu();
+    public void showDisciplinasComboBox(JComboBox cbbDisciplina) {
+        try {
+            List<Disciplina> list = dbManager.listarDisciplinas();
+            cbbDisciplina.setModel(new DefaultComboBoxModel(list.toArray()));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(frameMenu, "Erro ao carregar disciplinas!");
+        }
     }
+
 }

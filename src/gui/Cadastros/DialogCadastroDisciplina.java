@@ -5,8 +5,7 @@
 package gui.Cadastros;
 
 import controller.GuiController;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,7 +14,7 @@ import java.time.LocalDate;
 public class DialogCadastroDisciplina extends javax.swing.JDialog {
 
     private GuiController guiController;
-    
+
     public DialogCadastroDisciplina(java.awt.Frame parent, boolean modal, GuiController guiController) {
         super(parent, modal);
         this.guiController = guiController;
@@ -163,12 +162,13 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
     }//GEN-LAST:event_txtDescricaoDisciplinaActionPerformed
 
     private void btnAdicionarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDisciplinaActionPerformed
-
-        String descricao = txtDescricaoDisciplina.getText();
-
-        LocalDate dataAtual = LocalDate.now();
-        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-        String dataAtualFormatada = formatador.format(dataAtual);
+        try {
+            long codisc = guiController.getDbManager().inserirDisciplina(txtDescricaoDisciplina.getText());
+            JOptionPane.showMessageDialog(this, "Disciplina " + codisc + " inserida com sucesso!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir disciplina!\n");
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnAdicionarDisciplinaActionPerformed
 
     private void btnLimparDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparDisciplinaActionPerformed

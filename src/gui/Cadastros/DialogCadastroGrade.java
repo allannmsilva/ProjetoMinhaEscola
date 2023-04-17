@@ -17,6 +17,7 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
     public DialogCadastroGrade(java.awt.Frame parent, boolean modal, GuiController guiController) {
         super(parent, modal);
         this.guiController = guiController;
+        guiController.showDisciplinasComboBox(cbbDisciplinaGrade);
         initComponents();
     }
 
