@@ -5,6 +5,7 @@
 package gui.Cadastros;
 
 import controller.GuiController;
+import domain.Disciplina;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,11 +15,18 @@ import javax.swing.JOptionPane;
 public class DialogCadastroDisciplina extends javax.swing.JDialog {
 
     private GuiController guiController;
+    private Disciplina discSelec;
 
     public DialogCadastroDisciplina(java.awt.Frame parent, boolean modal, GuiController guiController) {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
+    }
+
+    public void setDiscSelec(Disciplina discSelec) {
+        this.discSelec = discSelec;
+        txtCodigoDisciplina.setText(String.valueOf(discSelec.getCodigoDisciplina()));
+        txtDescricaoDisciplina.setText(discSelec.getDescricaoDisciplina());
     }
 
     /**

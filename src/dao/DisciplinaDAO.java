@@ -32,14 +32,14 @@ public class DisciplinaDAO {
     public static Disciplina findById(long id) throws Exception {
 
         Statement statement = MetodosUteis.createStatement();
-        Disciplina disciplina = null;
+        Disciplina disciplina = new Disciplina();
 
         String sql = "SELECT * FROM DISCIPLINA WHERE DISCIPLINA.CODIGO_DISCIPLINA = " + id;
 
         ResultSet resultSet = statement.executeQuery(sql);
 
         if (resultSet.next()) {
-            disciplina = new Disciplina(resultSet.getLong("codigoDisciplina"), resultSet.getString("descricaoDisciplina"));
+            disciplina = new Disciplina(resultSet.getLong("CODIGO_DISCIPLINA"), resultSet.getString("DESCRICAO_DISCIPLINA"));
         }
 
         return disciplina;

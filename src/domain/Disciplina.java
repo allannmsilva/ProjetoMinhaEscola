@@ -21,7 +21,6 @@ public class Disciplina {
         this.codigoDisciplina = codigoDisciplina;
         this.descricaoDisciplina = descricaoDisciplina;
     }
-    
 
     public long getCodigoDisciplina() {
         return codigoDisciplina;
@@ -37,6 +36,10 @@ public class Disciplina {
 
     public void setDescricaoDisciplina(String descricaoDisciplina) {
         this.descricaoDisciplina = descricaoDisciplina;
+    }
+
+    public Object[] toArray() {
+        return new Object[]{codigoDisciplina, descricaoDisciplina};
     }
 
 }

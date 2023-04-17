@@ -29,6 +29,10 @@ public class DAOManager {
         return DAOManager;
     }
 
+    public Disciplina findById(long codigoDisciplina) throws Exception {
+        return disciplinaDAO.findById(codigoDisciplina);
+    }
+
     public List<Disciplina> listarDisciplinas() throws Exception {
         return disciplinaDAO.findList();
     }
@@ -38,6 +42,16 @@ public class DAOManager {
 
         disciplinaDAO.insert(newDisc);
         return newDisc.getCodigoDisciplina();
+    }
+
+    public void editarDisciplina(long codigoDisciplina, String descricaoDisciplina) throws Exception {
+        Disciplina oldDisc = findById(codigoDisciplina);
+        oldDisc.setDescricaoDisciplina(descricaoDisciplina);
+        disciplinaDAO.update(oldDisc);
+    }
+
+    public void excluirDisciplina(long codigoDisciplina) throws Exception {
+        disciplinaDAO.delete(codigoDisciplina);
     }
 
 }

@@ -6,7 +6,14 @@ package gui.Listas;
 
 import controller.GuiController;
 import domain.Disciplina;
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class DialogListaDisciplina extends javax.swing.JDialog {
 
     private GuiController guiController;
+    private Disciplina discSelec;
 
     public DialogListaDisciplina(java.awt.Frame parent, boolean modal, GuiController guiController) throws Exception {
         super(parent, modal);
@@ -23,12 +31,30 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
         initComponents();
         List<Disciplina> disciplinas = guiController.getDbManager().listarDisciplinas();
         for (Disciplina disciplina : disciplinas) {
-            ((DefaultTableModel) tblDisciplinas.getModel()).addRow(new String[6]);
-            int idxLinha = tblDisciplinas.getRowCount() - 1;
-            int col = 0;
-            tblDisciplinas.setValueAt(disciplina.getCodigoDisciplina(), idxLinha, col++);
-            tblDisciplinas.setValueAt(disciplina.getDescricaoDisciplina(), idxLinha, col++);
+            ((DefaultTableModel) tblDisciplinas.getModel()).addRow(disciplina.toArray());
         }
+
+        tblDisciplinas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                // to detect doble click events
+                JTable target = (JTable) me.getSource();
+                int row = target.getSelectedRow(); // select a row
+                if (me.getClickCount() == 2 && target.getSelectedRow() != -1) {
+                    try {
+                        discSelec = guiController.getDbManager().findById((long) target.getValueAt(row, 0));
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(target, "Erro ao selecionar disciplina!\n");
+                        ex.printStackTrace();
+                    }
+                    setVisible(false);
+                }
+            }
+        });
+    }
+
+    public Disciplina getDiscSelec() {
+        return discSelec;
     }
 
     /**

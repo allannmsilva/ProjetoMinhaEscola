@@ -100,7 +100,12 @@ public class GuiController {
 
     public void abrirListaDisciplina() {
 
-        abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
+        dialogListaDisciplina = (DialogListaDisciplina) abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
+
+        if (dialogListaDisciplina.getDiscSelec() != null) {
+            dialogCadastroDisciplina = (DialogCadastroDisciplina) abrirDialog(frameMenu, dialogCadastroDisciplina, DialogCadastroDisciplina.class);
+            dialogCadastroDisciplina.setDiscSelec(dialogListaDisciplina.getDiscSelec());
+        }
     }
 
     public void abrirCadastroAluno() {
