@@ -3,6 +3,7 @@ package domain;
 public class Aluno {
 
     private long codigoAluno;
+    private String nome;
     private long turma;
 
     public long getCodigoAluno() {
@@ -11,6 +12,14 @@ public class Aluno {
 
     public void setCodigoAluno(long codigoAluno) {
         this.codigoAluno = codigoAluno;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public long getTurma() {
