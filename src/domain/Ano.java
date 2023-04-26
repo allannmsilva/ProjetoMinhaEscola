@@ -7,7 +7,7 @@ package domain;
 public class Ano {
 
     private int ordinal;
-    eGrau grau;
+    int grau;
 
     public Ano() {
     }
@@ -24,11 +24,11 @@ public class Ano {
         this.ordinal = ordinal;
     }
 
-    public eGrau getGrau() {
+    public int getGrau() {
         return grau;
     }
 
-    public void setGrau(eGrau grau) {
+    public void setGrau(int grau) {
         this.grau = grau;
     }
 

@@ -3,6 +3,8 @@ package strategy;
 public class Avaliacao {
 
     private long disciplina;
+    private long aluno;
+    private double notaAluno;
     private String assunto;
     private eTipoAvaliacao tipoAvaliacao;
     private NotaAvaliacao notaAvaliacao;
@@ -10,8 +12,9 @@ public class Avaliacao {
     public Avaliacao() {
     }
 
-    public Avaliacao(long disciplina, String assunto, eTipoAvaliacao tipoAvaliacao) {
+    public Avaliacao(long disciplina, long aluno, String assunto, eTipoAvaliacao tipoAvaliacao) {
         this.disciplina = disciplina;
+        this.aluno = aluno;
         this.assunto = assunto;
         this.tipoAvaliacao = tipoAvaliacao;
 
@@ -35,6 +38,26 @@ public class Avaliacao {
         this.disciplina = disciplina;
     }
 
+    public long getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(long aluno) {
+        this.aluno = aluno;
+    }
+
+    public NotaAvaliacao getNotaAvaliacao() {
+        return notaAvaliacao;
+    }
+
+    public double getNotaAluno() {
+        return notaAluno;
+    }
+
+    public void setNotaAluno(double notaAluno) {
+        this.notaAluno = notaAluno;
+    }
+    
     public String getAssunto() {
         return assunto;
     }
@@ -68,10 +91,5 @@ public class Avaliacao {
             return tipoAvaliacao;
         }
     }
-
-    public static void main(String args[]) {
-
-        Avaliacao avaliacao = new Avaliacao(1, "Termodinâmica", eTipoAvaliacao.TRABALHO);
-        System.out.println("Nota avaliação: " + avaliacao.getNotaMaxima()); 
-    }
+    
 }
