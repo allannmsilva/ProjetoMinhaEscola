@@ -1,9 +1,12 @@
 package strategy;
 
+import domain.Aluno;
+import domain.Disciplina;
+
 public class Avaliacao {
 
-    private long disciplina;
-    private long aluno;
+    private Disciplina disciplina;
+    private Aluno aluno;
     private NotaAvaliacao notaAvaliacao;
     private double notaAluno;
     private String assunto;
@@ -12,7 +15,7 @@ public class Avaliacao {
     public Avaliacao() {
     }
 
-    public Avaliacao(long disciplina, long aluno, String assunto, int tipoAvaliacao) {
+    public Avaliacao(Disciplina disciplina, Aluno aluno, String assunto, int tipoAvaliacao) {
         this.disciplina = disciplina;
         this.aluno = aluno;
         this.assunto = assunto;
@@ -30,19 +33,19 @@ public class Avaliacao {
         }
     }
 
-    public long getDisciplina() {
+    public Disciplina getDisciplina() {
         return disciplina;
     }
 
-    public void setDisciplina(long disciplina) {
+    public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
     }
 
-    public long getAluno() {
+    public Aluno getAluno() {
         return aluno;
     }
 
-    public void setAluno(long aluno) {
+    public void setAluno(Aluno aluno) {
         this.aluno = aluno;
     }
 

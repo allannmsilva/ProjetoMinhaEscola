@@ -4,7 +4,7 @@ public class Aluno {
 
     private long codigoAluno;
     private String nome;
-    private long turma;
+    private Turma turma;
 
     public long getCodigoAluno() {
         return codigoAluno;
@@ -22,11 +22,11 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public long getTurma() {
+    public Turma getTurma() {
         return turma;
     }
 
-    public void setTurma(long turma) {
+    public void setTurma(Turma turma) {
         this.turma = turma;
     }
 

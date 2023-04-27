@@ -2,33 +2,33 @@ package domain;
 
 public class Grade {
 
-    private long codigoAno;
-    private long codigoDisciplina;
+    private Ano ano;
+    private Disciplina disciplina;
     private String planoEstudos;
 
     public Grade() {
     }
 
-    public Grade(long codigoAno, long codigoDisciplina, String planoEstudos) {
-        this.codigoAno = codigoAno;
-        this.codigoDisciplina = codigoDisciplina;
+    public Grade(Ano ano, Disciplina disciplina, String planoEstudos) {
+        this.ano = ano;
+        this.disciplina = disciplina;
         this.planoEstudos = planoEstudos;
     }
 
-    public long getCodigoAno() {
-        return codigoAno;
+    public Ano getAno() {
+        return ano;
     }
 
-    public void setCodigoAno(long codigoAno) {
-        this.codigoAno = codigoAno;
+    public void setAno(Ano ano) {
+        this.ano = ano;
     }
 
-    public long getCodigoDisciplina() {
-        return codigoDisciplina;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 
-    public void setDisciplina(long codigoDisciplina) {
-        this.codigoDisciplina = codigoDisciplina;
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
     public String getPlanoEstudos() {

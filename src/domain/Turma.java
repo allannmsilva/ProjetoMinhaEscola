@@ -8,7 +8,7 @@ public class Turma {
 
     private long codigoTurma;
     private String descricaoTurma;
-    private long ano;
+    private Ano ano;
     private int turno;
 
     private enum eTurno {
@@ -28,7 +28,7 @@ public class Turma {
     public Turma() {
     }
 
-    public Turma(long codigoTurma, String descricaoTurma, long ano, int turno) {
+    public Turma(long codigoTurma, String descricaoTurma, Ano ano, int turno) {
         this.codigoTurma = codigoTurma;
         this.descricaoTurma = descricaoTurma;
         this.ano = ano;
@@ -51,11 +51,11 @@ public class Turma {
         this.descricaoTurma = descricaoTurma;
     }
 
-    public long getAno() {
+    public Ano getAno() {
         return ano;
     }
 
-    public void setAno(long ano) {
+    public void setAno(Ano ano) {
         this.ano = ano;
     }
 
