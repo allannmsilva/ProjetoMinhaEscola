@@ -4,21 +4,21 @@ public class Avaliacao {
 
     private long disciplina;
     private long aluno;
+    private NotaAvaliacao notaAvaliacao;
     private double notaAluno;
     private String assunto;
-    private eTipoAvaliacao tipoAvaliacao;
-    private NotaAvaliacao notaAvaliacao;
+    private int tipoAvaliacao;
 
     public Avaliacao() {
     }
 
-    public Avaliacao(long disciplina, long aluno, String assunto, eTipoAvaliacao tipoAvaliacao) {
+    public Avaliacao(long disciplina, long aluno, String assunto, int tipoAvaliacao) {
         this.disciplina = disciplina;
         this.aluno = aluno;
         this.assunto = assunto;
         this.tipoAvaliacao = tipoAvaliacao;
 
-        switch (this.tipoAvaliacao.getTipoAvaliacao()) {
+        switch (this.tipoAvaliacao) {
             case 0:
                 this.notaAvaliacao = new NotaAvaliacaoProva();
                 break;
@@ -66,11 +66,11 @@ public class Avaliacao {
         this.assunto = assunto;
     }
 
-    public eTipoAvaliacao getTipoAvaliacao() {
+    public int getTipoAvaliacao() {
         return tipoAvaliacao;
     }
 
-    public void setTipoAvaliacao(eTipoAvaliacao tipoAvaliacao) {
+    public void setTipoAvaliacao(int tipoAvaliacao) {
         this.tipoAvaliacao = tipoAvaliacao;
     }
 

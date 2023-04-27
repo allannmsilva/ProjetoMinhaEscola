@@ -6,7 +6,8 @@ package domain;
 
 public class Turma {
 
-    private char descricaoTurma;
+    private long codigoTurma;
+    private String descricaoTurma;
     private long ano;
     private int turno;
 
@@ -27,17 +28,26 @@ public class Turma {
     public Turma() {
     }
 
-    public Turma(char descricaoTurma, long ano, int turno) {
+    public Turma(long codigoTurma, String descricaoTurma, long ano, int turno) {
+        this.codigoTurma = codigoTurma;
         this.descricaoTurma = descricaoTurma;
         this.ano = ano;
         this.turno = turno;
     }
 
-    public char getDescricaoTurma() {
+    public long getCodigoTurma() {
+        return codigoTurma;
+    }
+
+    public void setCodigoTurma(long codigoTurma) {
+        this.codigoTurma = codigoTurma;
+    }
+
+    public String getDescricaoTurma() {
         return descricaoTurma;
     }
 
-    public void setDescricaoTurma(char descricaoTurma) {
+    public void setDescricaoTurma(String descricaoTurma) {
         this.descricaoTurma = descricaoTurma;
     }
 

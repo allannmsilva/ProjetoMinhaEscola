@@ -6,16 +6,27 @@ package domain;
 
 public class Ano {
 
+    private long codigoAno;
     private int ordinal;
     int grau;
 
     public Ano() {
     }
 
-    public Ano(int ordinal) {
+    public Ano(long codigoAno, int ordinal, int grau) {
+        this.codigoAno = codigoAno;
         this.ordinal = ordinal;
+        this.grau = grau;
     }
 
+    public long getCodigoAno() {
+        return codigoAno;
+    }
+
+    public void setCodigoAno(long codigoAno) {
+        this.codigoAno = codigoAno;
+    }
+    
     public int getOrdinal() {
         return ordinal;
     }
