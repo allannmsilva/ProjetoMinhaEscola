@@ -1,6 +1,6 @@
 package controller;
 
-import dao.ConexaoOracle;
+import dao.ConexaoHibernate;
 import dao.DisciplinaDAO;
 import domain.Disciplina;
 import java.util.List;
@@ -16,7 +16,7 @@ public class DAOManager {
 //    private TurmaDAO turmaDAO;
 
     private DAOManager() throws Exception {
-        ConexaoOracle.estabelecerConexao();
+        ConexaoHibernate.getSessionFactory();
         disciplinaDAO = new DisciplinaDAO();
     }
 
