@@ -17,6 +17,7 @@ public class DAOManager {
 
     private DAOManager() throws Exception {
         ConexaoHibernate.getSessionFactory();
+        
         disciplinaDAO = new DisciplinaDAO();
     }
 

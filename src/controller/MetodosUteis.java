@@ -1,6 +1,6 @@
 package controller;
 
-import dao.ConexaoOracle;
+import dao.ConexaoHibernate;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.text.DateFormat;
@@ -9,15 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MetodosUteis {
-
-    public static Statement createStatement() throws Exception {
-        return ConexaoOracle.estabelecerConexao().createStatement();
-    }
-
-    public static PreparedStatement createStatement(String sql) throws Exception {
-        String returnCols[] = {"CODIGO_DISCIPLINA"};
-        return ConexaoOracle.estabelecerConexao().prepareStatement(sql, returnCols);
-    }
 
     public static Date toDate(String s) throws ParseException {
         DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");

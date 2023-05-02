@@ -17,6 +17,9 @@ public class DisciplinaDAO {
     public List<Disciplina> findList() throws Exception {
         return null;
     }
+    
+    public static void insert(Disciplina body) throws Exception {
+    }
 
     public static void update(Disciplina body) throws Exception {
     }
