@@ -10,5 +10,12 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.internal.classic.ClassicQueryTranslatorFactory</property>
+    <property name="hibernate.hbm2ddl.auto">update</property>
+    <mapping class="domain.Aluno"/>
+    <mapping class="domain.Ano"/>
+    <mapping class="domain.Disciplina"/>
+    <mapping class="domain.Grade"/>
+    <mapping class="domain.Turma"/>
+    <mapping class="strategy.Avaliacao"/>
   </session-factory>
 </hibernate-configuration>

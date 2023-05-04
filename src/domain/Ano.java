@@ -4,11 +4,28 @@
  */
 package domain;
 
-public class Ano {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
+public class Ano implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoAno;
+    
     private int ordinal;
     int grau;
+
+    @OneToMany(mappedBy = "ANO", fetch = FetchType.LAZY)
+    private List<Turma> turmas = new ArrayList();
 
     public Ano() {
     }
@@ -26,7 +43,7 @@ public class Ano {
     public void setCodigoAno(long codigoAno) {
         this.codigoAno = codigoAno;
     }
-    
+
     public int getOrdinal() {
         return ordinal;
     }
@@ -44,6 +61,7 @@ public class Ano {
     }
 
     protected enum eGrau {
+
         FUNDAMENTAL_I(0), FUNDAMENTAL_II(1), MEDIO(2);
 
         protected int grau;

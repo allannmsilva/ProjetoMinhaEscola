@@ -4,14 +4,34 @@
  */
 package domain;
 
-public class Turma {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+@Entity
+public class Turma implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoTurma;
     private String descricaoTurma;
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Ano ano;
     private int turno;
 
+    @OneToMany(mappedBy = "TURMA", fetch = FetchType.LAZY)
+    private List<Aluno> alunos = new ArrayList();
+
     private enum eTurno {
+
         MATITUNO(0), VESPERTINO(1), NOTURNO(2);
 
         private int turno;
