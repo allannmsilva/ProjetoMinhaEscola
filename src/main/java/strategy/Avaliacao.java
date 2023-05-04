@@ -14,6 +14,10 @@ public class Avaliacao implements Serializable {
     private String assunto;
     private int tipoAvaliacao;
 
+    private static int NOTA_PROVA = 15;
+    private static int NOTA_SEMINARIO = 25;
+    private static int NOTA_TRABALHO = 10;
+
     public Avaliacao() {
     }
 
@@ -24,13 +28,13 @@ public class Avaliacao implements Serializable {
 
         switch (this.tipoAvaliacao) {
             case 0:
-                this.notaMaximaAvaliacao = 15;
+                this.notaMaximaAvaliacao = NOTA_PROVA;
                 break;
             case 1:
-                this.notaMaximaAvaliacao = 25;
+                this.notaMaximaAvaliacao = NOTA_SEMINARIO;
                 break;
             case 2:
-                this.notaMaximaAvaliacao = 10;
+                this.notaMaximaAvaliacao = NOTA_TRABALHO;
         }
     }
 
