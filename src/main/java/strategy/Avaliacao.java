@@ -9,8 +9,7 @@ public class Avaliacao implements Serializable {
 
     @EmbeddedId
     private AvaliacaoPK chaveComposta;
-    
-    private NotaAvaliacao notaAvaliacao;
+    private int notaMaximaAvaliacao;
     private double notaAluno;
     private String assunto;
     private int tipoAvaliacao;
@@ -25,18 +24,18 @@ public class Avaliacao implements Serializable {
 
         switch (this.tipoAvaliacao) {
             case 0:
-                this.notaAvaliacao = new NotaAvaliacaoProva();
+                this.notaMaximaAvaliacao = 15;
                 break;
             case 1:
-                this.notaAvaliacao = new NotaAvaliacaoSeminario();
+                this.notaMaximaAvaliacao = 25;
                 break;
             case 2:
-                this.notaAvaliacao = new NotaAvaliacaoTrabalho();
+                this.notaMaximaAvaliacao = 10;
         }
     }
 
-    public NotaAvaliacao getNotaAvaliacao() {
-        return notaAvaliacao;
+    public int getNotaMaximaAvaliacao() {
+        return notaMaximaAvaliacao;
     }
 
     public double getNotaAluno() {
@@ -46,7 +45,7 @@ public class Avaliacao implements Serializable {
     public void setNotaAluno(double notaAluno) {
         this.notaAluno = notaAluno;
     }
-    
+
     public String getAssunto() {
         return assunto;
     }
@@ -63,10 +62,6 @@ public class Avaliacao implements Serializable {
         this.tipoAvaliacao = tipoAvaliacao;
     }
 
-    public int getNotaMaxima() {
-        return this.notaAvaliacao.getNotaMaxima();
-    }
-
     public enum eTipoAvaliacao {
         PROVA(0), SEMINARIO(1), TRABALHO(2);
 
@@ -80,5 +75,5 @@ public class Avaliacao implements Serializable {
             return tipoAvaliacao;
         }
     }
-    
+
 }
