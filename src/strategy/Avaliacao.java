@@ -1,7 +1,5 @@
 package strategy;
 
-import domain.Aluno;
-import domain.Disciplina;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

@@ -3,9 +3,6 @@ package domain;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Grade implements Serializable {
