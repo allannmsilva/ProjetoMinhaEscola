@@ -1,7 +1,6 @@
 package gui;
 
 import controller.GuiController;
-import javax.swing.JFrame;
 
 /**
  *
@@ -13,7 +12,6 @@ public class FrameMenu extends javax.swing.JFrame {
 
     public FrameMenu(GuiController guiController) {
         this.guiController = guiController;
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         initComponents();
     }
 
