@@ -5,7 +5,6 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,10 +21,13 @@ public class Ano implements Serializable {
     private long codigoAno;
     
     private int ordinal;
-    int grau;
+    private int grau;
 
-    @OneToMany(mappedBy = "ANO", fetch = FetchType.LAZY)
-    private List<Turma> turmas = new ArrayList();
+    @OneToMany(mappedBy = "ano", fetch = FetchType.LAZY)
+    private List<Turma> turmas;
+    
+    @OneToMany(mappedBy = "chaveComposta.ano", fetch = FetchType.LAZY)
+    private List<Grade> grades;
 
     public Ano() {
     }

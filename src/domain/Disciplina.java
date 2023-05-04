@@ -5,10 +5,14 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import strategy.Avaliacao;
 
 @Entity
 public class Disciplina implements Serializable {
@@ -18,6 +22,12 @@ public class Disciplina implements Serializable {
     private long codigoDisciplina;
 
     private String descricaoDisciplina;
+    
+    @OneToMany(mappedBy = "chaveComposta.disciplina", fetch = FetchType.LAZY)
+    private List<Grade> grades;
+    
+    @OneToMany(mappedBy = "chaveComposta.disciplina", fetch = FetchType.LAZY)
+    private List<Avaliacao> avaliacoes;
 
     public Disciplina() {
 

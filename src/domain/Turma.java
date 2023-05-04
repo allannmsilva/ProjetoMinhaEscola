@@ -7,6 +7,7 @@ package domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class Turma implements Serializable {
     private Ano ano;
     private int turno;
 
-    @OneToMany(mappedBy = "TURMA", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Aluno> alunos = new ArrayList();
 
     private enum eTurno {

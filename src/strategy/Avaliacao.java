@@ -2,11 +2,16 @@ package strategy;
 
 import domain.Aluno;
 import domain.Disciplina;
+import java.io.Serializable;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 
-public class Avaliacao {
+@Entity
+public class Avaliacao implements Serializable {
 
-    private Disciplina disciplina;
-    private Aluno aluno;
+    @EmbeddedId
+    private AvaliacaoPK chaveComposta;
+    
     private NotaAvaliacao notaAvaliacao;
     private double notaAluno;
     private String assunto;
@@ -15,9 +20,8 @@ public class Avaliacao {
     public Avaliacao() {
     }
 
-    public Avaliacao(Disciplina disciplina, Aluno aluno, String assunto, int tipoAvaliacao) {
-        this.disciplina = disciplina;
-        this.aluno = aluno;
+    public Avaliacao(AvaliacaoPK chaveComposta, String assunto, int tipoAvaliacao) {
+        this.chaveComposta = chaveComposta;
         this.assunto = assunto;
         this.tipoAvaliacao = tipoAvaliacao;
 
@@ -31,22 +35,6 @@ public class Avaliacao {
             case 2:
                 this.notaAvaliacao = new NotaAvaliacaoTrabalho();
         }
-    }
-
-    public Disciplina getDisciplina() {
-        return disciplina;
-    }
-
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
-    }
-
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
     }
 
     public NotaAvaliacao getNotaAvaliacao() {

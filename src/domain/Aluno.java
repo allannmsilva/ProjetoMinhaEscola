@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import strategy.Avaliacao;
 
 @Entity
 public class Aluno implements Serializable {
@@ -17,12 +20,15 @@ public class Aluno implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoAluno;
 
-    @Column(name = "NOME", length = 100)
+    @Column(name = "nome", length = 100)
     private String nome;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CODIGO_TURMA")
+    @JoinColumn(name = "codigoTurma")
     private Turma turma;
+    
+    @OneToMany(mappedBy = "chaveComposta.aluno", fetch = FetchType.LAZY)
+    private List<Avaliacao> avaliacoes;
 
     public long getCodigoAluno() {
         return codigoAluno;
