@@ -1,11 +1,6 @@
 package dao;
 
-import controller.MetodosUteis;
 import domain.Disciplina;
-import java.sql.Statement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.LinkedList;
 import java.util.List;
 
 public class DisciplinaDAO {

@@ -172,8 +172,8 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
 
     private void btnAdicionarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDisciplinaActionPerformed
         try {
-            long codisc = guiController.getDbManager().inserirDisciplina(txtDescricaoDisciplina.getText());
-            JOptionPane.showMessageDialog(this, "Disciplina " + codisc + " inserida com sucesso!");
+//            long codisc = guiController.getDbManager().inserirDisciplina(txtDescricaoDisciplina.getText());
+            JOptionPane.showMessageDialog(this, "Disciplina X" + " inserida com sucesso!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao inserir disciplina!\n");
             ex.printStackTrace();
