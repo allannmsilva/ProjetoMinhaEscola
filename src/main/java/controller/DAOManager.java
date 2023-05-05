@@ -1,7 +1,11 @@
 package controller;
 
+import dao.AlunoDAO;
+import dao.AnoDAO;
 import dao.ConexaoHibernate;
 import dao.DisciplinaDAO;
+import dao.GradeDAO;
+import dao.TurmaDAO;
 import domain.Disciplina;
 import java.util.List;
 
@@ -10,10 +14,10 @@ public class DAOManager {
     private static DAOManager DAOManager;
 
     private DisciplinaDAO disciplinaDAO;
-//    private AlunoDAO alunoDAO;
-//    private AnoDAO anoDAO;
-//    private GradeDAO gradeDAO;
-//    private TurmaDAO turmaDAO;
+    private AlunoDAO alunoDAO;
+    private AnoDAO anoDAO;
+    private GradeDAO gradeDAO;
+    private TurmaDAO turmaDAO;
 
     private DAOManager() throws Exception {
         ConexaoHibernate.getSessionFactory();
@@ -30,7 +34,7 @@ public class DAOManager {
         return DAOManager;
     }
 
-    public Disciplina findById(long codigoDisciplina) throws Exception {
+    public Disciplina findByIdDisciplina(long codigoDisciplina) throws Exception {
         return disciplinaDAO.findById(codigoDisciplina);
     }
 
@@ -46,7 +50,7 @@ public class DAOManager {
     }
 
     public void editarDisciplina(long codigoDisciplina, String descricaoDisciplina) throws Exception {
-        Disciplina oldDisc = findById(codigoDisciplina);
+        Disciplina oldDisc = findByIdDisciplina(codigoDisciplina);
         oldDisc.setDescricaoDisciplina(descricaoDisciplina);
         disciplinaDAO.update(oldDisc);
     }

@@ -42,7 +42,7 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
                 int row = target.getSelectedRow(); // select a row
                 if (me.getClickCount() == 2 && target.getSelectedRow() != -1) {
                     try {
-                        discSelec = guiController.getDbManager().findById((long) target.getValueAt(row, 0));
+                        discSelec = guiController.getDbManager().findByIdDisciplina((long) target.getValueAt(row, 0));
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(target, "Erro ao selecionar disciplina!\n");
                         ex.printStackTrace();
