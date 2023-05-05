@@ -207,8 +207,8 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAdicionarGradeActionPerformed
 
     private void btnLimparGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparGradeActionPerformed
-        cbbAnoGrade.setSelectedIndex(0);
-        cbbDisciplinaGrade.setSelectedIndex(0);
+        cbbAnoGrade.setSelectedIndex(-1);
+        cbbDisciplinaGrade.setSelectedIndex(-1);
         txtPlanoEstudosGrade.setText("");
     }//GEN-LAST:event_btnLimparGradeActionPerformed
 
