@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,6 +27,8 @@ public class Turma implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Ano ano;
+    
+    @Column(nullable = false)
     private int turno;
 
     @OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

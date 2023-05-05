@@ -20,7 +20,7 @@ public class Aluno implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoAluno;
 
-    @Column(name = "nome", length = 100)
+    @Column(name = "nome", nullable = false, length = 100)
     private String nome;
     
     @ManyToOne(fetch = FetchType.EAGER)

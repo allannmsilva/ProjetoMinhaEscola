@@ -1,6 +1,7 @@
 package strategy;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -11,7 +12,11 @@ public class Avaliacao implements Serializable {
     private AvaliacaoPK chaveComposta;
     private int notaMaximaAvaliacao;
     private double notaAluno;
+    
+    @Column(nullable = false)
     private String assunto;
+    
+    @Column(nullable = false)
     private int tipoAvaliacao;
 
     private static int NOTA_PROVA = 15;

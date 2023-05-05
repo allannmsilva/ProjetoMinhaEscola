@@ -6,6 +6,7 @@ package domain;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,6 +22,7 @@ public class Disciplina implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoDisciplina;
 
+    @Column(nullable = false)
     private String descricaoDisciplina;
     
     @OneToMany(mappedBy = "chaveComposta.disciplina", fetch = FetchType.LAZY)

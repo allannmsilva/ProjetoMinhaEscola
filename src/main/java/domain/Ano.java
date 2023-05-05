@@ -6,6 +6,7 @@ package domain;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,10 @@ public class Ano implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoAno;
     
+    @Column(nullable = false)
     private int ordinal;
+    
+    @Column(nullable = false)
     private int grau;
 
     @OneToMany(mappedBy = "ano", fetch = FetchType.LAZY)
