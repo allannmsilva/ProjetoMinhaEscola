@@ -12,6 +12,9 @@ public class AlunoDAO {
     public List<Aluno> findList() throws Exception {
         return null;
     }
+    
+    public static void insert(Aluno body) throws Exception {
+    }
 
     public static void update(Aluno body) throws Exception {
     }
