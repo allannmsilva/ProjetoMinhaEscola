@@ -1,11 +1,7 @@
 package controller;
 
-import dao.AlunoDAO;
-import dao.AnoDAO;
 import dao.ConexaoHibernate;
 import dao.DisciplinaDAO;
-import dao.GradeDAO;
-import dao.TurmaDAO;
 import domain.Disciplina;
 import java.util.List;
 
