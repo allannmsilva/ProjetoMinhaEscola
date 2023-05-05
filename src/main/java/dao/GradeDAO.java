@@ -9,7 +9,7 @@ public class GradeDAO {
         return null;
     }
 
-    public List<Grade> findList() throws Exception {
+    public static List<Grade> findList() throws Exception {
         return null;
     }
     

@@ -9,7 +9,7 @@ public class TurmaDAO {
         return null;
     }
 
-    public List<Turma> findList() throws Exception {
+    public static List<Turma> findList() throws Exception {
         return null;
     }
     

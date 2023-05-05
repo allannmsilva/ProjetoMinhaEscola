@@ -1,8 +1,11 @@
 package controller;
 
+import dao.AlunoDAO;
 import dao.ConexaoHibernate;
 import dao.DisciplinaDAO;
+import domain.Aluno;
 import domain.Disciplina;
+import domain.Turma;
 import java.util.List;
 
 public class DAOManager {
@@ -46,6 +49,33 @@ public class DAOManager {
 
     public void excluirDisciplina(long codigoDisciplina) throws Exception {
         DisciplinaDAO.delete(codigoDisciplina);
+    }
+    
+    public Aluno findByIdAluno(long codigoAluno) throws Exception {
+        return AlunoDAO.findById(codigoAluno);
+    }
+
+    public List<Aluno> listarAlunos() throws Exception {
+        return AlunoDAO.findList();
+    }
+
+    public long inserirAluno(String nome, Turma turma) throws Exception {
+        Aluno newAluno = new Aluno(nome, turma);
+
+        AlunoDAO.insert(newAluno);
+        return newAluno.getCodigoAluno();
+    }
+
+    public void editarAluno(long codigoAluno, String nome, Turma turma) throws Exception {
+        Aluno oldAluno = findByIdAluno(codigoAluno);
+        oldAluno.setNome(nome);
+        oldAluno.setTurma(turma);
+        
+        AlunoDAO.update(oldAluno);
+    }
+
+    public void excluirAluno(long codigoAluno) throws Exception {
+        AlunoDAO.delete(codigoAluno);
     }
 
 }

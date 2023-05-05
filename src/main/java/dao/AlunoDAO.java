@@ -9,7 +9,7 @@ public class AlunoDAO {
         return null;
     }
 
-    public List<Aluno> findList() throws Exception {
+    public static List<Aluno> findList() throws Exception {
         return null;
     }
     

@@ -30,6 +30,14 @@ public class Aluno implements Serializable {
     @OneToMany(mappedBy = "chaveComposta.aluno", fetch = FetchType.LAZY)
     private List<Avaliacao> avaliacoes;
 
+    public Aluno() {
+    }
+
+    public Aluno(String nome, Turma turma) {
+        this.nome = nome;
+        this.turma = turma;
+    }
+
     public long getCodigoAluno() {
         return codigoAluno;
     }
