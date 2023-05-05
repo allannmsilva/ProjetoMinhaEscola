@@ -13,16 +13,9 @@ public class DAOManager {
 
     private static DAOManager DAOManager;
 
-    private DisciplinaDAO disciplinaDAO;
-    private AlunoDAO alunoDAO;
-    private AnoDAO anoDAO;
-    private GradeDAO gradeDAO;
-    private TurmaDAO turmaDAO;
-
     private DAOManager() throws Exception {
+
         ConexaoHibernate.getSessionFactory();
-        
-        disciplinaDAO = new DisciplinaDAO();
     }
 
     public static DAOManager getInstance() throws Exception {
@@ -35,28 +28,28 @@ public class DAOManager {
     }
 
     public Disciplina findByIdDisciplina(long codigoDisciplina) throws Exception {
-        return disciplinaDAO.findById(codigoDisciplina);
+        return DisciplinaDAO.findById(codigoDisciplina);
     }
 
     public List<Disciplina> listarDisciplinas() throws Exception {
-        return disciplinaDAO.findList();
+        return DisciplinaDAO.findList();
     }
 
     public long inserirDisciplina(String descricaoDisciplina) throws Exception {
         Disciplina newDisc = new Disciplina(descricaoDisciplina);
 
-        disciplinaDAO.insert(newDisc);
+        DisciplinaDAO.insert(newDisc);
         return newDisc.getCodigoDisciplina();
     }
 
     public void editarDisciplina(long codigoDisciplina, String descricaoDisciplina) throws Exception {
         Disciplina oldDisc = findByIdDisciplina(codigoDisciplina);
         oldDisc.setDescricaoDisciplina(descricaoDisciplina);
-        disciplinaDAO.update(oldDisc);
+        DisciplinaDAO.update(oldDisc);
     }
 
     public void excluirDisciplina(long codigoDisciplina) throws Exception {
-        disciplinaDAO.delete(codigoDisciplina);
+        DisciplinaDAO.delete(codigoDisciplina);
     }
 
 }

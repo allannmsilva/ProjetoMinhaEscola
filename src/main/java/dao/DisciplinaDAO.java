@@ -9,7 +9,7 @@ public class DisciplinaDAO {
         return null;
     }
 
-    public List<Disciplina> findList() throws Exception {
+    public static List<Disciplina> findList() throws Exception {
         return null;
     }
     
