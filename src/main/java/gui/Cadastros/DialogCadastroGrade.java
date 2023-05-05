@@ -30,6 +30,7 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSeparator1 = new javax.swing.JSeparator();
         pnlPrincipalGrade = new javax.swing.JPanel();
         pnlDadosGrade = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -40,15 +41,15 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
         cbbAnoGrade = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         cbbDisciplinaGrade = new javax.swing.JComboBox<>();
-        btnAdicionarGrade = new javax.swing.JButton();
         btnLimparGrade = new javax.swing.JButton();
+        btnAdicionarGrade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         pnlPrincipalGrade.setBackground(new java.awt.Color(255, 204, 204));
 
         pnlDadosGrade.setBackground(new java.awt.Color(255, 204, 204));
-        pnlDadosGrade.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Grade", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Malgun Gothic", 1, 12))); // NOI18N
+        pnlDadosGrade.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Grade", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Malgun Gothic", 1, 12))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -85,49 +86,14 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setText("Disciplina");
 
-        javax.swing.GroupLayout pnlDadosGradeLayout = new javax.swing.GroupLayout(pnlDadosGrade);
-        pnlDadosGrade.setLayout(pnlDadosGradeLayout);
-        pnlDadosGradeLayout.setHorizontalGroup(
-            pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDadosGradeLayout.createSequentialGroup()
-                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlDadosGradeLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPlanoEstudosGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlDadosGradeLayout.createSequentialGroup()
-                        .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbbAnoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbbDisciplinaGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCodigoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pnlDadosGradeLayout.setVerticalGroup(
-            pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDadosGradeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbAnoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbDisciplinaGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPlanoEstudosGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        btnLimparGrade.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
+        btnLimparGrade.setForeground(new java.awt.Color(153, 0, 0));
+        btnLimparGrade.setText("Limpar");
+        btnLimparGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparGradeActionPerformed(evt);
+            }
+        });
 
         btnAdicionarGrade.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnAdicionarGrade.setForeground(new java.awt.Color(0, 102, 0));
@@ -138,36 +104,76 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
             }
         });
 
-        btnLimparGrade.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        btnLimparGrade.setForeground(new java.awt.Color(153, 0, 0));
-        btnLimparGrade.setText("Limpar");
-        btnLimparGrade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparGradeActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout pnlDadosGradeLayout = new javax.swing.GroupLayout(pnlDadosGrade);
+        pnlDadosGrade.setLayout(pnlDadosGradeLayout);
+        pnlDadosGradeLayout.setHorizontalGroup(
+            pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDadosGradeLayout.createSequentialGroup()
+                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDadosGradeLayout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(btnAdicionarGrade)
+                        .addGap(65, 65, 65)
+                        .addComponent(btnLimparGrade))
+                    .addGroup(pnlDadosGradeLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlDadosGradeLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPlanoEstudosGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlDadosGradeLayout.createSequentialGroup()
+                                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlDadosGradeLayout.createSequentialGroup()
+                                        .addComponent(cbbAnoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbbDisciplinaGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCodigoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+        pnlDadosGradeLayout.setVerticalGroup(
+            pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDadosGradeLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbAnoGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbDisciplinaGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDadosGradeLayout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(135, 135, 135))
+                    .addComponent(txtPlanoEstudosGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAdicionarGrade)
+                    .addComponent(btnLimparGrade))
+                .addGap(22, 22, 22))
+        );
 
         javax.swing.GroupLayout pnlPrincipalGradeLayout = new javax.swing.GroupLayout(pnlPrincipalGrade);
         pnlPrincipalGrade.setLayout(pnlPrincipalGradeLayout);
         pnlPrincipalGradeLayout.setHorizontalGroup(
             pnlPrincipalGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlDadosGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(pnlPrincipalGradeLayout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(btnAdicionarGrade)
-                .addGap(45, 45, 45)
-                .addComponent(btnLimparGrade)
+                .addComponent(pnlDadosGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlPrincipalGradeLayout.setVerticalGroup(
             pnlPrincipalGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPrincipalGradeLayout.createSequentialGroup()
-                .addComponent(pnlDadosGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addGroup(pnlPrincipalGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdicionarGrade)
-                    .addComponent(btnLimparGrade))
-                .addGap(0, 20, Short.MAX_VALUE))
+            .addComponent(pnlDadosGrade, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -215,6 +221,7 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel pnlDadosGrade;
     private javax.swing.JPanel pnlPrincipalGrade;
     private javax.swing.JTextField txtCodigoGrade;
