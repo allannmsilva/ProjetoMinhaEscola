@@ -24,10 +24,10 @@ public class Disciplina implements Serializable {
 
     @Column(nullable = false)
     private String descricaoDisciplina;
-    
+
     @OneToMany(mappedBy = "chaveComposta.disciplina", fetch = FetchType.LAZY)
     private List<Grade> grades;
-    
+
     @OneToMany(mappedBy = "chaveComposta.disciplina", fetch = FetchType.LAZY)
     private List<Avaliacao> avaliacoes;
 
@@ -62,6 +62,36 @@ public class Disciplina implements Serializable {
 
     public Object[] toArray() {
         return new Object[]{codigoDisciplina, descricaoDisciplina};
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Disciplina objMirror = (Disciplina) obj;
+        return objMirror.getCodigoDisciplina() == this.getCodigoDisciplina();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + (int) (this.codigoDisciplina ^ (this.codigoDisciplina >>> 32));
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Disciplina{" + "codigoDisciplina=" + codigoDisciplina + ", descricaoDisciplina=" + descricaoDisciplina + ", grades=" + grades + ", avaliacoes=" + avaliacoes + '}';
     }
 
 }

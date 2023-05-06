@@ -1,6 +1,7 @@
 package strategy;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
@@ -12,10 +13,10 @@ public class Avaliacao implements Serializable {
     private AvaliacaoPK chaveComposta;
     private int notaMaximaAvaliacao;
     private double notaAluno;
-    
+
     @Column(nullable = false)
     private String assunto;
-    
+
     @Column(nullable = false)
     private int tipoAvaliacao;
 
@@ -71,10 +72,10 @@ public class Avaliacao implements Serializable {
         this.tipoAvaliacao = tipoAvaliacao;
     }
 
-    public enum eTipoAvaliacao {
+    private enum eTipoAvaliacao {
         PROVA(0), SEMINARIO(1), TRABALHO(2);
 
-        private int tipoAvaliacao;
+        private final int tipoAvaliacao;
 
         eTipoAvaliacao(int tipoAvaliacao) {
             this.tipoAvaliacao = tipoAvaliacao;
@@ -83,6 +84,36 @@ public class Avaliacao implements Serializable {
         public int getTipoAvaliacao() {
             return tipoAvaliacao;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Avaliacao objMirror = (Avaliacao) obj;
+        return objMirror.chaveComposta == this.chaveComposta;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.chaveComposta);
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Avaliacao{" + "chaveComposta=" + chaveComposta + ", notaMaximaAvaliacao=" + notaMaximaAvaliacao + ", notaAluno=" + notaAluno + ", assunto=" + assunto + ", tipoAvaliacao=" + tipoAvaliacao + '}';
     }
 
 }

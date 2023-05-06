@@ -27,7 +27,7 @@ public class Turma implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Ano ano;
-    
+
     @Column(nullable = false)
     private int turno;
 
@@ -89,6 +89,36 @@ public class Turma implements Serializable {
 
     public void setTurno(int turno) {
         this.turno = turno;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Turma objMirror = (Turma) obj;
+        return objMirror.getCodigoTurma() == this.getCodigoTurma();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + (int) (this.codigoTurma ^ (this.codigoTurma >>> 32));
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Turma{" + "codigoTurma=" + codigoTurma + ", descricaoTurma=" + descricaoTurma + ", ano=" + ano + ", turno=" + turno + ", alunos=" + alunos + '}';
     }
 
 }

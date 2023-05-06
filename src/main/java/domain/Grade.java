@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
@@ -26,6 +27,36 @@ public class Grade implements Serializable {
 
     public void setPlanoEstudos(String planoEstudos) {
         this.planoEstudos = planoEstudos;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Grade objMirror = (Grade) obj;
+        return objMirror.chaveComposta == this.chaveComposta;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.chaveComposta);
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Grade{" + "chaveComposta=" + chaveComposta + ", planoEstudos=" + planoEstudos + '}';
     }
 
 }

@@ -22,11 +22,11 @@ public class Aluno implements Serializable {
 
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigoTurma")
     private Turma turma;
-    
+
     @OneToMany(mappedBy = "chaveComposta.aluno", fetch = FetchType.LAZY)
     private List<Avaliacao> avaliacoes;
 
@@ -60,6 +60,36 @@ public class Aluno implements Serializable {
 
     public void setTurma(Turma turma) {
         this.turma = turma;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Aluno objMirror = (Aluno) obj;
+        return objMirror.getCodigoAluno() == this.getCodigoAluno();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 41 * hash + (int) (this.codigoAluno ^ (this.codigoAluno >>> 32));
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Aluno{" + "codigoAluno=" + codigoAluno + ", nome=" + nome + ", turma=" + turma + ", avaliacoes=" + avaliacoes + '}';
     }
 
 }

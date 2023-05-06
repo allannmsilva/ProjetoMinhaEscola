@@ -20,16 +20,16 @@ public class Ano implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoAno;
-    
+
     @Column(nullable = false)
     private int ordinal;
-    
+
     @Column(nullable = false)
     private int grau;
 
     @OneToMany(mappedBy = "ano", fetch = FetchType.LAZY)
     private List<Turma> turmas;
-    
+
     @OneToMany(mappedBy = "chaveComposta.ano", fetch = FetchType.LAZY)
     private List<Grade> grades;
 
@@ -66,7 +66,7 @@ public class Ano implements Serializable {
         this.grau = grau;
     }
 
-    protected enum eGrau {
+    private enum eGrau {
 
         FUNDAMENTAL_I(0), FUNDAMENTAL_II(1), MEDIO(2);
 
@@ -79,6 +79,36 @@ public class Ano implements Serializable {
         public int getGrau() {
             return grau;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (obj == null) {
+            return false;
+        }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        final Ano objMirror = (Ano) obj;
+        return objMirror.getCodigoAno() == this.getCodigoAno();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + (int) (this.codigoAno ^ (this.codigoAno >>> 32));
+        return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "Ano{" + "codigoAno=" + codigoAno + ", ordinal=" + ordinal + ", grau=" + grau + ", turmas=" + turmas + ", grades=" + grades + '}';
     }
 
 }
