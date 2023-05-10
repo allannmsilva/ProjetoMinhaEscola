@@ -12,9 +12,6 @@ import controller.GuiController;
  */
 public class ProjetoMinhaEscola {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         GuiController guiController = GuiController.getInstance();
         guiController.abrirMenu();
