@@ -9,6 +9,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -81,6 +84,11 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         });
 
         cbbTurmaAluno.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
+        cbbTurmaAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbTurmaAlunoActionPerformed(evt);
+            }
+        });
 
         try {
             txtRGAluno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#.###.###")));
@@ -254,6 +262,14 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private void ftxDataNascimentoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxDataNascimentoAlunoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ftxDataNascimentoAlunoActionPerformed
+
+    private void cbbTurmaAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTurmaAlunoActionPerformed
+        try {
+            ((DefaultComboBoxModel) cbbTurmaAluno.getModel()).addElement(guiController.getDbManager().listarTurmas().toArray());
+        } catch (Exception ex) {
+            Logger.getLogger(DialogCadastroAluno.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cbbTurmaAlunoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAluno;

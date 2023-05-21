@@ -3,6 +3,7 @@ package controller;
 import dao.AlunoDAO;
 import dao.ConexaoHibernate;
 import dao.DisciplinaDAO;
+import dao.TurmaDAO;
 import domain.Aluno;
 import domain.Disciplina;
 import domain.Turma;
@@ -50,7 +51,7 @@ public class DAOManager {
     public void excluirDisciplina(long codigoDisciplina) throws Exception {
         DisciplinaDAO.delete(codigoDisciplina);
     }
-    
+
     public Aluno findByIdAluno(long codigoAluno) throws Exception {
         return AlunoDAO.findById(codigoAluno);
     }
@@ -70,7 +71,7 @@ public class DAOManager {
         Aluno oldAluno = findByIdAluno(codigoAluno);
         oldAluno.setNome(nome);
         oldAluno.setTurma(turma);
-        
+
         AlunoDAO.update(oldAluno);
     }
 
@@ -78,4 +79,7 @@ public class DAOManager {
         AlunoDAO.delete(codigoAluno);
     }
 
+    public List<Turma> listarTurmas() throws Exception {
+        return TurmaDAO.findList();
+    }
 }
