@@ -1,6 +1,9 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package dao;
 
-import domain.Disciplina;
 import java.util.List;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,16 +13,43 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
-public class DisciplinaDAO {
+/**
+ *
+ * @author Allan Neves Melquíades Silva
+ */
+public class DAOMethods {
 
-    public static Disciplina findById(long id) throws Exception {
-        return null;
-    }
-
-    public static List<Disciplina> findList() throws Exception {
+    public static Object findById(Class c, long id) throws Exception {
         Session sessao = null;
         EntityTransaction entityTransaction = null;
-        List<Disciplina> resultList = null;
+        Object obj = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            obj = sessao.find(c, id);
+
+            entityTransaction.commit();
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
+
+        return obj;
+    }
+
+    public static List findList(Class c) throws Exception {
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+        List<Object> resultList = null;
 
         try {
 
@@ -28,10 +58,10 @@ public class DisciplinaDAO {
             entityTransaction.begin();
 
             CriteriaBuilder criteriaBuilder = sessao.getCriteriaBuilder();
-            CriteriaQuery<Disciplina> criteriaQuery = criteriaBuilder.createQuery(Disciplina.class);
-            Root<Disciplina> root = criteriaQuery.from(Disciplina.class);
+            CriteriaQuery<Object> criteriaQuery = criteriaBuilder.createQuery(c);
+            Root<Object> root = criteriaQuery.from(c);
             criteriaQuery.select(root);
-            Query<Disciplina> query = sessao.createQuery(criteriaQuery);
+            Query<Object> query = sessao.createQuery(criteriaQuery);
             resultList = query.getResultList();
 
             entityTransaction.commit();
@@ -48,7 +78,7 @@ public class DisciplinaDAO {
         return resultList;
     }
 
-    public static void insert(Disciplina body) throws Exception {
+    public static void insert(Object body) throws Exception {
         Session sessao = null;
         EntityTransaction entityTransaction = null;
 
@@ -72,7 +102,7 @@ public class DisciplinaDAO {
         }
     }
 
-    public static void update(Disciplina body) throws Exception {
+    public static void update(Object body) throws Exception {
         Session sessao = null;
         EntityTransaction entityTransaction = null;
 
@@ -96,7 +126,7 @@ public class DisciplinaDAO {
         }
     }
 
-    public static void delete(Disciplina body) throws Exception {
+    public static void delete(Object body) throws Exception {
         Session sessao = null;
         EntityTransaction entityTransaction = null;
 

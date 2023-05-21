@@ -4,7 +4,7 @@
  */
 package gui.Listas;
 
-import controller.GuiController;
+import controller.GUIController;
 
 /**
  *
@@ -12,9 +12,9 @@ import controller.GuiController;
  */
 public class DialogListaAluno extends javax.swing.JDialog {
 
-    private GuiController guiController;
+    private GUIController guiController;
     
-    public DialogListaAluno(java.awt.Frame parent, boolean modal, GuiController guiController) {
+    public DialogListaAluno(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();

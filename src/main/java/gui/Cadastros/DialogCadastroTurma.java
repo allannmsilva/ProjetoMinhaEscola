@@ -4,7 +4,7 @@
  */
 package gui.Cadastros;
 
-import controller.GuiController;
+import controller.GUIController;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
@@ -16,9 +16,9 @@ import javax.swing.SpinnerNumberModel;
  */
 public class DialogCadastroTurma extends javax.swing.JDialog {
 
-    private GuiController guiController;
+    private GUIController guiController;
 
-    public DialogCadastroTurma(java.awt.Frame parent, boolean modal, GuiController guiController) {
+    public DialogCadastroTurma(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();

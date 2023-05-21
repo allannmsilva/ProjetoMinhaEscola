@@ -4,7 +4,7 @@
  */
 package gui.Listas;
 
-import controller.GuiController;
+import controller.GUIController;
 import domain.Disciplina;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -22,10 +22,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DialogListaDisciplina extends javax.swing.JDialog {
 
-    private GuiController guiController;
+    private GUIController guiController;
     private Disciplina discSelec;
 
-    public DialogListaDisciplina(java.awt.Frame parent, boolean modal, GuiController guiController) throws Exception {
+    public DialogListaDisciplina(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();

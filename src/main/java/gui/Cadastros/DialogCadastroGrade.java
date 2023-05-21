@@ -4,7 +4,7 @@
  */
 package gui.Cadastros;
 
-import controller.GuiController;
+import controller.GUIController;
 
 /**
  *
@@ -12,9 +12,9 @@ import controller.GuiController;
  */
 public class DialogCadastroGrade extends javax.swing.JDialog {
 
-    private GuiController guiController;
+    private GUIController guiController;
 
-    public DialogCadastroGrade(java.awt.Frame parent, boolean modal, GuiController guiController) {
+    public DialogCadastroGrade(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();

@@ -4,7 +4,7 @@
  */
 package gui.Listas;
 
-import controller.GuiController;
+import controller.GUIController;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -13,9 +13,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DialogListaTurma extends javax.swing.JDialog {
 
-    private GuiController guiController;
+    private GUIController guiController;
 
-    public DialogListaTurma(java.awt.Frame parent, boolean modal, GuiController guiController) {
+    public DialogListaTurma(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();

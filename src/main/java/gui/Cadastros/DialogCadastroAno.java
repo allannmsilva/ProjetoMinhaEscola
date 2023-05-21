@@ -4,7 +4,7 @@
  */
 package gui.Cadastros;
 
-import controller.GuiController;
+import controller.GUIController;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -13,9 +13,9 @@ import javax.swing.SpinnerNumberModel;
  */
 public class DialogCadastroAno extends javax.swing.JDialog {
 
-    private GuiController guiController;
+    private GUIController guiController;
     
-    public DialogCadastroAno(java.awt.Frame parent, boolean modal, GuiController guiController) {
+    public DialogCadastroAno(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();

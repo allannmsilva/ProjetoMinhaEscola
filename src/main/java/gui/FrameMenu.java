@@ -1,6 +1,6 @@
 package gui;
 
-import controller.GuiController;
+import controller.GUIController;
 
 /**
  *
@@ -8,9 +8,9 @@ import controller.GuiController;
  */
 public class FrameMenu extends javax.swing.JFrame {
 
-    private GuiController guiController;
+    private GUIController guiController;
 
-    public FrameMenu(GuiController guiController) {
+    public FrameMenu(GUIController guiController) {
         this.guiController = guiController;
         initComponents();
     }

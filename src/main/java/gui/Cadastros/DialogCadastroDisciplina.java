@@ -4,7 +4,7 @@
  */
 package gui.Cadastros;
 
-import controller.GuiController;
+import controller.GUIController;
 import domain.Disciplina;
 import javax.swing.JOptionPane;
 
@@ -14,10 +14,10 @@ import javax.swing.JOptionPane;
  */
 public class DialogCadastroDisciplina extends javax.swing.JDialog {
 
-    private GuiController guiController;
+    private GUIController guiController;
     private Disciplina discSelec;
 
-    public DialogCadastroDisciplina(java.awt.Frame parent, boolean modal, GuiController guiController) {
+    public DialogCadastroDisciplina(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
@@ -172,7 +172,8 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
 
     private void btnAdicionarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDisciplinaActionPerformed
         try {
-//            long codisc = guiController.getDbManager().inserirDisciplina(txtDescricaoDisciplina.getText());
+            Disciplina d = new Disciplina(txtDescricaoDisciplina.getText());
+            guiController.getDbManager().inserirDisciplina(d);
             JOptionPane.showMessageDialog(this, "Disciplina X" + " inserida com sucesso!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao inserir disciplina!\n");

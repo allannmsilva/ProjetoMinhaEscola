@@ -4,7 +4,7 @@
  */
 package gui.Cadastros;
 
-import controller.GuiController;
+import controller.GUIController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -20,9 +20,9 @@ import javax.swing.JOptionPane;
  */
 public class DialogCadastroAluno extends javax.swing.JDialog {
 
-    private GuiController guiController;
+    private GUIController guiController;
 
-    public DialogCadastroAluno(java.awt.Frame parent, boolean modal, GuiController guiController) {
+    public DialogCadastroAluno(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
@@ -264,11 +264,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_ftxDataNascimentoAlunoActionPerformed
 
     private void cbbTurmaAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTurmaAlunoActionPerformed
-        try {
-            ((DefaultComboBoxModel) cbbTurmaAluno.getModel()).addElement(guiController.getDbManager().listarTurmas().toArray());
-        } catch (Exception ex) {
-            Logger.getLogger(DialogCadastroAluno.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }//GEN-LAST:event_cbbTurmaAlunoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
