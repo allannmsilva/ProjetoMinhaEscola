@@ -13,11 +13,33 @@ import org.hibernate.query.Query;
 public class AlunoDAO {
 
     public static Aluno findById(long id) throws Exception {
-        return null;
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+        Aluno aluno = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            aluno = sessao.find(Aluno.class, id);
+
+            entityTransaction.commit();
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
+
+        return aluno;
     }
 
     public static List<Aluno> findList() throws Exception {
-
         Session sessao = null;
         EntityTransaction entityTransaction = null;
         List<Aluno> resultList = null;
@@ -50,11 +72,74 @@ public class AlunoDAO {
     }
 
     public static void insert(Aluno body) throws Exception {
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            sessao.save(body);
+
+            entityTransaction.commit();
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
     }
 
     public static void update(Aluno body) throws Exception {
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            sessao.update(body);
+
+            entityTransaction.commit();
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
     }
 
-    public static void delete(long id) throws Exception {
+    public static void delete(Aluno body) throws Exception {
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            sessao.delete(body);
+
+            entityTransaction.commit();
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
     }
 }

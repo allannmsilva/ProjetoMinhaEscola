@@ -48,8 +48,8 @@ public class DAOManager {
         DisciplinaDAO.update(oldDisc);
     }
 
-    public void excluirDisciplina(long codigoDisciplina) throws Exception {
-        DisciplinaDAO.delete(codigoDisciplina);
+    public void excluirDisciplina(Disciplina disciplina) throws Exception {
+        DisciplinaDAO.delete(disciplina);
     }
 
     public Aluno findByIdAluno(long codigoAluno) throws Exception {
@@ -75,8 +75,8 @@ public class DAOManager {
         AlunoDAO.update(oldAluno);
     }
 
-    public void excluirAluno(long codigoAluno) throws Exception {
-        AlunoDAO.delete(codigoAluno);
+    public void excluirAluno(Aluno aluno) throws Exception {
+        AlunoDAO.delete(aluno);
     }
 
     public List<Turma> listarTurmas() throws Exception {

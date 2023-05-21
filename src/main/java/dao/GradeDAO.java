@@ -49,11 +49,74 @@ public class GradeDAO {
     }
 
     public static void insert(Grade body) throws Exception {
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            sessao.save(body);
+
+            entityTransaction.commit();
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
     }
 
     public static void update(Grade body) throws Exception {
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            sessao.update(body);
+
+            entityTransaction.commit();
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
     }
 
-    public static void delete(long id) throws Exception {
+    public static void delete(Grade body) throws Exception {
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            sessao.delete(body);
+
+            entityTransaction.commit();
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
     }
 }
