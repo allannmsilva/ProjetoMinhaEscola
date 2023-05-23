@@ -9,11 +9,8 @@ import domain.Aluno;
 import domain.Turma;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -246,9 +243,9 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private void btnAdicionarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAlunoActionPerformed
 
         String nome = txtNomeAluno.getText();
-        String RG = txtRGAluno.getText();
-        String turma = cbbTurmaAluno.getSelectedItem().toString();
-        Date dataNascimento;
+        String rg = txtRGAluno.getText();
+        Turma turma = (Turma) cbbTurmaAluno.getSelectedItem();
+        Date dataNascimento = new Date();
 
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -256,6 +253,13 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
             dataNascimento = formatador.parse(ftxDataNascimentoAluno.getText());
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(ftxDataNascimentoAluno, "Data de Nascimento inválida!");
+        }
+
+        Aluno novoAluno = new Aluno(rg, nome, dataNascimento, turma);
+        try {
+            guiController.getDbManager().inserirAluno(novoAluno);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(btnAdicionarAluno, "Erro ao inserir aluno! Verifique os campos.");
         }
     }//GEN-LAST:event_btnAdicionarAlunoActionPerformed
 

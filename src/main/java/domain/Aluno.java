@@ -43,8 +43,10 @@ public class Aluno implements Serializable {
     public Aluno() {
     }
 
-    public Aluno(String nome, Turma turma) {
+    public Aluno(String rg, String nome, Date dataNascimento, Turma turma) {
+        this.rg = rg;
         this.nome = nome;
+        this.dataNascimento = dataNascimento;
         this.turma = turma;
     }
 
