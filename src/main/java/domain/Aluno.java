@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import strategy.Avaliacao;
 
 @Entity
@@ -28,6 +30,7 @@ public class Aluno implements Serializable {
     private String nome;
 
     @Column(name = "dataNascimento", nullable = true)
+    @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
     @ManyToOne(fetch = FetchType.EAGER)
