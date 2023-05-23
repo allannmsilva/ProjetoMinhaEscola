@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,8 +21,14 @@ public class Aluno implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoAluno;
 
+    @Column(name = "rg", nullable = true)
+    private String rg;
+
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
+
+    @Column(name = "dataNascimento", nullable = true)
+    private Date dataNascimento;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigoTurma")
@@ -46,12 +53,28 @@ public class Aluno implements Serializable {
         this.codigoAluno = codigoAluno;
     }
 
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Date getDataNascimento() {
+        return dataNascimento;
+    }
+
+    public void setDataNascimento(Date dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     public Turma getTurma() {
