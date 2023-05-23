@@ -36,8 +36,7 @@ public class Ano implements Serializable {
     public Ano() {
     }
 
-    public Ano(long codigoAno, int ordinal, int grau) {
-        this.codigoAno = codigoAno;
+    public Ano(int ordinal, int grau) {
         this.ordinal = ordinal;
         this.grau = grau;
     }

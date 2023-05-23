@@ -5,6 +5,10 @@
 package gui.Cadastros;
 
 import controller.GUIController;
+import domain.Ano;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -14,7 +18,7 @@ import javax.swing.SpinnerNumberModel;
 public class DialogCadastroAno extends javax.swing.JDialog {
 
     private GUIController guiController;
-    
+
     public DialogCadastroAno(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
@@ -69,6 +73,11 @@ public class DialogCadastroAno extends javax.swing.JDialog {
 
         cbbGrauAno.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         cbbGrauAno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "FUNDAMENTAL I", "FUNDAMENTAL II", "MÉDIO" }));
+        cbbGrauAno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbGrauAnoActionPerformed(evt);
+            }
+        });
 
         spnOrdinalAno.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         spnOrdinalAno.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9, 1));
@@ -175,13 +184,30 @@ public class DialogCadastroAno extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCodigoAnoActionPerformed
 
     private void btnAdicionarAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAnoActionPerformed
-        
+        int ordinal = (int) spnOrdinalAno.getValue();
+        int grau = cbbGrauAno.getSelectedIndex();
+
+        Ano novoAno = new Ano(ordinal, grau);
+        try {
+            guiController.getDbManager().inserirAno(novoAno);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(btnAdicionarAno, "Erro ao inserir ano! Verifique os campos.");
+        }
     }//GEN-LAST:event_btnAdicionarAnoActionPerformed
 
     private void btnLimparAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparAnoActionPerformed
         spnOrdinalAno.setValue(((SpinnerNumberModel) spnOrdinalAno.getModel()).getMinimum());
         cbbGrauAno.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimparAnoActionPerformed
+
+    private void cbbGrauAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbGrauAnoActionPerformed
+        if (cbbGrauAno.getSelectedIndex() == 2) {
+            ((SpinnerNumberModel) spnOrdinalAno.getModel()).setMaximum(4);
+            spnOrdinalAno.setValue(((SpinnerNumberModel) spnOrdinalAno.getModel()).getMinimum());
+        } else {
+            ((SpinnerNumberModel) spnOrdinalAno.getModel()).setMaximum(9);
+        }
+    }//GEN-LAST:event_cbbGrauAnoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAno;
