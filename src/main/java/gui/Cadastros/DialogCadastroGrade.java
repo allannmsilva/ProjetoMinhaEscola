@@ -5,6 +5,10 @@
 package gui.Cadastros;
 
 import controller.GUIController;
+import domain.Disciplina;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +22,16 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
-        guiController.showDisciplinasComboBox(cbbDisciplinaGrade);
+        try {
+            List<Disciplina> disciplinas = this.guiController.getDbManager().listarDisciplinas();
+            ((DefaultComboBoxModel) cbbDisciplinaGrade.getModel()).addAll(disciplinas);
+
+            if (!disciplinas.isEmpty()) {
+                cbbDisciplinaGrade.setSelectedIndex(0);
+            }
+        } catch (Exception he) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar disciplinas!\n");
+        }
     }
 
     /**
