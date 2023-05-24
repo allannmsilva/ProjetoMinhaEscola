@@ -6,6 +6,7 @@ package gui.Cadastros;
 
 import controller.GUIController;
 import domain.Ano;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
@@ -184,11 +185,24 @@ public class DialogCadastroAno extends javax.swing.JDialog {
     private void btnAdicionarAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAnoActionPerformed
         int ordinal = (int) spnOrdinalAno.getValue();
         int grau = cbbGrauAno.getSelectedIndex();
+        boolean jaExiste = false;
 
         Ano novoAno = new Ano(ordinal, grau);
         try {
-            guiController.getDbManager().inserirAno(novoAno);
-            JOptionPane.showMessageDialog(this, "Ano cadastrado com sucesso!");
+            List<Ano> anosExistentes = guiController.getDbManager().listarAnos();
+
+            for (Ano ano : anosExistentes) {
+                if (ano.getGrau() == grau && ano.getOrdinal() == ordinal) {
+                    jaExiste = true;
+                }
+            }
+
+            if (jaExiste) {
+                JOptionPane.showMessageDialog(btnAdicionarAno, "Ano já existe!");
+            } else {
+                guiController.getDbManager().inserirAno(novoAno);
+                JOptionPane.showMessageDialog(this, "Ano cadastrado com sucesso!");
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(btnAdicionarAno, "Erro ao inserir ano! Verifique os campos.");
         }

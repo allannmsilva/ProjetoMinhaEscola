@@ -180,7 +180,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
             .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
                 .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
-                        .addGap(17, 17, 17)
+                        .addGap(0, 0, 0)
                         .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -190,11 +190,9 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                             .addComponent(txtDescricaoTurma, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
                                 .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbbSerieAnoTurma, 0, 94, Short.MAX_VALUE)
-                                    .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
-                                        .addComponent(txtCodigoTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(0, 164, Short.MAX_VALUE))))
+                                    .addComponent(txtCodigoTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cbbSerieAnoTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
                         .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
@@ -236,7 +234,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
         pnlPrincipalTurma.setLayout(pnlPrincipalTurmaLayout);
         pnlPrincipalTurmaLayout.setHorizontalGroup(
             pnlPrincipalTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlDadosTurma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlDadosTurma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         pnlPrincipalTurmaLayout.setVerticalGroup(
             pnlPrincipalTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
