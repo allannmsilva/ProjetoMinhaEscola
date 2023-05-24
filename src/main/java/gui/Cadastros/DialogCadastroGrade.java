@@ -104,7 +104,6 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
         });
 
         cbbAnoGrade.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        cbbAnoGrade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1°", "2°", "3°", "4°", "5°" }));
         cbbAnoGrade.setToolTipText("");
 
         jLabel4.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
@@ -177,9 +176,7 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
                     .addComponent(cbbDisciplinaGrade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlDadosGradeLayout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(135, 135, 135))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPlanoEstudosGrade, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(pnlDadosGradeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
