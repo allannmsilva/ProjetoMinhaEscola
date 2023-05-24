@@ -5,8 +5,13 @@
 package gui.Cadastros;
 
 import controller.GUIController;
+import domain.Ano;
 import domain.Disciplina;
+import domain.Grade;
+import domain.GradePK;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -26,11 +31,18 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
             List<Disciplina> disciplinas = this.guiController.getDbManager().listarDisciplinas();
             ((DefaultComboBoxModel) cbbDisciplinaGrade.getModel()).addAll(disciplinas);
 
+            List<Ano> anos = this.guiController.getDbManager().listarAnos();
+            ((DefaultComboBoxModel) cbbAnoGrade.getModel()).addAll(anos);
+
             if (!disciplinas.isEmpty()) {
                 cbbDisciplinaGrade.setSelectedIndex(0);
             }
+
+            if (!anos.isEmpty()) {
+                cbbAnoGrade.setSelectedIndex(0);
+            }
         } catch (Exception he) {
-            JOptionPane.showMessageDialog(this, "Erro ao carregar disciplinas!\n");
+            JOptionPane.showMessageDialog(this, "Erro ao carregar disciplinas/anos!\n");
         }
     }
 
@@ -216,7 +228,19 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
     }//GEN-LAST:event_txtPlanoEstudosGradeActionPerformed
 
     private void btnAdicionarGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarGradeActionPerformed
+        Ano ano = (Ano) cbbAnoGrade.getSelectedItem();
+        Disciplina disciplina = (Disciplina) cbbDisciplinaGrade.getSelectedItem();
+        String planoEstudos = txtPlanoEstudosGrade.getText();
 
+        GradePK codigoGrade = new GradePK(ano, disciplina);
+        Grade grade = new Grade(codigoGrade, planoEstudos);
+
+        try {
+            guiController.getDbManager().inserirGrade(grade);
+            JOptionPane.showMessageDialog(this, "Grade cadastrada com sucesso!");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao inserir grade! Verifique os campos.");
+        }
     }//GEN-LAST:event_btnAdicionarGradeActionPerformed
 
     private void btnLimparGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparGradeActionPerformed

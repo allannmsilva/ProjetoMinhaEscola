@@ -6,8 +6,6 @@ package gui.Cadastros;
 
 import controller.GUIController;
 import domain.Ano;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
@@ -190,6 +188,7 @@ public class DialogCadastroAno extends javax.swing.JDialog {
         Ano novoAno = new Ano(ordinal, grau);
         try {
             guiController.getDbManager().inserirAno(novoAno);
+            JOptionPane.showMessageDialog(this, "Ano cadastrado com sucesso!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(btnAdicionarAno, "Erro ao inserir ano! Verifique os campos.");
         }

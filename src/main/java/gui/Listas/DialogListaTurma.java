@@ -84,9 +84,7 @@ public class DialogListaTurma extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void inserirLinhaTabelaTurma(String descricao, String serieAno, int qtdAlunos, String turno, String data) {
-
-        System.out.println("Chegou aqui");
+    public void inserirLinhaTabelaTurma(String descricao, String serieAno, int qtdAlunos, int turno, String data) {
         
         ((DefaultTableModel) tblTurmas.getModel()).addRow(new Object[5]);
         

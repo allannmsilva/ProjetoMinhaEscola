@@ -174,7 +174,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
         try {
             Disciplina d = new Disciplina(txtDescricaoDisciplina.getText());
             guiController.getDbManager().inserirDisciplina(d);
-            JOptionPane.showMessageDialog(this, "Disciplina X" + " inserida com sucesso!");
+            JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao inserir disciplina!\n");
             ex.printStackTrace();

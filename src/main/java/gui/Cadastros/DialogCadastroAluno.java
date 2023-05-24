@@ -258,6 +258,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         Aluno novoAluno = new Aluno(rg, nome, dataNascimento, turma);
         try {
             guiController.getDbManager().inserirAluno(novoAluno);
+            JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(btnAdicionarAluno, "Erro ao inserir aluno! Verifique os campos.");
         }

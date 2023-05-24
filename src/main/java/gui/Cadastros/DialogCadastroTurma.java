@@ -5,9 +5,13 @@
 package gui.Cadastros;
 
 import controller.GUIController;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
+import domain.Ano;
+import domain.Turma;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
 /**
@@ -22,6 +26,16 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
+        try {
+            List<Ano> anos = this.guiController.getDbManager().listarAnos();
+            ((DefaultComboBoxModel) cbbSerieAnoTurma.getModel()).addAll(anos);
+
+            if (!anos.isEmpty()) {
+                cbbSerieAnoTurma.setSelectedIndex(0);
+            }
+        } catch (Exception he) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar anos!\n");
+        }
     }
 
     /**
@@ -43,11 +57,9 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         txtCodigoTurma = new javax.swing.JTextField();
         txtDescricaoTurma = new javax.swing.JTextField();
         cbbSerieAnoTurma = new javax.swing.JComboBox<>();
-        spinQtdAlunosTurma = new javax.swing.JSpinner();
         btnAdicionarTurma = new javax.swing.JButton();
         btnLimparTurma = new javax.swing.JButton();
 
@@ -125,10 +137,6 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Ano");
 
-        jLabel7.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel7.setText("Qtd. Alunos");
-
         txtCodigoTurma.setEditable(false);
         txtCodigoTurma.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         txtCodigoTurma.addActionListener(new java.awt.event.ActionListener() {
@@ -145,11 +153,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
         });
 
         cbbSerieAnoTurma.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        cbbSerieAnoTurma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1°", "2°", "3°", "4°", "5°" }));
         cbbSerieAnoTurma.setToolTipText("");
-
-        spinQtdAlunosTurma.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        spinQtdAlunosTurma.setModel(new javax.swing.SpinnerNumberModel(10, 10, 50, 1));
 
         btnAdicionarTurma.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnAdicionarTurma.setForeground(new java.awt.Color(0, 102, 0));
@@ -180,19 +184,17 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                         .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtDescricaoTurma, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
                                 .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(spinQtdAlunosTurma)
-                                    .addComponent(cbbSerieAnoTurma, 0, 82, Short.MAX_VALUE)
+                                    .addComponent(cbbSerieAnoTurma, 0, 94, Short.MAX_VALUE)
                                     .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
                                         .addComponent(txtCodigoTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(0, 152, Short.MAX_VALUE))))
+                                .addGap(0, 164, Short.MAX_VALUE))))
                     .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
                         .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlDadosTurmaLayout.createSequentialGroup()
@@ -203,7 +205,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                                 .addComponent(btnAdicionarTurma)
                                 .addGap(41, 41, 41)
                                 .addComponent(btnLimparTurma)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 49, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlDadosTurmaLayout.setVerticalGroup(
@@ -221,11 +223,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                 .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbSerieAnoTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(spinQtdAlunosTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(pnlTurnoTurma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addGroup(pnlDadosTurmaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -264,34 +262,38 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     private void btnLimparTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTurmaActionPerformed
         txtDescricaoTurma.setText("");
         cbbSerieAnoTurma.setSelectedIndex(0);
-        spinQtdAlunosTurma.setValue(((SpinnerNumberModel) spinQtdAlunosTurma.getModel()).getMinimum());
         grpTurno.clearSelection();
     }//GEN-LAST:event_btnLimparTurmaActionPerformed
 
     private void btnAdicionarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarTurmaActionPerformed
 
         String descricao = txtDescricaoTurma.getText();
-        String serieAno = cbbSerieAnoTurma.getSelectedItem().toString();
-        int qtdAlunos = (int) spinQtdAlunosTurma.getValue();
-        String turno = "";
+        Ano ano = (Ano) cbbSerieAnoTurma.getSelectedItem();
+        int turno = -1;
 
         switch (grpTurno.getSelection().getMnemonic()) {
             case 'M':
-                turno = "Matutino";
+                turno = 0;
                 break;
             case 'V':
-                turno = "Vespertino";
+                turno = 1;
                 break;
             case 'N':
-                turno = "Noturno";
+                turno = 2;
                 break;
         }
 
-        String dataAtualFormatada = new SimpleDateFormat("dd/MM/yyyy").format(Date.from(Instant.now()));
-
-        System.out.println(descricao + " - " + serieAno + " - " + qtdAlunos + " - " + turno + " - " + dataAtualFormatada);
-
-        guiController.inserirTurmaLista(descricao, serieAno, qtdAlunos, turno, dataAtualFormatada);
+        if (turno > -1) {
+            Turma turma = new Turma(descricao, ano, turno);
+            try {
+                guiController.getDbManager().inserirTurma(turma);
+                JOptionPane.showMessageDialog(this, "Turma cadastrada com sucesso!");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar turma! Verifique os campos.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecione um turno!");
+        }
     }//GEN-LAST:event_btnAdicionarTurmaActionPerformed
 
     private void txtDescricaoTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoTurmaActionPerformed
@@ -322,14 +324,12 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel pnlDadosTurma;
     private javax.swing.JPanel pnlPrincipalTurma;
     private javax.swing.JPanel pnlTurnoTurma;
     private javax.swing.JRadioButton rbtMatutinoTurma;
     private javax.swing.JRadioButton rbtNoturnoTurma;
     private javax.swing.JRadioButton rbtVespertinoTurma;
-    private javax.swing.JSpinner spinQtdAlunosTurma;
     private javax.swing.JTextField txtCodigoTurma;
     private javax.swing.JTextField txtDescricaoTurma;
     // End of variables declaration//GEN-END:variables

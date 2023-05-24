@@ -52,8 +52,7 @@ public class Turma implements Serializable {
     public Turma() {
     }
 
-    public Turma(long codigoTurma, String descricaoTurma, Ano ano, int turno) {
-        this.codigoTurma = codigoTurma;
+    public Turma(String descricaoTurma, Ano ano, int turno) {
         this.descricaoTurma = descricaoTurma;
         this.ano = ano;
         this.turno = turno;
