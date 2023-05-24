@@ -117,7 +117,7 @@ public class Turma implements Serializable {
 
     @Override
     public String toString() {
-        return descricaoTurma;
+        return ano.getOrdinal() + " " + ano.getGrau() + " " + descricaoTurma;
     }
 
 }

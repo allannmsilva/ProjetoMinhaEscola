@@ -79,7 +79,7 @@ public class DialogCadastroAno extends javax.swing.JDialog {
         });
 
         spnOrdinalAno.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        spnOrdinalAno.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9, 1));
+        spnOrdinalAno.setModel(new javax.swing.SpinnerNumberModel(1, 1, 5, 1));
 
         btnAdicionarAno.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         btnAdicionarAno.setForeground(new java.awt.Color(0, 102, 0));
@@ -214,11 +214,17 @@ public class DialogCadastroAno extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimparAnoActionPerformed
 
     private void cbbGrauAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbGrauAnoActionPerformed
-        if (cbbGrauAno.getSelectedIndex() == 2) {
-            ((SpinnerNumberModel) spnOrdinalAno.getModel()).setMaximum(4);
-            spnOrdinalAno.setValue(((SpinnerNumberModel) spnOrdinalAno.getModel()).getMinimum());
-        } else {
+        if (cbbGrauAno.getSelectedIndex() < 1) {
+            spnOrdinalAno.setValue(1);
+            ((SpinnerNumberModel) spnOrdinalAno.getModel()).setMaximum(5);
+        } else if (cbbGrauAno.getSelectedIndex() == 1) {
             ((SpinnerNumberModel) spnOrdinalAno.getModel()).setMaximum(9);
+            spnOrdinalAno.setValue(6);
+            ((SpinnerNumberModel) spnOrdinalAno.getModel()).setMinimum(6);
+        } else {
+            spnOrdinalAno.setValue(1);
+            ((SpinnerNumberModel) spnOrdinalAno.getModel()).setMinimum(1);
+            ((SpinnerNumberModel) spnOrdinalAno.getModel()).setMaximum(3);
         }
     }//GEN-LAST:event_cbbGrauAnoActionPerformed
 

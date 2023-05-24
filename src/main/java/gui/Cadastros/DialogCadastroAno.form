@@ -200,7 +200,7 @@
                   <Font name="Malgun Gothic" size="12" style="0"/>
                 </Property>
                 <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-                  <SpinnerModel initial="1" maximum="9" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                  <SpinnerModel initial="1" maximum="5" minimum="1" numberType="java.lang.Integer" stepSize="1" type="number"/>
                 </Property>
               </Properties>
             </Component>
