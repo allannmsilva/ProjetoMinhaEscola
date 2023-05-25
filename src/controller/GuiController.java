@@ -1,6 +1,5 @@
 package controller;
 
-import domain.Disciplina;
 import gui.Cadastros.DialogCadastroAluno;
 import gui.Cadastros.DialogCadastroAno;
 import gui.Cadastros.DialogCadastroDisciplina;
@@ -13,14 +12,11 @@ import gui.Listas.DialogListaTurma;
 import gui.FrameMenu;
 import javax.swing.JDialog;
 import java.awt.Frame;
-import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
-public class GuiController {
+public class GUIController {
 
-    private static GuiController guiController;
+    private static GUIController guiController;
 
     private FrameMenu frameMenu = null;
     private DialogCadastroTurma dialogCadastroTurma = null;
@@ -35,7 +31,7 @@ public class GuiController {
 
     DAOManager dbManager;
 
-    private GuiController() {
+    private GUIController() {
         try {
             dbManager = DAOManager.getInstance();
         } catch (Exception ex) {
@@ -44,9 +40,9 @@ public class GuiController {
         }
     }
 
-    public static GuiController getInstance() {
+    public static GUIController getInstance() {
         if (guiController == null) {
-            guiController = new GuiController();
+            guiController = new GUIController();
             return guiController;
         }
 
@@ -67,7 +63,7 @@ public class GuiController {
 
         if (dialog == null) {
             try {
-                dialog = (JDialog) classe.getConstructor(Frame.class, boolean.class, GuiController.class).newInstance(parent, true, this);
+                dialog = (JDialog) classe.getConstructor(Frame.class, boolean.class, GUIController.class).newInstance(parent, true, this);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(frameMenu, "Erro ao abrir a janela " + classe.getName());
             }
@@ -87,12 +83,6 @@ public class GuiController {
         abrirDialog(frameMenu, dialogListaTurma, DialogListaTurma.class);
     }
 
-    public void inserirTurmaLista(String descricao, String serieAno, int qtdAlunos, String turno, String data) {
-
-        abrirListaTurma();
-        dialogListaTurma.inserirLinhaTabelaTurma(descricao, serieAno, qtdAlunos, turno, data);
-    }
-
     public void abrirCadastroDisciplina() {
 
         abrirDialog(frameMenu, dialogCadastroDisciplina, DialogCadastroDisciplina.class);
@@ -100,12 +90,7 @@ public class GuiController {
 
     public void abrirListaDisciplina() {
 
-        dialogListaDisciplina = (DialogListaDisciplina) abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
-
-        if (dialogListaDisciplina.getDiscSelec() != null) {
-            dialogCadastroDisciplina = (DialogCadastroDisciplina) abrirDialog(frameMenu, dialogCadastroDisciplina, DialogCadastroDisciplina.class);
-            dialogCadastroDisciplina.setDiscSelec(dialogListaDisciplina.getDiscSelec());
-        }
+        abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
     }
 
     public void abrirCadastroAluno() {
@@ -132,14 +117,4 @@ public class GuiController {
 
         abrirDialog(frameMenu, dialogListaGrade, DialogListaGrade.class);
     }
-
-    public void showDisciplinasComboBox(JComboBox cbbDisciplina) {
-        try {
-            List<Disciplina> list = dbManager.listarDisciplinas();
-            cbbDisciplina.setModel(new DefaultComboBoxModel(list.toArray()));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(frameMenu, "Erro ao carregar disciplinas!");
-        }
-    }
-
 }
