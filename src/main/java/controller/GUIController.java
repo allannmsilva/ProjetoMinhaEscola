@@ -1,6 +1,5 @@
 package controller;
 
-import domain.Disciplina;
 import gui.Cadastros.DialogCadastroAluno;
 import gui.Cadastros.DialogCadastroAno;
 import gui.Cadastros.DialogCadastroDisciplina;
@@ -13,9 +12,6 @@ import gui.Listas.DialogListaTurma;
 import gui.FrameMenu;
 import javax.swing.JDialog;
 import java.awt.Frame;
-import java.util.List;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 public class GUIController {
@@ -87,12 +83,6 @@ public class GUIController {
         abrirDialog(frameMenu, dialogListaTurma, DialogListaTurma.class);
     }
 
-    public void inserirTurmaLista(String descricao, String serieAno, int qtdAlunos, String turno, String data) {
-
-        abrirListaTurma();
-        dialogListaTurma.inserirLinhaTabelaTurma(descricao, serieAno, qtdAlunos, turno, data);
-    }
-
     public void abrirCadastroDisciplina() {
 
         abrirDialog(frameMenu, dialogCadastroDisciplina, DialogCadastroDisciplina.class);
@@ -100,12 +90,7 @@ public class GUIController {
 
     public void abrirListaDisciplina() {
 
-        dialogListaDisciplina = (DialogListaDisciplina) abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
-
-        if (dialogListaDisciplina.getDiscSelec() != null) {
-            dialogCadastroDisciplina = (DialogCadastroDisciplina) abrirDialog(frameMenu, dialogCadastroDisciplina, DialogCadastroDisciplina.class);
-            dialogCadastroDisciplina.setDiscSelec(dialogListaDisciplina.getDiscSelec());
-        }
+        abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
     }
 
     public void abrirCadastroAluno() {
@@ -132,14 +117,4 @@ public class GUIController {
 
         abrirDialog(frameMenu, dialogListaGrade, DialogListaGrade.class);
     }
-
-    public void showDisciplinasComboBox(JComboBox cbbDisciplina) {
-        try {
-            List<Disciplina> list = dbManager.listarDisciplinas();
-            cbbDisciplina.setModel(new DefaultComboBoxModel(list.toArray()));
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(frameMenu, "Erro ao carregar disciplinas!");
-        }
-    }
-
 }
