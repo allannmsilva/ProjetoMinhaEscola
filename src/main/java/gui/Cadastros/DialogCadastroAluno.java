@@ -7,7 +7,6 @@ package gui.Cadastros;
 import controller.GUIController;
 import domain.Aluno;
 import domain.Turma;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -94,6 +93,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         });
 
         cbbTurmaAluno.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
+        cbbTurmaAluno.setToolTipText("");
         cbbTurmaAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbTurmaAlunoActionPerformed(evt);
@@ -148,36 +148,38 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         pnlDadosAlunoLayout.setHorizontalGroup(
             pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNomeAluno))
-                    .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtRGAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
+                        .addGap(17, 17, 17)
                         .addGroup(pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
-                                .addGap(79, 79, 79)
-                                .addComponent(btnAdicionarAluno)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnLimparAluno))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDadosAlunoLayout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbbTurmaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel7)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ftxDataNascimentoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                                .addComponent(cbbTurmaAluno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
+                                    .addGap(6, 6, 6)
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ftxDataNascimentoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtRGAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtNomeAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDadosAlunoLayout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(btnAdicionarAluno)
+                        .addGap(50, 50, 50)
+                        .addComponent(btnLimparAluno)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         pnlDadosAlunoLayout.setVerticalGroup(
             pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,10 +197,12 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbTurmaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbTurmaAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ftxDataNascimentoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionarAluno)
                     .addComponent(btnLimparAluno))
@@ -245,30 +249,22 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         String nome = txtNomeAluno.getText();
         String rg = txtRGAluno.getText();
         Turma turma = (Turma) cbbTurmaAluno.getSelectedItem();
-        Date dataNascimento = new Date();
-
+        Date dataNascimento;
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
             dataNascimento = formatador.parse(ftxDataNascimentoAluno.getText());
-        } catch (ParseException ex) {
-            JOptionPane.showMessageDialog(ftxDataNascimentoAluno, "Data de Nascimento inválida!");
-        }
-
-        Aluno novoAluno = new Aluno(rg, nome, dataNascimento, turma);
-        try {
+            Aluno novoAluno = new Aluno(rg, nome, dataNascimento, turma);
             guiController.getDbManager().inserirAluno(novoAluno);
             JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!");
+            limparCampos();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(btnAdicionarAluno, "Erro ao inserir aluno! Verifique os campos.");
         }
     }//GEN-LAST:event_btnAdicionarAlunoActionPerformed
 
     private void btnLimparAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparAlunoActionPerformed
-        txtNomeAluno.setText("");
-        txtRGAluno.setText("");
-        cbbTurmaAluno.setSelectedIndex(-1);
-        ftxDataNascimentoAluno.setText("");
+        limparCampos();
     }//GEN-LAST:event_btnLimparAlunoActionPerformed
 
     private void txtRGAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRGAlunoActionPerformed
@@ -282,6 +278,13 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private void cbbTurmaAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTurmaAlunoActionPerformed
 
     }//GEN-LAST:event_cbbTurmaAlunoActionPerformed
+
+    private void limparCampos() {
+        txtNomeAluno.setText("");
+        txtRGAluno.setText("");
+        cbbTurmaAluno.setSelectedIndex(-1);
+        ftxDataNascimentoAluno.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAluno;

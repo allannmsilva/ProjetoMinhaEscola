@@ -59,4 +59,8 @@ public class Grade implements Serializable {
         return "Grade{" + "chaveComposta=" + chaveComposta + ", planoEstudos=" + planoEstudos + '}';
     }
 
+    public Object[] toArray() {
+        return new Object[]{chaveComposta.getAno(), chaveComposta.getDisciplina(), planoEstudos};
+    }
+
 }

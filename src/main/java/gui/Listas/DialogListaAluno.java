@@ -5,6 +5,9 @@
 package gui.Listas;
 
 import controller.GUIController;
+import domain.Aluno;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,11 +16,15 @@ import controller.GUIController;
 public class DialogListaAluno extends javax.swing.JDialog {
 
     private GUIController guiController;
-    
-    public DialogListaAluno(java.awt.Frame parent, boolean modal, GUIController guiController) {
+
+    public DialogListaAluno(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
+        List<Aluno> alunos = guiController.getDbManager().listarAlunos();
+        for (Aluno aluno : alunos) {
+            ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
+        }
     }
 
     /**
@@ -43,7 +50,7 @@ public class DialogListaAluno extends javax.swing.JDialog {
         tblAlunos.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         tblAlunos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Código", "RG", "Nome", "Turma", "Data de Nascimento"
@@ -52,9 +59,16 @@ public class DialogListaAluno extends javax.swing.JDialog {
             Class[] types = new Class [] {
                 java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblAlunos);

@@ -1,6 +1,7 @@
 package domain;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
@@ -117,7 +118,11 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return "Aluno{" + "codigoAluno=" + codigoAluno + ", nome=" + nome + ", turma=" + turma + ", avaliacoes=" + avaliacoes + '}';
+        return "Aluno{" + "codigoAluno=" + codigoAluno + ", nome=" + nome + ", turma=" + turma + '}';
+    }
+
+    public Object[] toArray() {
+        return new Object[]{codigoAluno, rg, nome, turma.toString(), new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento)};
     }
 
 }

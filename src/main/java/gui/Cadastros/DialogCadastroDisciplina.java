@@ -175,6 +175,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
             Disciplina d = new Disciplina(txtDescricaoDisciplina.getText());
             guiController.getDbManager().inserirDisciplina(d);
             JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
+            limparCampos();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao inserir disciplina!\n");
             ex.printStackTrace();
@@ -182,8 +183,12 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAdicionarDisciplinaActionPerformed
 
     private void btnLimparDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparDisciplinaActionPerformed
-        txtDescricaoDisciplina.setText("");
+        limparCampos();
     }//GEN-LAST:event_btnLimparDisciplinaActionPerformed
+
+    private void limparCampos() {
+        txtDescricaoDisciplina.setText("");
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarDisciplina;

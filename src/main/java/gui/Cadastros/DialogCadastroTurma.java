@@ -8,11 +8,8 @@ import controller.GUIController;
 import domain.Ano;
 import domain.Turma;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.SpinnerNumberModel;
 
 /**
  *
@@ -258,9 +255,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimparTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTurmaActionPerformed
-        txtDescricaoTurma.setText("");
-        cbbSerieAnoTurma.setSelectedIndex(0);
-        grpTurno.clearSelection();
+        limparCampos();
     }//GEN-LAST:event_btnLimparTurmaActionPerformed
 
     private void btnAdicionarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarTurmaActionPerformed
@@ -286,6 +281,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
             try {
                 guiController.getDbManager().inserirTurma(turma);
                 JOptionPane.showMessageDialog(this, "Turma cadastrada com sucesso!");
+                limparCampos();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao cadastrar turma! Verifique os campos.");
             }
@@ -313,6 +309,12 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     private void rbtMatutinoTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtMatutinoTurmaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbtMatutinoTurmaActionPerformed
+
+    private void limparCampos() {
+        txtDescricaoTurma.setText("");
+        cbbSerieAnoTurma.setSelectedIndex(0);
+        grpTurno.clearSelection();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarTurma;

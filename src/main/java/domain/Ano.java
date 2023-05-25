@@ -65,19 +65,18 @@ public class Ano implements Serializable {
         this.grau = grau;
     }
 
-    private enum eGrau {
-
-        FUNDAMENTAL_I(0), FUNDAMENTAL_II(1), MEDIO(2);
-
-        protected int grau;
-
-        eGrau(int grau) {
-            this.grau = grau;
+    public String getGrauDescr() {
+        if (this.grau < 1) {
+            return "FUNDAMENTAL I";
+        } else if (grau < 2) {
+            return "FUNDAMENTAL II";
+        } else {
+            return "MÉDIO";
         }
+    }
 
-        public int getGrau() {
-            return grau;
-        }
+    public String getOrdinalDescr() {
+        return this.ordinal + "° ANO";
     }
 
     @Override
@@ -107,17 +106,8 @@ public class Ano implements Serializable {
 
     @Override
     public String toString() {
-        String grauString = "";
 
-        if (grau == 0) {
-            grauString = "FUNDAMENTAL I";
-        } else if (grau == 1) {
-            grauString = "FUNDAMENTAL II";
-        } else {
-            grauString = "MÉDIO";
-        }
-
-        return String.valueOf(ordinal) + "° ano do " + grauString;
+        return this.getOrdinalDescr() + " DO " + this.getGrauDescr();
     }
 
 }

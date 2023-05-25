@@ -5,6 +5,9 @@
 package gui.Listas;
 
 import controller.GUIController;
+import domain.Grade;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,11 +16,15 @@ import controller.GUIController;
 public class DialogListaGrade extends javax.swing.JDialog {
 
     private GUIController guiController;
-    
-    public DialogListaGrade(java.awt.Frame parent, boolean modal, GUIController guiController) {
+
+    public DialogListaGrade(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
+        List<Grade> grades = guiController.getDbManager().listarGrades();
+        for (Grade grade : grades) {
+            ((DefaultTableModel) tblGrades.getModel()).addRow(grade.toArray());
+        }
     }
 
     /**
@@ -52,9 +59,16 @@ public class DialogListaGrade extends javax.swing.JDialog {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblGrades);

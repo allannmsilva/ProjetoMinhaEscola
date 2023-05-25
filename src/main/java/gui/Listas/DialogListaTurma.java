@@ -5,6 +5,8 @@
 package gui.Listas;
 
 import controller.GUIController;
+import domain.Turma;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,10 +17,14 @@ public class DialogListaTurma extends javax.swing.JDialog {
 
     private GUIController guiController;
 
-    public DialogListaTurma(java.awt.Frame parent, boolean modal, GUIController guiController) {
+    public DialogListaTurma(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
+        List<Turma> turmas = guiController.getDbManager().listarTurmas();
+        for (Turma turma : turmas) {
+            ((DefaultTableModel) tblTurmas.getModel()).addRow(turma.toArray());
+        }
     }
 
     /**
@@ -47,15 +53,22 @@ public class DialogListaTurma extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Descrição", "Série/Ano", "Qtd. Alunos", "Turno", "Data Criação"
+                "Descrição", "Série/Ano", "Turno"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tblTurmas);

@@ -7,6 +7,7 @@ package domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,21 +34,6 @@ public class Turma implements Serializable {
 
     @OneToMany(mappedBy = "turma", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Aluno> alunos = new ArrayList();
-
-    private enum eTurno {
-
-        MATITUNO(0), VESPERTINO(1), NOTURNO(2);
-
-        private int turno;
-
-        eTurno(int turno) {
-            this.turno = turno;
-        }
-
-        public int getTurno() {
-            return turno;
-        }
-    }
 
     public Turma() {
     }
@@ -90,6 +76,16 @@ public class Turma implements Serializable {
         this.turno = turno;
     }
 
+    public String getTurnoDesc() {
+        if (turno < 1) {
+            return "MATUTINO";
+        } else if (turno < 2) {
+            return "VESPERTINO";
+        } else {
+            return "NOTURNO";
+        }
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -117,7 +113,12 @@ public class Turma implements Serializable {
 
     @Override
     public String toString() {
-        return ano.getOrdinal() + " " + ano.getGrau() + " " + descricaoTurma;
+
+        return descricaoTurma + " - " + ano.getOrdinalDescr() + " DO " + ano.getGrauDescr() + ", " + this.getTurnoDesc();
+    }
+
+    public Object[] toArray() {
+        return new Object[]{descricaoTurma, ano, this.getTurnoDesc()};
     }
 
 }

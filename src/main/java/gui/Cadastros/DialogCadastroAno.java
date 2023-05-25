@@ -202,6 +202,7 @@ public class DialogCadastroAno extends javax.swing.JDialog {
             } else {
                 guiController.getDbManager().inserirAno(novoAno);
                 JOptionPane.showMessageDialog(this, "Ano cadastrado com sucesso!");
+                limparCampos();
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(btnAdicionarAno, "Erro ao inserir ano! Verifique os campos.");
@@ -209,8 +210,7 @@ public class DialogCadastroAno extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAdicionarAnoActionPerformed
 
     private void btnLimparAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparAnoActionPerformed
-        spnOrdinalAno.setValue(((SpinnerNumberModel) spnOrdinalAno.getModel()).getMinimum());
-        cbbGrauAno.setSelectedIndex(0);
+        limparCampos();
     }//GEN-LAST:event_btnLimparAnoActionPerformed
 
     private void cbbGrauAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbGrauAnoActionPerformed
@@ -228,6 +228,11 @@ public class DialogCadastroAno extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_cbbGrauAnoActionPerformed
 
+    private void limparCampos() {
+        spnOrdinalAno.setValue(((SpinnerNumberModel) spnOrdinalAno.getModel()).getMinimum());
+        cbbGrauAno.setSelectedIndex(0);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAno;
     private javax.swing.JButton btnLimparAno;
