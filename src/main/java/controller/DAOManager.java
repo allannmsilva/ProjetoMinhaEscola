@@ -30,7 +30,7 @@ public class DAOManager {
 
     //DISCIPLINA
     public Disciplina findByIdDisciplina(long id) throws Exception {
-        return (Disciplina) DAOMethods.findById(Disciplina.class, id);
+        return null;
     }
 
     public List<Disciplina> listarDisciplinas() throws Exception {
@@ -51,7 +51,7 @@ public class DAOManager {
 
     //ALUNO
     public Aluno findByIdAluno(long id) throws Exception {
-        return (Aluno) DAOMethods.findById(Aluno.class, id);
+        return Aluno.findById(id);
     }
 
     public List<Aluno> listarAlunos() throws Exception {
@@ -72,7 +72,7 @@ public class DAOManager {
 
     //ANO
     public Ano findByIdAno(long id) throws Exception {
-        return (Ano) DAOMethods.findById(Ano.class, id);
+        return null;
     }
 
     public List<Ano> listarAnos() throws Exception {
@@ -93,7 +93,7 @@ public class DAOManager {
 
     //GRADE
     public Grade findByIdGrade(long id) throws Exception {
-        return (Grade) DAOMethods.findById(Grade.class, id);
+        return null;
     }
 
     public List<Grade> listarGrades() throws Exception {
@@ -114,7 +114,7 @@ public class DAOManager {
 
     //TURMA
     public Turma findByIdTurma(long id) throws Exception {
-        return (Turma) DAOMethods.findById(Turma.class, id);
+        return null;
     }
 
     public List<Turma> listarTurmas() throws Exception {
@@ -135,7 +135,7 @@ public class DAOManager {
 
     //AVALIAÇÃO
     public Avaliacao findByIdAvaliacao(long id) throws Exception {
-        return (Avaliacao) DAOMethods.findById(Avaliacao.class, id);
+        return null;
     }
 
     public List<Avaliacao> listarAvaliacoes() throws Exception {

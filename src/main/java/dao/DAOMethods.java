@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -18,33 +19,6 @@ import org.hibernate.query.Query;
  * @author Allan Neves Melquíades Silva
  */
 public class DAOMethods {
-
-    public static Object findById(Class c, long id) throws Exception {
-        Session sessao = null;
-        EntityTransaction entityTransaction = null;
-        Object obj = null;
-
-        try {
-
-            sessao = ConexaoHibernate.getSessionFactory().openSession();
-            entityTransaction = sessao.getTransaction();
-            entityTransaction.begin();
-
-            obj = sessao.find(c, id);
-
-            entityTransaction.commit();
-            sessao.close();
-
-        } catch (HibernateException hex) {
-            if (entityTransaction != null) {
-                entityTransaction.rollback();
-                sessao.close();
-            }
-            throw new HibernateException(hex);
-        }
-
-        return obj;
-    }
 
     public static List findList(Class c) throws Exception {
         Session sessao = null;
