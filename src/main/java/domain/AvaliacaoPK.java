@@ -5,7 +5,6 @@
  */
 package domain;
 
-import strategy.*;
 import domain.Aluno;
 import domain.Disciplina;
 import java.io.Serializable;

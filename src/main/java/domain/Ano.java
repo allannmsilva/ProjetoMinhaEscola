@@ -4,15 +4,23 @@
  */
 package domain;
 
+import dao.ConexaoHibernate;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityTransaction;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 @Entity
 public class Ano implements Serializable {
@@ -108,6 +116,37 @@ public class Ano implements Serializable {
     public String toString() {
 
         return this.getOrdinalDescr() + " DO " + this.getGrauDescr();
+    }
+
+    public static Ano findById(long id) throws Exception {
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+        Ano obj = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            CriteriaBuilder criteriaBuilder = sessao.getCriteriaBuilder();
+            CriteriaQuery<Ano> criteriaQuery = criteriaBuilder.createQuery(Ano.class);
+            Root<Ano> root = criteriaQuery.from(Ano.class);
+            criteriaQuery.select(root).where(criteriaBuilder.gt(root.get("codigoAluno"), id));
+            Query<Ano> query = sessao.createQuery(criteriaQuery);
+            obj = query.getResultList().get(0);
+
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
+
+        return obj;
     }
 
 }

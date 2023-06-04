@@ -4,15 +4,23 @@
  */
 package domain;
 
+import dao.ConexaoHibernate;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityTransaction;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 @Entity
 public class Disciplina implements Serializable {
@@ -91,6 +99,37 @@ public class Disciplina implements Serializable {
     @Override
     public String toString() {
         return descricaoDisciplina;
+    }
+
+    public static Disciplina findById(long id) throws Exception {
+        Session sessao = null;
+        EntityTransaction entityTransaction = null;
+        Disciplina obj = null;
+
+        try {
+
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            entityTransaction = sessao.getTransaction();
+            entityTransaction.begin();
+
+            CriteriaBuilder criteriaBuilder = sessao.getCriteriaBuilder();
+            CriteriaQuery<Disciplina> criteriaQuery = criteriaBuilder.createQuery(Disciplina.class);
+            Root<Disciplina> root = criteriaQuery.from(Disciplina.class);
+            criteriaQuery.select(root).where(criteriaBuilder.gt(root.get("codigoDisciplina"), id));
+            Query<Disciplina> query = sessao.createQuery(criteriaQuery);
+            obj = query.getResultList().get(0);
+
+            sessao.close();
+
+        } catch (HibernateException hex) {
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
+
+        return obj;
     }
 
 }
