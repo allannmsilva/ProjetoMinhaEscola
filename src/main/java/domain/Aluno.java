@@ -23,7 +23,6 @@ import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import strategy.Avaliacao;
 
 @Entity
 public class Aluno implements Serializable {

@@ -8,7 +8,7 @@ import domain.Disciplina;
 import domain.Grade;
 import domain.Turma;
 import java.util.List;
-import strategy.Avaliacao;
+import domain.Avaliacao;
 
 public class DAOManager {
 
