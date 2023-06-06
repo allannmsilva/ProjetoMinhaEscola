@@ -15,16 +15,17 @@ import javax.swing.JOptionPane;
 public class DialogCadastroDisciplina extends javax.swing.JDialog {
 
     private GUIController guiController;
-    private Disciplina discSelec;
 
     public DialogCadastroDisciplina(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
+        if (guiController.getDiscSelec() != null) {
+            setDiscSelec(guiController.getDiscSelec());
+        }
         initComponents();
     }
 
-    public void setDiscSelec(Disciplina discSelec) {
-        this.discSelec = discSelec;
+    private void setDiscSelec(Disciplina discSelec) {
         txtCodigoDisciplina.setText(String.valueOf(discSelec.getCodigoDisciplina()));
         txtDescricaoDisciplina.setText(discSelec.getDescricaoDisciplina());
     }
