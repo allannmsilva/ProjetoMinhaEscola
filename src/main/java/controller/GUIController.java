@@ -1,5 +1,6 @@
 package controller;
 
+import domain.Disciplina;
 import gui.Cadastros.DialogCadastroAluno;
 import gui.Cadastros.DialogCadastroAno;
 import gui.Cadastros.DialogCadastroDisciplina;
@@ -91,6 +92,10 @@ public class GUIController {
     public void abrirListaDisciplina() {
 
         abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
+    }
+
+    public Disciplina getDiscSelec() {
+        return dialogListaDisciplina == null ? null : dialogListaDisciplina.getDiscSelec();
     }
 
     public void abrirCadastroAluno() {
