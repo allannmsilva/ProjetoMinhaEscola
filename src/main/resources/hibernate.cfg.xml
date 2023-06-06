@@ -16,8 +16,8 @@
     <mapping class="domain.Disciplina"/>
     <mapping class="domain.Grade"/>
     <mapping class="domain.Turma"/>
-    <mapping class="strategy.Avaliacao"/>
+    <mapping class="domain.Avaliacao"/>
     <mapping class="domain.GradePK"/>
-    <mapping class="strategy.AvaliacaoPK"/>
+    <mapping class="domain.AvaliacaoPK"/>
   </session-factory>
 </hibernate-configuration>

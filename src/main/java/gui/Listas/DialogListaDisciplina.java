@@ -20,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
 public class DialogListaDisciplina extends javax.swing.JDialog {
 
     private GUIController guiController;
-    private Disciplina discSelec;
 
     public DialogListaDisciplina(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
         super(parent, modal);
@@ -39,7 +38,7 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
                 int row = target.getSelectedRow(); // select a row
                 if (me.getClickCount() == 2 && target.getSelectedRow() != -1) {
                     try {
-                        discSelec = guiController.getDbManager().findByIdDisciplina((long) target.getValueAt(row, 0));
+                        guiController.getDbManager().findByIdDisciplina((long) target.getValueAt(row, 0));
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(target, "Erro ao selecionar disciplina!\n");
                         ex.printStackTrace();
@@ -48,10 +47,6 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
                 }
             }
         });
-    }
-
-    public Disciplina getDiscSelec() {
-        return discSelec;
     }
 
     /**
