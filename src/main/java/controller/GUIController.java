@@ -31,6 +31,7 @@ public class GUIController {
     private DialogListaGrade dialogListaGrade = null;
 
     DAOManager dbManager;
+    Disciplina discSelec = null;
 
     private GUIController() {
         try {
@@ -52,6 +53,10 @@ public class GUIController {
 
     public DAOManager getDbManager() {
         return dbManager;
+    }
+
+    public Disciplina getDiscSelec() {
+        return discSelec;
     }
 
     public void abrirMenu() {
@@ -91,11 +96,12 @@ public class GUIController {
 
     public void abrirListaDisciplina() {
 
-        abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
-    }
-
-    public Disciplina getDiscSelec() {
-        return dialogListaDisciplina == null ? null : dialogListaDisciplina.getDiscSelec();
+        DialogListaDisciplina dld;
+        dld = (DialogListaDisciplina) abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
+        discSelec = dld.getDiscSelec();
+        if (discSelec != null) {
+            abrirCadastroDisciplina();
+        }
     }
 
     public void abrirCadastroAluno() {
