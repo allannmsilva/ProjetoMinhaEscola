@@ -24,6 +24,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
         if (guiController.getDiscSelec() != null) {
             setDiscSelec(guiController.getDiscSelec());
             btnAdicionarDisciplina.setText("Editar");
+            btnLimparDisciplina.setText("Excluir");
         }
     }
 
@@ -136,9 +137,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(btnLimparDisciplina)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalDisciplinaLayout.createSequentialGroup()
-                .addComponent(pnlDadosDisciplina, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+            .addComponent(pnlDadosDisciplina, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnlPrincipalDisciplinaLayout.setVerticalGroup(
             pnlPrincipalDisciplinaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -198,6 +197,17 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAdicionarDisciplinaActionPerformed
 
     private void btnLimparDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparDisciplinaActionPerformed
+        if (btnLimparDisciplina.getText().equals("Excluir")) {
+            try {
+                Disciplina d = Disciplina.findById(Long.parseLong(txtCodigoDisciplina.getText()));
+                DAOMethods.delete(d);
+                JOptionPane.showMessageDialog(this, "Disciplina excluída com sucesso!");
+                setVisible(false);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir disciplina!\n");
+            }
+            return;
+        }
         limparCampos();
     }//GEN-LAST:event_btnLimparDisciplinaActionPerformed
 
