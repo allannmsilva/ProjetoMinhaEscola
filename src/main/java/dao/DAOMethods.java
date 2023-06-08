@@ -54,22 +54,20 @@ public class DAOMethods {
 
     public static void insert(Object body) throws Exception {
         Session sessao = null;
-        EntityTransaction entityTransaction = null;
 
         try {
 
             sessao = ConexaoHibernate.getSessionFactory().openSession();
-            entityTransaction = sessao.getTransaction();
-            entityTransaction.begin();
+            sessao.beginTransaction();
 
             sessao.save(body);
 
-            entityTransaction.commit();
+            sessao.getTransaction().commit();
             sessao.close();
 
         } catch (HibernateException hex) {
-            if (entityTransaction != null) {
-                entityTransaction.rollback();
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
                 sessao.close();
             }
             throw new HibernateException(hex);
@@ -78,22 +76,20 @@ public class DAOMethods {
 
     public static void update(Object body) throws Exception {
         Session sessao = null;
-        EntityTransaction entityTransaction = null;
 
         try {
 
             sessao = ConexaoHibernate.getSessionFactory().openSession();
-            entityTransaction = sessao.getTransaction();
-            entityTransaction.begin();
+            sessao.beginTransaction();
 
             sessao.update(body);
 
-            entityTransaction.commit();
+            sessao.getTransaction().commit();
             sessao.close();
 
         } catch (HibernateException hex) {
-            if (entityTransaction != null) {
-                entityTransaction.rollback();
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
                 sessao.close();
             }
             throw new HibernateException(hex);

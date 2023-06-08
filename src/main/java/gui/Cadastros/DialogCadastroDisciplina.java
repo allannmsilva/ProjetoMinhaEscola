@@ -5,6 +5,7 @@
 package gui.Cadastros;
 
 import controller.GUIController;
+import dao.DAOMethods;
 import domain.Disciplina;
 import javax.swing.JOptionPane;
 
@@ -19,10 +20,11 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
     public DialogCadastroDisciplina(java.awt.Frame parent, boolean modal, GUIController guiController) {
         super(parent, modal);
         this.guiController = guiController;
+        initComponents();
         if (guiController.getDiscSelec() != null) {
             setDiscSelec(guiController.getDiscSelec());
+            btnAdicionarDisciplina.setText("Editar");
         }
-        initComponents();
     }
 
     private void setDiscSelec(Disciplina discSelec) {
@@ -173,13 +175,25 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
 
     private void btnAdicionarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDisciplinaActionPerformed
         try {
+            if (btnAdicionarDisciplina.getText().equals("Editar")) {
+                Disciplina d = Disciplina.findById(Long.parseLong(txtCodigoDisciplina.getText()));
+                d.setDescricaoDisciplina(txtDescricaoDisciplina.getText());
+                DAOMethods.update(d);
+                JOptionPane.showMessageDialog(this, "Disciplina editada com sucesso!");
+                setVisible(false);
+                return;
+            }
             Disciplina d = new Disciplina(txtDescricaoDisciplina.getText());
+            d.setDescricaoDisciplina(d.getDescricaoDisciplina().substring(0, 1).toUpperCase() + d.getDescricaoDisciplina().substring(1, d.getDescricaoDisciplina().length()));
             guiController.getDbManager().inserirDisciplina(d);
             JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
             limparCampos();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao inserir disciplina!\n");
-            ex.printStackTrace();
+            if (txtDescricaoDisciplina.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Descrição deve ser preenchida!\n");
+            } else {
+                JOptionPane.showMessageDialog(this, "Disciplina já existe!\n");
+            }
         }
     }//GEN-LAST:event_btnAdicionarDisciplinaActionPerformed
 

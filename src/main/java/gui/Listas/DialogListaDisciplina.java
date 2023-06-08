@@ -46,7 +46,6 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
                         JOptionPane.showMessageDialog(target, "Erro ao selecionar disciplina!\n");
                         ex.printStackTrace();
                     }
-                    setVisible(false);
                 }
             }
         });
