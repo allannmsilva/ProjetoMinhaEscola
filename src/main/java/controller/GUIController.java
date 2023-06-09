@@ -110,7 +110,7 @@ public class GUIController {
     public void abrirListaTurma() {
 
         DialogListaTurma dlt;
-        dlt = (DialogListaTurma) abrirDialog(frameMenu, dialogListaDisciplina, DialogListaTurma.class);
+        dlt = (DialogListaTurma) abrirDialog(frameMenu, dialogListaTurma, DialogListaTurma.class);
         turmSelec = dlt.getTurmSelec();
         if (turmSelec != null) {
             cadastro = false;
