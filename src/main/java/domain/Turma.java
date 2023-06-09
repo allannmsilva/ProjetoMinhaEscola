@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -31,6 +32,8 @@ public class Turma implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoTurma;
+    
+    @Column(nullable = false)
     private String descricaoTurma;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -125,32 +128,31 @@ public class Turma implements Serializable {
     }
 
     public Object[] toArray() {
-        return new Object[]{descricaoTurma, ano, this.getTurnoDesc()};
+        return new Object[]{codigoTurma, descricaoTurma, ano, this.getTurnoDesc()};
     }
 
     public static Turma findById(long id) throws Exception {
         Session sessao = null;
-        EntityTransaction entityTransaction = null;
         Turma obj = null;
 
         try {
 
             sessao = ConexaoHibernate.getSessionFactory().openSession();
-            entityTransaction = sessao.getTransaction();
-            entityTransaction.begin();
+            sessao.beginTransaction();
 
-            CriteriaBuilder criteriaBuilder = sessao.getCriteriaBuilder();
-            CriteriaQuery<Turma> criteriaQuery = criteriaBuilder.createQuery(Turma.class);
-            Root<Turma> root = criteriaQuery.from(Turma.class);
-            criteriaQuery.select(root).where(criteriaBuilder.gt(root.get("codigoTurma"), id));
-            Query<Turma> query = sessao.createQuery(criteriaQuery);
-            obj = query.getResultList().get(0);
+            CriteriaBuilder builder = sessao.getCriteriaBuilder();
+            CriteriaQuery query = builder.createQuery(Turma.class);
+            Root table = query.from(Turma.class);
+            Predicate restricoes = builder.like(table.get("codigoTurma"), Long.toString(id));
+            query.where(restricoes);
+            obj = (Turma) sessao.createQuery(query).getResultList().get(0);
 
+            sessao.getTransaction().commit();
             sessao.close();
 
         } catch (HibernateException hex) {
-            if (entityTransaction != null) {
-                entityTransaction.rollback();
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
                 sessao.close();
             }
             throw new HibernateException(hex);

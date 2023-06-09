@@ -6,7 +6,11 @@ package gui.Listas;
 
 import controller.GUIController;
 import domain.Turma;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class DialogListaTurma extends javax.swing.JDialog {
 
     private GUIController guiController;
+    private Turma turmSelec = null;
 
     public DialogListaTurma(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
         super(parent, modal);
@@ -25,6 +30,24 @@ public class DialogListaTurma extends javax.swing.JDialog {
         for (Turma turma : turmas) {
             ((DefaultTableModel) tblTurmas.getModel()).addRow(turma.toArray());
         }
+
+        tblTurmas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                // to detect doble click events
+                JTable target = (JTable) me.getSource();
+                int row = target.getSelectedRow(); // select a row
+                if (me.getClickCount() == 2 && target.getSelectedRow() != -1) {
+                    try {
+                        turmSelec = guiController.getDbManager().findByIdTurma((long) target.getValueAt(row, 0));
+                        setVisible(false);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(target, "Erro ao selecionar turma!\n");
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -53,14 +76,14 @@ public class DialogListaTurma extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Descrição", "Série/Ano", "Turno"
+                "Código", "Descrição", "Série/Ano", "Turno"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -94,24 +117,13 @@ public class DialogListaTurma extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public void inserirLinhaTabelaTurma(String descricao, String serieAno, int qtdAlunos, int turno, String data) {
-        
-        ((DefaultTableModel) tblTurmas.getModel()).addRow(new Object[5]);
-        
-        int linha = tblTurmas.getRowCount() - 1;
-        int coluna = 0;
-
-        tblTurmas.setValueAt(descricao, linha, coluna++);
-        tblTurmas.setValueAt(serieAno, linha, coluna++);
-        tblTurmas.setValueAt(qtdAlunos, linha, coluna++);
-        tblTurmas.setValueAt(turno, linha, coluna++);
-        tblTurmas.setValueAt(data, linha, coluna++);
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlListaTurmas;
     private javax.swing.JTable tblTurmas;
     // End of variables declaration//GEN-END:variables
+
+    public Turma getTurmSelec() {
+        return turmSelec;
+    }
 }

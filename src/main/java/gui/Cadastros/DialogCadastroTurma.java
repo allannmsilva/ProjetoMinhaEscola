@@ -5,9 +5,12 @@
 package gui.Cadastros;
 
 import controller.GUIController;
+import dao.DAOMethods;
 import domain.Ano;
 import domain.Turma;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -32,6 +35,12 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
             }
         } catch (Exception he) {
             JOptionPane.showMessageDialog(this, "Erro ao carregar anos!\n");
+        }
+
+        if (guiController.getTurmSelec() != null && !guiController.cadastrando()) {
+            setTurmSelec(guiController.getTurmSelec());
+            btnAdicionarTurma.setText("Editar");
+            btnLimparTurma.setText("Excluir");
         }
     }
 
@@ -279,11 +288,22 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
         if (turno > -1) {
             Turma turma = new Turma(descricao, ano, turno);
             try {
+                if (btnAdicionarTurma.getText().equals("Editar")) {
+                    Turma t = guiController.getTurmSelec();
+                    t.setDescricaoTurma(descricao);
+                    t.setAno(ano);
+                    t.setTurno(turno);
+                    DAOMethods.update(t);
+                    JOptionPane.showMessageDialog(this, "Turma editada com sucesso!");
+                    setVisible(false);
+                    return;
+                }
+
                 guiController.getDbManager().inserirTurma(turma);
                 JOptionPane.showMessageDialog(this, "Turma cadastrada com sucesso!");
                 limparCampos();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erro ao cadastrar turma! Verifique os campos.");
+                JOptionPane.showMessageDialog(this, "Erro ao cadastrar/editar turma! Verifique os campos.");
             }
         } else {
             JOptionPane.showMessageDialog(this, "Selecione um turno!");
@@ -311,6 +331,17 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     }//GEN-LAST:event_rbtMatutinoTurmaActionPerformed
 
     private void limparCampos() {
+        if (btnLimparTurma.getText().equals("Excluir")) {
+            try {
+                DAOMethods.delete(guiController.getTurmSelec());
+                JOptionPane.showMessageDialog(this, "Turma excluída com sucesso!");
+                setVisible(false);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir turma!");
+            }
+            return;
+        }
+
         txtDescricaoTurma.setText("");
         cbbSerieAnoTurma.setSelectedIndex(0);
         grpTurno.clearSelection();
@@ -333,4 +364,24 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     private javax.swing.JTextField txtCodigoTurma;
     private javax.swing.JTextField txtDescricaoTurma;
     // End of variables declaration//GEN-END:variables
+
+    private void setTurmSelec(Turma turmSelec) {
+        txtCodigoTurma.setText(Long.toString(turmSelec.getCodigoTurma()));
+        txtDescricaoTurma.setText(turmSelec.getDescricaoTurma());
+        Ano ano = turmSelec.getAno();
+        cbbSerieAnoTurma.setSelectedItem(ano);
+        switch (turmSelec.getTurno()) {
+            case 0:
+                rbtMatutinoTurma.setSelected(true);
+                break;
+            case 1:
+                rbtVespertinoTurma.setSelected(true);
+                break;
+            case 2:
+                rbtNoturnoTurma.setSelected(true);
+                break;
+            default:
+                JOptionPane.showMessageDialog(this, "Erro ao recuperar turno!");
+        }
+    }
 }
