@@ -1,6 +1,9 @@
 package controller;
 
+import domain.Aluno;
 import domain.Disciplina;
+import domain.Grade;
+import domain.Turma;
 import gui.Cadastros.DialogCadastroAluno;
 import gui.Cadastros.DialogCadastroAno;
 import gui.Cadastros.DialogCadastroDisciplina;
@@ -31,7 +34,11 @@ public class GUIController {
     private DialogListaGrade dialogListaGrade = null;
 
     DAOManager dbManager;
+    Aluno alunSelec = null;
     Disciplina discSelec = null;
+    Grade gradSelec = null;
+    Turma turmSelec = null;
+    boolean cadastro = true;
 
     private GUIController() {
         try {
@@ -55,8 +62,24 @@ public class GUIController {
         return dbManager;
     }
 
+    public boolean cadastrando() {
+        return cadastro;
+    }
+
+    public Aluno getAlunSelec() {
+        return alunSelec;
+    }
+
     public Disciplina getDiscSelec() {
         return discSelec;
+    }
+
+    public Grade getGradSelec() {
+        return gradSelec;
+    }
+
+    public Turma getTurmSelec() {
+        return turmSelec;
     }
 
     public void abrirMenu() {
@@ -86,7 +109,15 @@ public class GUIController {
 
     public void abrirListaTurma() {
 
-        abrirDialog(frameMenu, dialogListaTurma, DialogListaTurma.class);
+        DialogListaTurma dlt;
+        dlt = (DialogListaTurma) abrirDialog(frameMenu, dialogListaDisciplina, DialogListaTurma.class);
+        turmSelec = dlt.getTurmSelec();
+        if (turmSelec != null) {
+            cadastro = false;
+            abrirCadastroTurma();
+        }
+
+        cadastro = true;
     }
 
     public void abrirCadastroDisciplina() {
@@ -100,8 +131,11 @@ public class GUIController {
         dld = (DialogListaDisciplina) abrirDialog(frameMenu, dialogListaDisciplina, DialogListaDisciplina.class);
         discSelec = dld.getDiscSelec();
         if (discSelec != null) {
+            cadastro = false;
             abrirCadastroDisciplina();
         }
+
+        cadastro = true;
     }
 
     public void abrirCadastroAluno() {
