@@ -164,7 +164,7 @@ public class GUIController {
     public void abrirCadastroGrade() {
 
         abrirDialog(frameMenu, dialogCadastroGrade, DialogCadastroGrade.class);
-    }
+    }//
 
     public void abrirListaGrade() {
 
