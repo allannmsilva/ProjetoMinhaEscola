@@ -5,9 +5,11 @@
 package gui.Cadastros;
 
 import controller.GUIManager;
+import controller.MetodosUteis;
 import dao.DAOMethods;
 import domain.Aluno;
 import domain.Turma;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -255,12 +257,15 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
 
         String nome = txtNomeAluno.getText();
         String rg = txtRGAluno.getText();
+
+        if (campoInvalido(nome)) {
+            return;
+        }
+
         Turma turma = (Turma) cbbTurmaAluno.getSelectedItem();
-        Date dataNascimento;
-        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
         try {
-            dataNascimento = formatador.parse(ftxDataNascimentoAluno.getText());
+            Date dataNascimento = MetodosUteis.toDate(ftxDataNascimentoAluno.getText());
 
             if (btnAdicionarAluno.getText().equals("Editar")) {
                 Aluno a = guiManager.getAlunSelec();
@@ -278,6 +283,8 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
             guiManager.getDbManager().inserirAluno(novoAluno);
             JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!");
             limparCampos();
+        } catch (ParseException pe) {
+            JOptionPane.showMessageDialog(this, "Data inválida!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(btnAdicionarAluno, "Erro ao cadastrar/editar aluno! Verifique os campos.");
         }
@@ -341,6 +348,16 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         txtRGAluno.setText(alunSelec.getRg());
         cbbTurmaAluno.setSelectedItem(alunSelec.getTurma());
         ftxDataNascimentoAluno.setText(new SimpleDateFormat("dd/MM/yyyy").format(alunSelec.getDataNascimento()));
+    }
+
+    private boolean campoInvalido(String nome) {
+
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Preencha o nome!");
+            return true;
+        }
+
+        return false;
     }
 
 }
