@@ -145,7 +145,15 @@ public class GUIController {
 
     public void abrirListaAluno() {
 
-        abrirDialog(frameMenu, dialogListaAluno, DialogListaAluno.class);
+        DialogListaAluno dla;
+        dla = (DialogListaAluno) abrirDialog(frameMenu, dialogListaAluno, DialogListaAluno.class);
+        alunSelec = dla.getAlunSelec();
+        if (alunSelec != null) {
+            cadastro = false;
+            abrirCadastroAluno();
+        }
+
+        cadastro = true;
     }
 
     public void abrirCadastroAno() {
@@ -160,6 +168,14 @@ public class GUIController {
 
     public void abrirListaGrade() {
 
-        abrirDialog(frameMenu, dialogListaGrade, DialogListaGrade.class);
+        DialogListaGrade dlg;
+        dlg = (DialogListaGrade) abrirDialog(frameMenu, dialogListaGrade, DialogListaGrade.class);
+        gradSelec = dlg.getGradSelec();
+        if (gradSelec != null) {
+            cadastro = false;
+            abrirCadastroGrade();
+        }
+
+        cadastro = true;
     }
 }
