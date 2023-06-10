@@ -17,6 +17,8 @@ import org.hibernate.query.Query;
  *
  * @author Allan Neves Melquíades Silva
  */
+
+//MÉTODOS GENÉRICOS PARA TRANSAÇÕES DE BANCO DE DADOS
 public class DAOMethods {
 
     public static List findList(Class c) throws Exception {

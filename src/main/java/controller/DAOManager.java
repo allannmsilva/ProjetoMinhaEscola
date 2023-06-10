@@ -11,6 +11,7 @@ import java.util.List;
 import domain.Avaliacao;
 import domain.GradePK;
 
+//GERENCIADOR DE MANIPULAÇÃO DE DADOS PROGRAMA-BANCO
 public class DAOManager {
 
     private static DAOManager DAOManager;

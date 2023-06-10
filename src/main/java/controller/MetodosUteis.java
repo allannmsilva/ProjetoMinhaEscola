@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//MÉTODOS ÚTEIS
 public class MetodosUteis {
 
     public static Date toDate(String s) throws ParseException {
