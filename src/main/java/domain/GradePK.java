@@ -6,7 +6,6 @@
 package domain;
 
 import java.io.Serializable;
-import java.util.Objects;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -14,11 +13,11 @@ import javax.persistence.ManyToOne;
 
 @Embeddable
 public class GradePK implements Serializable {
-
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigoAno")
     private Ano ano;
-
+    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "codigoDisciplina")
     private Disciplina disciplina;
@@ -46,23 +45,7 @@ public class GradePK implements Serializable {
     public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final GradePK other = (GradePK) obj;
-        if (!Objects.equals(this.ano, other.ano)) {
-            return false;
-        }
-        return Objects.equals(this.disciplina, other.disciplina);
-    }
-
+    
+    
+    
 }
