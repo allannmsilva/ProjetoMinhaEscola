@@ -279,8 +279,8 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
 
             return;
         }
-        cbbAnoGrade.setSelectedIndex(-1);
-        cbbDisciplinaGrade.setSelectedIndex(-1);
+        cbbAnoGrade.setSelectedIndex(0);
+        cbbDisciplinaGrade.setSelectedIndex(0);
         txtPlanoEstudosGrade.setText("");
     }
 
