@@ -6,7 +6,11 @@ package gui.Listas;
 
 import controller.GUIController;
 import domain.Aluno;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 public class DialogListaAluno extends javax.swing.JDialog {
 
     private GUIController guiController;
+    private Aluno alunSelec = null;
 
     public DialogListaAluno(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
         super(parent, modal);
@@ -25,6 +30,24 @@ public class DialogListaAluno extends javax.swing.JDialog {
         for (Aluno aluno : alunos) {
             ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
         }
+
+        tblAlunos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                // to detect doble click events
+                JTable target = (JTable) me.getSource();
+                int row = target.getSelectedRow(); // select a row
+                if (me.getClickCount() == 2 && target.getSelectedRow() != -1) {
+                    try {
+                        alunSelec = guiController.getDbManager().findByIdAluno((long) target.getValueAt(row, 0));
+                        setVisible(false);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(target, "Erro ao selecionar aluno!\n");
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -100,4 +123,8 @@ public class DialogListaAluno extends javax.swing.JDialog {
     private javax.swing.JPanel pnlListaAlunos;
     private javax.swing.JTable tblAlunos;
     // End of variables declaration//GEN-END:variables
+
+    public Aluno getAlunSelec() {
+        return alunSelec;
+    }
 }

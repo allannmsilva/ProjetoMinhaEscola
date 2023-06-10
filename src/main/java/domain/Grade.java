@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -27,6 +28,14 @@ public class Grade implements Serializable {
     public Grade(GradePK chaveComposta, String planoEstudos) {
         this.chaveComposta = chaveComposta;
         this.planoEstudos = planoEstudos;
+    }
+
+    public GradePK getChaveComposta() {
+        return chaveComposta;
+    }
+
+    public void setChaveComposta(GradePK chaveComposta) {
+        this.chaveComposta = chaveComposta;
     }
 
     public String getPlanoEstudos() {
@@ -71,29 +80,21 @@ public class Grade implements Serializable {
         return new Object[]{chaveComposta.getAno(), chaveComposta.getDisciplina(), planoEstudos};
     }
 
-    public static Grade findById(long id) throws Exception {
+    public static Grade findById(GradePK id) throws Exception {
         Session sessao = null;
-        EntityTransaction entityTransaction = null;
         Grade obj = null;
 
         try {
-
             sessao = ConexaoHibernate.getSessionFactory().openSession();
-            entityTransaction = sessao.getTransaction();
-            entityTransaction.begin();
+            sessao.getTransaction().begin();
 
-            CriteriaBuilder criteriaBuilder = sessao.getCriteriaBuilder();
-            CriteriaQuery<Grade> criteriaQuery = criteriaBuilder.createQuery(Grade.class);
-            Root<Grade> root = criteriaQuery.from(Grade.class);
-            criteriaQuery.select(root).where(criteriaBuilder.gt(root.get("chaveComposta"), id));
-            Query<Grade> query = sessao.createQuery(criteriaQuery);
-            obj = query.getResultList().get(0);
+            obj = sessao.get(Grade.class, id);
 
+            sessao.getTransaction().commit();
             sessao.close();
-
         } catch (HibernateException hex) {
-            if (entityTransaction != null) {
-                entityTransaction.rollback();
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
                 sessao.close();
             }
             throw new HibernateException(hex);

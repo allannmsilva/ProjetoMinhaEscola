@@ -5,11 +5,14 @@
 package gui.Cadastros;
 
 import controller.GUIController;
+import dao.DAOMethods;
 import domain.Ano;
 import domain.Disciplina;
 import domain.Grade;
 import domain.GradePK;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -41,6 +44,14 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
             }
         } catch (Exception he) {
             JOptionPane.showMessageDialog(this, "Erro ao carregar disciplinas/anos!\n");
+        }
+
+        if (guiController.getGradSelec() != null && !guiController.cadastrando()) {
+            cbbAnoGrade.setEnabled(false);
+            cbbDisciplinaGrade.setEnabled(false);
+            setGradSelec(guiController.getGradSelec());
+            btnAdicionarGrade.setText("Editar");
+            btnLimparGrade.setText("Excluir");
         }
     }
 
@@ -234,11 +245,20 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
         Grade grade = new Grade(codigoGrade, planoEstudos);
 
         try {
+            if (btnAdicionarGrade.getText().equals("Editar")) {
+                Grade g = guiController.getGradSelec();
+                g.setPlanoEstudos(planoEstudos);
+                DAOMethods.update(g);
+                JOptionPane.showMessageDialog(this, "Grade editada com sucesso!");
+                setVisible(false);
+                return;
+            }
+
             guiController.getDbManager().inserirGrade(grade);
             JOptionPane.showMessageDialog(this, "Grade cadastrada com sucesso!");
             limparCampos();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Erro ao inserir grade! Verifique os campos.");
+            JOptionPane.showMessageDialog(this, "Grade já existe!");
         }
     }//GEN-LAST:event_btnAdicionarGradeActionPerformed
 
@@ -247,6 +267,18 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimparGradeActionPerformed
 
     private void limparCampos() {
+        if (btnLimparGrade.getText().equals("Excluir")) {
+            try {
+                Grade g = guiController.getGradSelec();
+                DAOMethods.delete(g);
+                JOptionPane.showMessageDialog(this, "Grade excluída com sucesso!");
+                setVisible(false);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir grade!");
+            }
+
+            return;
+        }
         cbbAnoGrade.setSelectedIndex(-1);
         cbbDisciplinaGrade.setSelectedIndex(-1);
         txtPlanoEstudosGrade.setText("");
@@ -267,4 +299,11 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
     private javax.swing.JTextField txtCodigoGrade;
     private javax.swing.JTextField txtPlanoEstudosGrade;
     // End of variables declaration//GEN-END:variables
+
+    private void setGradSelec(Grade gradSelec) {
+        cbbAnoGrade.setSelectedItem(gradSelec.getChaveComposta().getAno());
+        cbbDisciplinaGrade.setSelectedItem(gradSelec.getChaveComposta().getDisciplina());
+        txtCodigoGrade.setText(gradSelec.getChaveComposta().toString());
+        txtPlanoEstudosGrade.setText(gradSelec.getPlanoEstudos());
+    }
 }

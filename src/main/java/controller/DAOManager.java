@@ -9,6 +9,7 @@ import domain.Grade;
 import domain.Turma;
 import java.util.List;
 import domain.Avaliacao;
+import domain.GradePK;
 
 public class DAOManager {
 
@@ -30,7 +31,7 @@ public class DAOManager {
 
     //DISCIPLINA
     public Disciplina findByIdDisciplina(long id) throws Exception {
-        return Disciplina.findById(id);
+        return (Disciplina) DAOMethods.findById(Disciplina.class, id);
     }
 
     public List<Disciplina> listarDisciplinas() throws Exception {
@@ -51,7 +52,7 @@ public class DAOManager {
 
     //ALUNO
     public Aluno findByIdAluno(long id) throws Exception {
-        return Aluno.findById(id);
+        return (Aluno) DAOMethods.findById(Aluno.class, id);
     }
 
     public List<Aluno> listarAlunos() throws Exception {
@@ -72,7 +73,7 @@ public class DAOManager {
 
     //ANO
     public Ano findByIdAno(long id) throws Exception {
-        return Ano.findById(id);
+        return (Ano) DAOMethods.findById(Ano.class, id);
     }
 
     public List<Ano> listarAnos() throws Exception {
@@ -92,7 +93,7 @@ public class DAOManager {
     }
 
     //GRADE
-    public Grade findByIdGrade(long id) throws Exception {
+    public Grade findByIdGrade(GradePK id) throws Exception {
         return Grade.findById(id);
     }
 
@@ -114,7 +115,7 @@ public class DAOManager {
 
     //TURMA
     public Turma findByIdTurma(long id) throws Exception {
-        return Turma.findById(id);
+        return (Turma) DAOMethods.findById(Turma.class, id);
     }
 
     public List<Turma> listarTurmas() throws Exception {
@@ -135,7 +136,7 @@ public class DAOManager {
 
     //AVALIAÇÃO
     public Avaliacao findByIdAvaliacao(long id) throws Exception {
-        return Avaliacao.findById(id);
+        return (Avaliacao) DAOMethods.findById(Avaliacao.class, id);
     }
 
     public List<Avaliacao> listarAvaliacoes() throws Exception {

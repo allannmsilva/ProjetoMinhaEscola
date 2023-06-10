@@ -5,8 +5,15 @@
 package gui.Listas;
 
 import controller.GUIController;
+import domain.Ano;
+import domain.Disciplina;
 import domain.Grade;
+import domain.GradePK;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public class DialogListaGrade extends javax.swing.JDialog {
 
     private GUIController guiController;
+    private Grade gradSelec = null;
 
     public DialogListaGrade(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
         super(parent, modal);
@@ -25,6 +33,25 @@ public class DialogListaGrade extends javax.swing.JDialog {
         for (Grade grade : grades) {
             ((DefaultTableModel) tblGrades.getModel()).addRow(grade.toArray());
         }
+
+        tblGrades.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                // to detect doble click events
+                JTable target = (JTable) me.getSource();
+                int row = target.getSelectedRow(); // select a row
+                if (me.getClickCount() == 2 && target.getSelectedRow() != -1) {
+                    try {
+                        GradePK chaveComposta = new GradePK((Ano) target.getValueAt(row, 0), (Disciplina) target.getValueAt(row, 1));
+                        gradSelec = guiController.getDbManager().findByIdGrade(chaveComposta);
+                        setVisible(false);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(target, "Erro ao selecionar grade!\n");
+                        ex.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -100,4 +127,8 @@ public class DialogListaGrade extends javax.swing.JDialog {
     private javax.swing.JPanel pnlListaGrades;
     private javax.swing.JTable tblGrades;
     // End of variables declaration//GEN-END:variables
+
+    public Grade getGradSelec() {
+        return gradSelec;
+    }
 }

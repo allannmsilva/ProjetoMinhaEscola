@@ -100,34 +100,4 @@ public class Disciplina implements Serializable {
         return descricaoDisciplina;
     }
 
-    public static Disciplina findById(long id) throws Exception {
-        Session sessao = null;
-        Disciplina obj = null;
-
-        try {
-
-            sessao = ConexaoHibernate.getSessionFactory().openSession();
-            sessao.beginTransaction();
-
-            CriteriaBuilder builder = sessao.getCriteriaBuilder();
-            CriteriaQuery query = builder.createQuery(Disciplina.class);
-            Root table = query.from(Disciplina.class);
-            Predicate restricoes = builder.like(table.get("codigoDisciplina"), Long.toString(id));
-            query.where(restricoes);
-            obj = (Disciplina) sessao.createQuery(query).getResultList().get(0);
-
-            sessao.getTransaction().commit();
-            sessao.close();
-
-        } catch (HibernateException hex) {
-            if (sessao != null) {
-                sessao.getTransaction().rollback();
-                sessao.close();
-            }
-            throw new HibernateException(hex);
-        }
-
-        return obj;
-    }
-
 }

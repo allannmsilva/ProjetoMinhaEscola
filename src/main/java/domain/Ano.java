@@ -118,35 +118,4 @@ public class Ano implements Serializable {
         return this.getOrdinalDescr() + " DO " + this.getGrauDescr();
     }
 
-    public static Ano findById(long id) throws Exception {
-        Session sessao = null;
-        EntityTransaction entityTransaction = null;
-        Ano obj = null;
-
-        try {
-
-            sessao = ConexaoHibernate.getSessionFactory().openSession();
-            entityTransaction = sessao.getTransaction();
-            entityTransaction.begin();
-
-            CriteriaBuilder criteriaBuilder = sessao.getCriteriaBuilder();
-            CriteriaQuery<Ano> criteriaQuery = criteriaBuilder.createQuery(Ano.class);
-            Root<Ano> root = criteriaQuery.from(Ano.class);
-            criteriaQuery.select(root).where(criteriaBuilder.gt(root.get("codigoAluno"), id));
-            Query<Ano> query = sessao.createQuery(criteriaQuery);
-            obj = query.getResultList().get(0);
-
-            sessao.close();
-
-        } catch (HibernateException hex) {
-            if (entityTransaction != null) {
-                entityTransaction.rollback();
-                sessao.close();
-            }
-            throw new HibernateException(hex);
-        }
-
-        return obj;
-    }
-
 }

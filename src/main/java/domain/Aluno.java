@@ -19,6 +19,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -130,37 +131,6 @@ public class Aluno implements Serializable {
 
     public Object[] toArray() {
         return new Object[]{codigoAluno, rg, nome, turma.toString(), new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento)};
-    }
-
-    public static Aluno findById(long id) throws Exception {
-        Session sessao = null;
-        EntityTransaction entityTransaction = null;
-        Aluno obj = null;
-
-        try {
-
-            sessao = ConexaoHibernate.getSessionFactory().openSession();
-            entityTransaction = sessao.getTransaction();
-            entityTransaction.begin();
-
-            CriteriaBuilder criteriaBuilder = sessao.getCriteriaBuilder();
-            CriteriaQuery<Aluno> criteriaQuery = criteriaBuilder.createQuery(Aluno.class);
-            Root<Aluno> root = criteriaQuery.from(Aluno.class);
-            criteriaQuery.select(root).where(criteriaBuilder.gt(root.get("codigoAluno"), id));
-            Query<Aluno> query = sessao.createQuery(criteriaQuery);
-            obj = query.getResultList().get(0);
-
-            sessao.close();
-
-        } catch (HibernateException hex) {
-            if (entityTransaction != null) {
-                entityTransaction.rollback();
-                sessao.close();
-            }
-            throw new HibernateException(hex);
-        }
-
-        return obj;
     }
 
 }

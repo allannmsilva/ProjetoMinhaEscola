@@ -199,7 +199,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
     private void btnLimparDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparDisciplinaActionPerformed
         if (btnLimparDisciplina.getText().equals("Excluir")) {
             try {
-                Disciplina d = Disciplina.findById(Long.parseLong(txtCodigoDisciplina.getText()));
+                Disciplina d = guiController.getDiscSelec();
                 DAOMethods.delete(d);
                 JOptionPane.showMessageDialog(this, "Disciplina excluída com sucesso!");
                 setVisible(false);

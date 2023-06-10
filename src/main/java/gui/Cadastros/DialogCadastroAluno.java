@@ -5,11 +5,15 @@
 package gui.Cadastros;
 
 import controller.GUIController;
+import dao.DAOMethods;
 import domain.Aluno;
 import domain.Turma;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -34,6 +38,12 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
             }
         } catch (Exception he) {
             JOptionPane.showMessageDialog(this, "Erro ao carregar turmas!\n");
+        }
+
+        if (guiController.getAlunSelec() != null && !guiController.cadastrando()) {
+            setAlunSelec(guiController.getAlunSelec());
+            btnAdicionarAluno.setText("Editar");
+            btnLimparAluno.setText("Excluir");
         }
     }
 
@@ -254,16 +264,41 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
 
         try {
             dataNascimento = formatador.parse(ftxDataNascimentoAluno.getText());
+
+            if (btnAdicionarAluno.getText().equals("Editar")) {
+                Aluno a = guiController.getAlunSelec();
+                a.setNome(nome);
+                a.setRg(rg);
+                a.setTurma(turma);
+                a.setDataNascimento(dataNascimento);
+                DAOMethods.update(a);
+                JOptionPane.showMessageDialog(this, "Aluno editado com sucesso!");
+                setVisible(false);
+                return;
+            }
+
             Aluno novoAluno = new Aluno(rg, nome, dataNascimento, turma);
             guiController.getDbManager().inserirAluno(novoAluno);
             JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!");
             limparCampos();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(btnAdicionarAluno, "Erro ao inserir aluno! Verifique os campos.");
+            JOptionPane.showMessageDialog(btnAdicionarAluno, "Erro ao cadastrar/editar aluno! Verifique os campos.");
         }
     }//GEN-LAST:event_btnAdicionarAlunoActionPerformed
 
     private void btnLimparAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparAlunoActionPerformed
+        if (btnLimparAluno.getText().equals("Excluir")) {
+            try {
+                DAOMethods.delete(guiController.getAlunSelec());
+                JOptionPane.showMessageDialog(this, "Aluno excluído com sucesso!");
+                setVisible(false);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao excluir aluno!");
+            }
+
+            return;
+        }
+
         limparCampos();
     }//GEN-LAST:event_btnLimparAlunoActionPerformed
 
@@ -302,5 +337,13 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private javax.swing.JTextField txtNomeAluno;
     private javax.swing.JFormattedTextField txtRGAluno;
     // End of variables declaration//GEN-END:variables
+
+    private void setAlunSelec(Aluno alunSelec) {
+        txtCodigoAluno.setText(Long.toString(alunSelec.getCodigoAluno()));
+        txtNomeAluno.setText(alunSelec.getNome());
+        txtRGAluno.setText(alunSelec.getRg());
+        cbbTurmaAluno.setSelectedItem(alunSelec.getTurma());
+        ftxDataNascimentoAluno.setText(new SimpleDateFormat("dd/MM/yyyy").format(alunSelec.getDataNascimento()));
+    }
 
 }

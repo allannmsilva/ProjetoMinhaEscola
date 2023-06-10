@@ -8,7 +8,6 @@ import java.util.List;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -118,5 +117,27 @@ public class DAOMethods {
             }
             throw new HibernateException(hex);
         }
+    }
+
+    public static Object findById(Class classe, long id) throws HibernateException {
+        Session sessao = null;
+        Object objReturn = null;
+        try {
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            sessao.getTransaction().begin();
+
+            objReturn = sessao.get(classe, id);
+
+            sessao.getTransaction().commit();
+            sessao.close();
+        } catch (HibernateException ex) {
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
+                sessao.close();
+            }
+            throw new HibernateException(ex);
+        }
+
+        return objReturn;
     }
 }
