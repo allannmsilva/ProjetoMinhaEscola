@@ -4,7 +4,7 @@
  */
 package gui.Listas;
 
-import controller.GUIController;
+import controller.GUIManager;
 import domain.Ano;
 import domain.Disciplina;
 import domain.Grade;
@@ -22,10 +22,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DialogListaGrade extends javax.swing.JDialog {
 
-    private GUIController guiController;
+    private GUIManager guiController;
     private Grade gradSelec = null;
 
-    public DialogListaGrade(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
+    public DialogListaGrade(java.awt.Frame parent, boolean modal, GUIManager guiController) throws Exception {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();

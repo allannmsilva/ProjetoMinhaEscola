@@ -4,7 +4,7 @@
  */
 package minhaescola;
 
-import controller.GUIController;
+import controller.GUIManager;
 
 /**
  *
@@ -13,7 +13,7 @@ import controller.GUIController;
 public class ProjetoMinhaEscola {
 
     public static void main(String[] args) {
-        GUIController guiController = GUIController.getInstance();
+        GUIManager guiController = GUIManager.getInstance();
         guiController.abrirMenu();
     }
 

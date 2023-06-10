@@ -4,7 +4,7 @@
  */
 package gui.Listas;
 
-import controller.GUIController;
+import controller.GUIManager;
 import domain.Aluno;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,10 +19,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DialogListaAluno extends javax.swing.JDialog {
 
-    private GUIController guiController;
+    private GUIManager guiController;
     private Aluno alunSelec = null;
 
-    public DialogListaAluno(java.awt.Frame parent, boolean modal, GUIController guiController) throws Exception {
+    public DialogListaAluno(java.awt.Frame parent, boolean modal, GUIManager guiController) throws Exception {
         super(parent, modal);
         this.guiController = guiController;
         initComponents();
