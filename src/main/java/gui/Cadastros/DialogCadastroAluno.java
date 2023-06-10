@@ -8,12 +8,9 @@ import controller.GUIManager;
 import dao.DAOMethods;
 import domain.Aluno;
 import domain.Turma;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -23,14 +20,14 @@ import javax.swing.JOptionPane;
  */
 public class DialogCadastroAluno extends javax.swing.JDialog {
 
-    private GUIManager guiController;
+    private GUIManager guiManager;
 
-    public DialogCadastroAluno(java.awt.Frame parent, boolean modal, GUIManager guiController) {
+    public DialogCadastroAluno(java.awt.Frame parent, boolean modal, GUIManager guiManager) {
         super(parent, modal);
-        this.guiController = guiController;
+        this.guiManager = guiManager;
         initComponents();
         try {
-            List<Turma> turmas = this.guiController.getDbManager().listarTurmas();
+            List<Turma> turmas = this.guiManager.getDbManager().listarTurmas();
             ((DefaultComboBoxModel) cbbTurmaAluno.getModel()).addAll(turmas);
 
             if (!turmas.isEmpty()) {
@@ -40,8 +37,8 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Erro ao carregar turmas!\n");
         }
 
-        if (guiController.getAlunSelec() != null && !guiController.cadastrando()) {
-            setAlunSelec(guiController.getAlunSelec());
+        if (guiManager.getAlunSelec() != null && !guiManager.cadastrando()) {
+            setAlunSelec(guiManager.getAlunSelec());
             btnAdicionarAluno.setText("Editar");
             btnLimparAluno.setText("Excluir");
         }
@@ -266,7 +263,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
             dataNascimento = formatador.parse(ftxDataNascimentoAluno.getText());
 
             if (btnAdicionarAluno.getText().equals("Editar")) {
-                Aluno a = guiController.getAlunSelec();
+                Aluno a = guiManager.getAlunSelec();
                 a.setNome(nome);
                 a.setRg(rg);
                 a.setTurma(turma);
@@ -278,7 +275,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
             }
 
             Aluno novoAluno = new Aluno(rg, nome, dataNascimento, turma);
-            guiController.getDbManager().inserirAluno(novoAluno);
+            guiManager.getDbManager().inserirAluno(novoAluno);
             JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!");
             limparCampos();
         } catch (Exception ex) {
@@ -289,7 +286,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private void btnLimparAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparAlunoActionPerformed
         if (btnLimparAluno.getText().equals("Excluir")) {
             try {
-                DAOMethods.delete(guiController.getAlunSelec());
+                DAOMethods.delete(guiManager.getAlunSelec());
                 JOptionPane.showMessageDialog(this, "Aluno excluído com sucesso!");
                 setVisible(false);
             } catch (Exception ex) {

@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 
 public class GUIManager {
 
-    private static GUIManager guiController;
+    private static GUIManager guiManager;
 
     private FrameMenu frameMenu = null;
     private DialogCadastroTurma dialogCadastroTurma = null;
@@ -50,12 +50,12 @@ public class GUIManager {
     }
 
     public static GUIManager getInstance() {
-        if (guiController == null) {
-            guiController = new GUIManager();
-            return guiController;
+        if (guiManager == null) {
+            guiManager = new GUIManager();
+            return guiManager;
         }
 
-        return guiController;
+        return guiManager;
     }
 
     public DAOManager getDbManager() {

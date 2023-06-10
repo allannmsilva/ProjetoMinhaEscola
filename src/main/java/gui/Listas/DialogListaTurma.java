@@ -19,14 +19,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DialogListaTurma extends javax.swing.JDialog {
 
-    private GUIManager guiController;
+    private GUIManager guiManager;
     private Turma turmSelec = null;
 
-    public DialogListaTurma(java.awt.Frame parent, boolean modal, GUIManager guiController) throws Exception {
+    public DialogListaTurma(java.awt.Frame parent, boolean modal, GUIManager guiManager) throws Exception {
         super(parent, modal);
-        this.guiController = guiController;
+        this.guiManager = guiManager;
         initComponents();
-        List<Turma> turmas = guiController.getDbManager().listarTurmas();
+        List<Turma> turmas = guiManager.getDbManager().listarTurmas();
         for (Turma turma : turmas) {
             ((DefaultTableModel) tblTurmas.getModel()).addRow(turma.toArray());
         }
@@ -39,7 +39,7 @@ public class DialogListaTurma extends javax.swing.JDialog {
                 int row = target.getSelectedRow(); // select a row
                 if (me.getClickCount() == 2 && target.getSelectedRow() != -1) {
                     try {
-                        turmSelec = guiController.getDbManager().findByIdTurma((long) target.getValueAt(row, 0));
+                        turmSelec = guiManager.getDbManager().findByIdTurma((long) target.getValueAt(row, 0));
                         setVisible(false);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(target, "Erro ao selecionar turma!\n");

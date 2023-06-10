@@ -22,14 +22,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DialogListaGrade extends javax.swing.JDialog {
 
-    private GUIManager guiController;
+    private GUIManager guiManager;
     private Grade gradSelec = null;
 
-    public DialogListaGrade(java.awt.Frame parent, boolean modal, GUIManager guiController) throws Exception {
+    public DialogListaGrade(java.awt.Frame parent, boolean modal, GUIManager guiManager) throws Exception {
         super(parent, modal);
-        this.guiController = guiController;
+        this.guiManager = guiManager;
         initComponents();
-        List<Grade> grades = guiController.getDbManager().listarGrades();
+        List<Grade> grades = guiManager.getDbManager().listarGrades();
         for (Grade grade : grades) {
             ((DefaultTableModel) tblGrades.getModel()).addRow(grade.toArray());
         }
@@ -43,7 +43,7 @@ public class DialogListaGrade extends javax.swing.JDialog {
                 if (me.getClickCount() == 2 && target.getSelectedRow() != -1) {
                     try {
                         GradePK chaveComposta = new GradePK((Ano) target.getValueAt(row, 0), (Disciplina) target.getValueAt(row, 1));
-                        gradSelec = guiController.getDbManager().findByIdGrade(chaveComposta);
+                        gradSelec = guiManager.getDbManager().findByIdGrade(chaveComposta);
                         setVisible(false);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(target, "Erro ao selecionar grade!\n");

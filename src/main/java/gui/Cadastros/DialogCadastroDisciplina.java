@@ -15,14 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class DialogCadastroDisciplina extends javax.swing.JDialog {
 
-    private GUIManager guiController;
+    private GUIManager guiManager;
 
-    public DialogCadastroDisciplina(java.awt.Frame parent, boolean modal, GUIManager guiController) {
+    public DialogCadastroDisciplina(java.awt.Frame parent, boolean modal, GUIManager guiManager) {
         super(parent, modal);
-        this.guiController = guiController;
+        this.guiManager = guiManager;
         initComponents();
-        if (guiController.getDiscSelec() != null && !guiController.cadastrando()) {
-            setDiscSelec(guiController.getDiscSelec());
+        if (guiManager.getDiscSelec() != null && !guiManager.cadastrando()) {
+            setDiscSelec(guiManager.getDiscSelec());
             btnAdicionarDisciplina.setText("Editar");
             btnLimparDisciplina.setText("Excluir");
         }
@@ -175,7 +175,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
     private void btnAdicionarDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarDisciplinaActionPerformed
         try {
             if (btnAdicionarDisciplina.getText().equals("Editar")) {
-                Disciplina d = guiController.getDiscSelec();
+                Disciplina d = guiManager.getDiscSelec();
                 d.setDescricaoDisciplina(txtDescricaoDisciplina.getText());
                 DAOMethods.update(d);
                 JOptionPane.showMessageDialog(this, "Disciplina editada com sucesso!");
@@ -184,7 +184,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
             }
             Disciplina d = new Disciplina(txtDescricaoDisciplina.getText());
             d.setDescricaoDisciplina(d.getDescricaoDisciplina().substring(0, 1).toUpperCase() + d.getDescricaoDisciplina().substring(1, d.getDescricaoDisciplina().length()));
-            guiController.getDbManager().inserirDisciplina(d);
+            guiManager.getDbManager().inserirDisciplina(d);
             JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
             limparCampos();
         } catch (Exception ex) {
@@ -199,7 +199,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
     private void btnLimparDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparDisciplinaActionPerformed
         if (btnLimparDisciplina.getText().equals("Excluir")) {
             try {
-                Disciplina d = guiController.getDiscSelec();
+                Disciplina d = guiManager.getDiscSelec();
                 DAOMethods.delete(d);
                 JOptionPane.showMessageDialog(this, "Disciplina excluída com sucesso!");
                 setVisible(false);

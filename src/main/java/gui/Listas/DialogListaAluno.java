@@ -19,14 +19,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DialogListaAluno extends javax.swing.JDialog {
 
-    private GUIManager guiController;
+    private GUIManager guiManager;
     private Aluno alunSelec = null;
 
-    public DialogListaAluno(java.awt.Frame parent, boolean modal, GUIManager guiController) throws Exception {
+    public DialogListaAluno(java.awt.Frame parent, boolean modal, GUIManager guiManager) throws Exception {
         super(parent, modal);
-        this.guiController = guiController;
+        this.guiManager = guiManager;
         initComponents();
-        List<Aluno> alunos = guiController.getDbManager().listarAlunos();
+        List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
         for (Aluno aluno : alunos) {
             ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
         }
@@ -39,7 +39,7 @@ public class DialogListaAluno extends javax.swing.JDialog {
                 int row = target.getSelectedRow(); // select a row
                 if (me.getClickCount() == 2 && target.getSelectedRow() != -1) {
                     try {
-                        alunSelec = guiController.getDbManager().findByIdAluno((long) target.getValueAt(row, 0));
+                        alunSelec = guiManager.getDbManager().findByIdAluno((long) target.getValueAt(row, 0));
                         setVisible(false);
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(target, "Erro ao selecionar aluno!\n");

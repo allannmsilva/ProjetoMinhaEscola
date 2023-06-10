@@ -9,8 +9,6 @@ import dao.DAOMethods;
 import domain.Ano;
 import domain.Turma;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -20,14 +18,14 @@ import javax.swing.JOptionPane;
  */
 public class DialogCadastroTurma extends javax.swing.JDialog {
 
-    private GUIManager guiController;
+    private GUIManager guiManager;
 
-    public DialogCadastroTurma(java.awt.Frame parent, boolean modal, GUIManager guiController) {
+    public DialogCadastroTurma(java.awt.Frame parent, boolean modal, GUIManager guiManager) {
         super(parent, modal);
-        this.guiController = guiController;
+        this.guiManager = guiManager;
         initComponents();
         try {
-            List<Ano> anos = this.guiController.getDbManager().listarAnos();
+            List<Ano> anos = this.guiManager.getDbManager().listarAnos();
             ((DefaultComboBoxModel) cbbSerieAnoTurma.getModel()).addAll(anos);
 
             if (!anos.isEmpty()) {
@@ -37,8 +35,8 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Erro ao carregar anos!\n");
         }
 
-        if (guiController.getTurmSelec() != null && !guiController.cadastrando()) {
-            setTurmSelec(guiController.getTurmSelec());
+        if (guiManager.getTurmSelec() != null && !guiManager.cadastrando()) {
+            setTurmSelec(guiManager.getTurmSelec());
             btnAdicionarTurma.setText("Editar");
             btnLimparTurma.setText("Excluir");
         }
@@ -289,7 +287,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
             Turma turma = new Turma(descricao, ano, turno);
             try {
                 if (btnAdicionarTurma.getText().equals("Editar")) {
-                    Turma t = guiController.getTurmSelec();
+                    Turma t = guiManager.getTurmSelec();
                     t.setDescricaoTurma(descricao);
                     t.setAno(ano);
                     t.setTurno(turno);
@@ -299,7 +297,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                     return;
                 }
 
-                guiController.getDbManager().inserirTurma(turma);
+                guiManager.getDbManager().inserirTurma(turma);
                 JOptionPane.showMessageDialog(this, "Turma cadastrada com sucesso!");
                 limparCampos();
             } catch (Exception ex) {
@@ -333,7 +331,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     private void limparCampos() {
         if (btnLimparTurma.getText().equals("Excluir")) {
             try {
-                DAOMethods.delete(guiController.getTurmSelec());
+                DAOMethods.delete(guiManager.getTurmSelec());
                 JOptionPane.showMessageDialog(this, "Turma excluída com sucesso!");
                 setVisible(false);
             } catch (Exception ex) {

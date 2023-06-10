@@ -16,11 +16,11 @@ import javax.swing.SpinnerNumberModel;
  */
 public class DialogCadastroAno extends javax.swing.JDialog {
 
-    private GUIManager guiController;
+    private GUIManager guiManager;
 
-    public DialogCadastroAno(java.awt.Frame parent, boolean modal, GUIManager guiController) {
+    public DialogCadastroAno(java.awt.Frame parent, boolean modal, GUIManager guiManager) {
         super(parent, modal);
-        this.guiController = guiController;
+        this.guiManager = guiManager;
         initComponents();
     }
 
@@ -189,7 +189,7 @@ public class DialogCadastroAno extends javax.swing.JDialog {
 
         Ano novoAno = new Ano(ordinal, grau);
         try {
-            List<Ano> anosExistentes = guiController.getDbManager().listarAnos();
+            List<Ano> anosExistentes = guiManager.getDbManager().listarAnos();
 
             for (Ano ano : anosExistentes) {
                 if (ano.getGrau() == grau && ano.getOrdinal() == ordinal) {
@@ -200,7 +200,7 @@ public class DialogCadastroAno extends javax.swing.JDialog {
             if (jaExiste) {
                 JOptionPane.showMessageDialog(btnAdicionarAno, "Ano já existe!");
             } else {
-                guiController.getDbManager().inserirAno(novoAno);
+                guiManager.getDbManager().inserirAno(novoAno);
                 JOptionPane.showMessageDialog(this, "Ano cadastrado com sucesso!");
                 limparCampos();
             }
