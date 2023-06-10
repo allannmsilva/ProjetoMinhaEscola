@@ -4,27 +4,18 @@
  */
 package domain;
 
-import dao.ConexaoHibernate;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityTransaction;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 
 @Entity
 public class Turma implements Serializable {
@@ -129,36 +120,6 @@ public class Turma implements Serializable {
 
     public Object[] toArray() {
         return new Object[]{codigoTurma, descricaoTurma, ano, this.getTurnoDesc()};
-    }
-
-    public static Turma findById(long id) throws Exception {
-        Session sessao = null;
-        Turma obj = null;
-
-        try {
-
-            sessao = ConexaoHibernate.getSessionFactory().openSession();
-            sessao.beginTransaction();
-
-            CriteriaBuilder builder = sessao.getCriteriaBuilder();
-            CriteriaQuery query = builder.createQuery(Turma.class);
-            Root table = query.from(Turma.class);
-            Predicate restricoes = builder.like(table.get("codigoTurma"), Long.toString(id));
-            query.where(restricoes);
-            obj = (Turma) sessao.createQuery(query).getResultList().get(0);
-
-            sessao.getTransaction().commit();
-            sessao.close();
-
-        } catch (HibernateException hex) {
-            if (sessao != null) {
-                sessao.getTransaction().rollback();
-                sessao.close();
-            }
-            throw new HibernateException(hex);
-        }
-
-        return obj;
     }
 
 }

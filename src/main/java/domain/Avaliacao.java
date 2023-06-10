@@ -124,35 +124,4 @@ public class Avaliacao implements Serializable {
         return "Avaliacao{" + "chaveComposta=" + chaveComposta + ", notaMaximaAvaliacao=" + notaMaximaAvaliacao + ", notaAluno=" + notaAluno + ", assunto=" + assunto + ", tipoAvaliacao=" + tipoAvaliacao + '}';
     }
 
-    public static Avaliacao findById(long id) throws Exception {
-        Session sessao = null;
-        EntityTransaction entityTransaction = null;
-        Avaliacao obj = null;
-
-        try {
-
-            sessao = ConexaoHibernate.getSessionFactory().openSession();
-            entityTransaction = sessao.getTransaction();
-            entityTransaction.begin();
-
-            CriteriaBuilder criteriaBuilder = sessao.getCriteriaBuilder();
-            CriteriaQuery<Avaliacao> criteriaQuery = criteriaBuilder.createQuery(Avaliacao.class);
-            Root<Avaliacao> root = criteriaQuery.from(Avaliacao.class);
-            criteriaQuery.select(root).where(criteriaBuilder.gt(root.get("chaveComposta"), id));
-            Query<Avaliacao> query = sessao.createQuery(criteriaQuery);
-            obj = query.getResultList().get(0);
-
-            sessao.close();
-
-        } catch (HibernateException hex) {
-            if (entityTransaction != null) {
-                entityTransaction.rollback();
-                sessao.close();
-            }
-            throw new HibernateException(hex);
-        }
-
-        return obj;
-    }
-
 }

@@ -3,12 +3,21 @@ C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\dom
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\gui\Listas\DialogListaGrade.java
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\controller\MetodosUteis.java
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\gui\Cadastros\DialogCadastroTurma.java
+<<<<<<< OURS
+C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\domain\GradePK.java
+C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\domain\Ano.java
+C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\domain\Aluno.java
+C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\gui\Cadastros\DialogCadastroAno.java
+C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\domain\Grade.java
+C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\controller\GUIManager.java
+=======
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\controller\GUIController.java
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\domain\GradePK.java
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\domain\Ano.java
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\domain\Aluno.java
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\gui\Cadastros\DialogCadastroAno.java
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\domain\Grade.java
+>>>>>>> THEIRS
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\dao\DAOMethods.java
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\domain\Avaliacao.java
 C:\Users\CONEXOS\Documents\NetBeansProjects\ProjetoMinhaEscola\src\main\java\gui\Cadastros\DialogCadastroAluno.java

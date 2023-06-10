@@ -4,7 +4,6 @@
  */
 package domain;
 
-import dao.ConexaoHibernate;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
@@ -14,12 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 
 @Entity
 public class Disciplina implements Serializable {
