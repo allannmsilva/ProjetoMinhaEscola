@@ -18,6 +18,7 @@ import javax.swing.JDialog;
 import java.awt.Frame;
 import javax.swing.JOptionPane;
 
+//GERENCIADOR DE INTERFACES GRÁFICAS
 public class GUIManager {
 
     private static GUIManager guiManager;
