@@ -78,7 +78,7 @@ public class Disciplina implements Serializable {
         }
 
         final Disciplina objMirror = (Disciplina) obj;
-        return objMirror.getCodigoDisciplina() == this.getCodigoDisciplina();
+        return (objMirror.getDescricaoDisciplina() == null ? this.getDescricaoDisciplina() == null : objMirror.getDescricaoDisciplina().equals(this.getDescricaoDisciplina()));
     }
 
     @Override

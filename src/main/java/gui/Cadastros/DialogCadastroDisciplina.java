@@ -183,6 +183,13 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
                     return;
                 }
                 d.setDescricaoDisciplina(txtDescricaoDisciplina.getText());
+                List<Disciplina> disciplinas = guiManager.getDbManager().listarDisciplinas();
+                for (Disciplina disc : disciplinas) {
+                    if (disc.equals(d)) {
+                        JOptionPane.showMessageDialog(this, "Disciplina já existe!");
+                        return;
+                    }
+                }
                 DAOMethods.update(d);
                 JOptionPane.showMessageDialog(this, "Disciplina editada com sucesso!");
                 setVisible(false);
@@ -190,6 +197,9 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
             }
             Disciplina d = new Disciplina(txtDescricaoDisciplina.getText());
             d.setDescricaoDisciplina(d.getDescricaoDisciplina().substring(0, 1).toUpperCase() + d.getDescricaoDisciplina().substring(1, d.getDescricaoDisciplina().length()));
+            if (!guiManager.getDbManager().listarAnos().isEmpty() && guiManager.getDbManager().listarDisciplinas().isEmpty()) {
+                guiManager.getMenu().getMenuGrades().setEnabled(true);
+            }
             guiManager.getDbManager().inserirDisciplina(d);
             JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
             limparCampos();
@@ -214,6 +224,9 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
                     }
                 }
                 DAOMethods.delete(d);
+                if (guiManager.getDbManager().listarDisciplinas().isEmpty()) {
+                    guiManager.getMenu().getMenuGrades().setEnabled(false);
+                }
                 JOptionPane.showMessageDialog(this, "Disciplina excluída com sucesso!");
                 setVisible(false);
             } catch (Exception ex) {

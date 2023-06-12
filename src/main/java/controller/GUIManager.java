@@ -83,10 +83,14 @@ public class GUIManager {
         return turmSelec;
     }
 
-    public void abrirMenu() {
+    public void abrirMenu() throws Exception {
 
         frameMenu = frameMenu == null ? new FrameMenu(this) : frameMenu;
         frameMenu.setVisible(true);
+    }
+
+    public FrameMenu getMenu() {
+        return frameMenu;
     }
 
     private JDialog abrirDialog(Frame parent, JDialog dialog, Class classe) {

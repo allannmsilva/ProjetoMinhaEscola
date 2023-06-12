@@ -106,7 +106,18 @@ public class Aluno implements Serializable {
         }
 
         final Aluno objMirror = (Aluno) obj;
-        return objMirror.getCodigoAluno() == this.getCodigoAluno();
+
+        if (!objMirror.getNome().equals(this.getNome())) {
+            return false;
+        }
+
+        if (!this.getRg().replaceAll(" ", "").equals("..")) {
+            if (objMirror.getRg().equals(this.getRg())) {
+                return true;
+            }
+        }
+
+        return this.getTurma().equals(objMirror.getTurma());
     }
 
     @Override

@@ -23,7 +23,7 @@ public class Turma implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoTurma;
-    
+
     @Column(nullable = false)
     private String descricaoTurma;
 
@@ -101,8 +101,15 @@ public class Turma implements Serializable {
             return false;
         }
 
-        final Turma objMirror = (Turma) obj;
-        return objMirror.getCodigoTurma() == this.getCodigoTurma();
+        if (!getDescricaoTurma().equals(((Turma) obj).getDescricaoTurma())) {
+            return false;
+        }
+
+        if (!getAno().equals(((Turma) obj).getAno())) {
+            return false;
+        }
+
+        return getTurno() == (((Turma) obj).getTurno());
     }
 
     @Override

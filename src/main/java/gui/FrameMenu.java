@@ -1,18 +1,40 @@
 package gui;
 
 import controller.GUIManager;
+import javax.swing.JMenu;
 
 /**
  *
  * @author Allan Neves Melquíades Silva
  */
 public class FrameMenu extends javax.swing.JFrame {
-
+    
     private GUIManager guiController;
-
-    public FrameMenu(GUIManager guiController) {
+    
+    public FrameMenu(GUIManager guiController) throws Exception {
         this.guiController = guiController;
         initComponents();
+        if (!this.guiController.getDbManager().listarDisciplinas().isEmpty() && !this.guiController.getDbManager().listarAnos().isEmpty()) {
+            menuGrade.setEnabled(true);
+        }
+        if (!this.guiController.getDbManager().listarAnos().isEmpty()) {
+            menuTurmas.setEnabled(true);
+        }
+        if (!this.guiController.getDbManager().listarTurmas().isEmpty()) {
+            menuAlunos.setEnabled(true);
+        }
+    }
+    
+    public JMenu getMenuAlunos() {
+        return menuAlunos;
+    }
+    
+    public JMenu getMenuTurmas() {
+        return menuTurmas;
+    }
+    
+    public JMenu getMenuGrades() {
+        return menuGrade;
     }
 
     /**
@@ -68,6 +90,7 @@ public class FrameMenu extends javax.swing.JFrame {
 
         menuTurmas.setMnemonic('T');
         menuTurmas.setText("Turmas");
+        menuTurmas.setEnabled(false);
         menuTurmas.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
 
         mnuCadTurma.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -105,6 +128,7 @@ public class FrameMenu extends javax.swing.JFrame {
 
         menuAlunos.setMnemonic('A');
         menuAlunos.setText("Alunos");
+        menuAlunos.setEnabled(false);
         menuAlunos.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
 
         mnuCadAluno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -170,6 +194,7 @@ public class FrameMenu extends javax.swing.JFrame {
         mbarMenu.add(menuAnos);
 
         menuGrade.setText("Grade");
+        menuGrade.setEnabled(false);
         menuGrade.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
 
         mnuCadGrade.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N

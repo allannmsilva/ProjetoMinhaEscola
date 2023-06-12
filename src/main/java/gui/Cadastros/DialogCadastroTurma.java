@@ -269,8 +269,19 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     private void btnAdicionarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarTurmaActionPerformed
 
         String descricao = txtDescricaoTurma.getText();
+
+        if (descricao.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Descrição não pode estar vazia!");
+            return;
+        }
+
         Ano ano = (Ano) cbbSerieAnoTurma.getSelectedItem();
         int turno = -1;
+
+        if (grpTurno.getSelection() == null) {
+            JOptionPane.showMessageDialog(this, "Selecione um turno!");
+            return;
+        }
 
         switch (grpTurno.getSelection().getMnemonic()) {
             case 'M':
@@ -283,33 +294,48 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                 turno = 2;
                 break;
         }
+        Turma turma = new Turma(descricao, ano, turno);
+        try {
+            List<Turma> turmas = guiManager.getDbManager().listarTurmas();
 
-        if (turno > -1) {
-            Turma turma = new Turma(descricao, ano, turno);
-            try {
-                if (btnAdicionarTurma.getText().equals("Editar")) {
-                    Turma t = guiManager.getTurmSelec();
-                    if (t.getDescricaoTurma().equals(descricao) && t.getAno().equals(ano) && t.getTurno() == turno) {
-                        JOptionPane.showMessageDialog(this, "Altere algum campo para editar!");
-                        return;
-                    }
-                    t.setDescricaoTurma(descricao);
-                    t.setAno(ano);
-                    t.setTurno(turno);
-                    DAOMethods.update(t);
-                    JOptionPane.showMessageDialog(this, "Turma editada com sucesso!");
-                    setVisible(false);
+            if (btnAdicionarTurma.getText().equals("Editar")) {
+                Turma t = guiManager.getTurmSelec();
+                if (t.getDescricaoTurma().equals(descricao) && t.getAno().equals(ano) && t.getTurno() == turno) {
+                    JOptionPane.showMessageDialog(this, "Altere algum campo para editar!");
                     return;
                 }
+                t.setDescricaoTurma(descricao);
+                t.setAno(ano);
+                t.setTurno(turno);
 
-                guiManager.getDbManager().inserirTurma(turma);
-                JOptionPane.showMessageDialog(this, "Turma cadastrada com sucesso!");
-                limparCampos();
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, "Erro ao cadastrar/editar turma! Verifique os campos.");
+                for (Turma tu : turmas) {
+                    if (t.equals(tu)) {
+                        JOptionPane.showMessageDialog(this, "Turma já existe!");
+                        return;
+                    }
+                }
+                DAOMethods.update(t);
+                JOptionPane.showMessageDialog(this, "Turma editada com sucesso!");
+                setVisible(false);
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Selecione um turno!");
+
+            if (DAOMethods.findList(Turma.class).isEmpty()) {
+                guiManager.getMenu().getMenuAlunos().setEnabled(true);
+            }
+
+            for (Turma t : turmas) {
+                if (t.equals(turma)) {
+                    JOptionPane.showMessageDialog(this, "Turma já existe!");
+                    return;
+                }
+            }
+
+            guiManager.getDbManager().inserirTurma(turma);
+            JOptionPane.showMessageDialog(this, "Turma cadastrada com sucesso!");
+            limparCampos();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao cadastrar/editar turma! Verifique os campos.");
         }
     }//GEN-LAST:event_btnAdicionarTurmaActionPerformed
 
@@ -345,6 +371,9 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                     }
                 }
                 DAOMethods.delete(t);
+                if (guiManager.getDbManager().listarTurmas().isEmpty()) {
+                    guiManager.getMenu().getMenuAlunos().setEnabled(false);
+                }
                 JOptionPane.showMessageDialog(this, "Turma excluída com sucesso!");
                 setVisible(false);
             } catch (Exception ex) {

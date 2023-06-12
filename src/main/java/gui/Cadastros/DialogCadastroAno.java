@@ -5,6 +5,7 @@
 package gui.Cadastros;
 
 import controller.GUIManager;
+import dao.DAOMethods;
 import domain.Ano;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -200,6 +201,12 @@ public class DialogCadastroAno extends javax.swing.JDialog {
             if (jaExiste) {
                 JOptionPane.showMessageDialog(btnAdicionarAno, "Ano já existe!");
             } else {
+                if (DAOMethods.findList(Ano.class).isEmpty()) {
+                    guiManager.getMenu().getMenuTurmas().setEnabled(true);
+                }
+                if (guiManager.getDbManager().listarAnos().isEmpty() && !guiManager.getDbManager().listarDisciplinas().isEmpty()) {
+                    guiManager.getMenu().getMenuGrades().setEnabled(true);
+                }
                 guiManager.getDbManager().inserirAno(novoAno);
                 JOptionPane.showMessageDialog(this, "Ano cadastrado com sucesso!");
                 limparCampos();
@@ -232,7 +239,7 @@ public class DialogCadastroAno extends javax.swing.JDialog {
         spnOrdinalAno.setValue(((SpinnerNumberModel) spnOrdinalAno.getModel()).getMinimum());
         cbbGrauAno.setSelectedIndex(0);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionarAno;
     private javax.swing.JButton btnLimparAno;
