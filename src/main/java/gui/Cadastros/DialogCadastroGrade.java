@@ -245,6 +245,12 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
         try {
             if (btnAdicionarGrade.getText().equals("Editar")) {
                 Grade g = guiManager.getGradSelec();
+
+                if (planoEstudos.equals(g.getPlanoEstudos() == null ? "" : g.getPlanoEstudos())) {
+                    JOptionPane.showMessageDialog(this, "Altere algum campo para editar!");
+                    return;
+                }
+
                 g.setPlanoEstudos(planoEstudos);
                 DAOMethods.update(g);
                 JOptionPane.showMessageDialog(this, "Grade editada com sucesso!");

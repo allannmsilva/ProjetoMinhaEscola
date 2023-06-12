@@ -6,6 +6,7 @@ package gui.Cadastros;
 
 import controller.GUIManager;
 import dao.DAOMethods;
+import domain.Aluno;
 import domain.Ano;
 import domain.Turma;
 import java.util.List;
@@ -288,6 +289,10 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
             try {
                 if (btnAdicionarTurma.getText().equals("Editar")) {
                     Turma t = guiManager.getTurmSelec();
+                    if (t.getDescricaoTurma().equals(descricao) && t.getAno().equals(ano) && t.getTurno() == turno) {
+                        JOptionPane.showMessageDialog(this, "Altere algum campo para editar!");
+                        return;
+                    }
                     t.setDescricaoTurma(descricao);
                     t.setAno(ano);
                     t.setTurno(turno);
@@ -331,7 +336,15 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     private void limparCampos() {
         if (btnLimparTurma.getText().equals("Excluir")) {
             try {
-                DAOMethods.delete(guiManager.getTurmSelec());
+                Turma t = guiManager.getTurmSelec();
+                List<Aluno> alunos = DAOMethods.findList(Aluno.class);
+                for (Aluno aluno : alunos) {
+                    if (aluno.getTurma().equals(t)) {
+                        JOptionPane.showMessageDialog(this, "Existem alunos nessa turma!");
+                        return;
+                    }
+                }
+                DAOMethods.delete(t);
                 JOptionPane.showMessageDialog(this, "Turma excluída com sucesso!");
                 setVisible(false);
             } catch (Exception ex) {

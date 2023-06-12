@@ -269,6 +269,14 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
 
             if (btnAdicionarAluno.getText().equals("Editar")) {
                 Aluno a = guiManager.getAlunSelec();
+                if (nome.equals(a.getNome())
+                        && rg.replaceAll(" ", "").equals(a.getRg().replaceAll(" ", ""))
+                        && turma.toString().equals(a.getTurma().toString())
+                        && MetodosUteis.toString(dataNascimento).equals(MetodosUteis.toString(a.getDataNascimento()))) {
+                    JOptionPane.showMessageDialog(this, "Altere algum campo para editar!");
+                    return;
+                }
+
                 a.setNome(nome);
                 a.setRg(rg);
                 a.setTurma(turma);

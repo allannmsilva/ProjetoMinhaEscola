@@ -5,8 +5,6 @@
  */
 package domain;
 
-import domain.Aluno;
-import domain.Disciplina;
 import java.io.Serializable;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;

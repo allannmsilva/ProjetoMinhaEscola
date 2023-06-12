@@ -7,6 +7,8 @@ package gui.Cadastros;
 import controller.GUIManager;
 import dao.DAOMethods;
 import domain.Disciplina;
+import domain.Grade;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -176,6 +178,10 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
         try {
             if (btnAdicionarDisciplina.getText().equals("Editar")) {
                 Disciplina d = guiManager.getDiscSelec();
+                if (d.getDescricaoDisciplina().equals(txtDescricaoDisciplina.getText())) {
+                    JOptionPane.showMessageDialog(this, "Altere algum campo para editar!");
+                    return;
+                }
                 d.setDescricaoDisciplina(txtDescricaoDisciplina.getText());
                 DAOMethods.update(d);
                 JOptionPane.showMessageDialog(this, "Disciplina editada com sucesso!");
@@ -200,6 +206,13 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
         if (btnLimparDisciplina.getText().equals("Excluir")) {
             try {
                 Disciplina d = guiManager.getDiscSelec();
+                List<Grade> grades = DAOMethods.findList(Grade.class);
+                for (Grade grade : grades) {
+                    if (grade.getChaveComposta().getDisciplina().equals(d)) {
+                        JOptionPane.showMessageDialog(this, "Existem grades com essa disciplina!\n");
+                        return;
+                    }
+                }
                 DAOMethods.delete(d);
                 JOptionPane.showMessageDialog(this, "Disciplina excluída com sucesso!");
                 setVisible(false);
