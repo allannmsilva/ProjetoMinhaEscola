@@ -6,7 +6,6 @@ package gui.Cadastros;
 
 import controller.GUIManager;
 import controller.MetodosUteis;
-import dao.DAOMethods;
 import domain.Aluno;
 import domain.Turma;
 import java.text.ParseException;
@@ -58,12 +57,10 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         pnlPrincipalAluno = new javax.swing.JPanel();
         pnlDadosAluno = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txtCodigoAluno = new javax.swing.JTextField();
         cbbTurmaAluno = new javax.swing.JComboBox<>();
-        txtRGAluno = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNomeAluno = new javax.swing.JTextField();
         ftxDataNascimentoAluno = new javax.swing.JFormattedTextField();
@@ -80,10 +77,6 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("Código");
-
-        jLabel2.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setText("RG");
 
         jLabel3.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -106,17 +99,6 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         cbbTurmaAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbTurmaAlunoActionPerformed(evt);
-            }
-        });
-
-        try {
-            txtRGAluno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#.###.###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtRGAluno.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtRGAlunoActionPerformed(evt);
             }
         });
 
@@ -174,11 +156,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
                                 .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtRGAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(pnlDadosAlunoLayout.createSequentialGroup()
                                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,9 +174,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
                 .addGap(40, 40, 40)
                 .addGroup(pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtRGAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigoAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlDadosAlunoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -256,7 +232,6 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private void btnAdicionarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAlunoActionPerformed
 
         String nome = txtNomeAluno.getText();
-        String rg = txtRGAluno.getText();
 
         if (campoInvalido(nome)) {
             return;
@@ -265,12 +240,12 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         Turma turma = (Turma) cbbTurmaAluno.getSelectedItem();
 
         try {
+            List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
             Date dataNascimento = MetodosUteis.toDate(ftxDataNascimentoAluno.getText());
 
             if (btnAdicionarAluno.getText().equals("Editar")) {
                 Aluno a = guiManager.getAlunSelec();
                 if (nome.equals(a.getNome())
-                        && rg.replaceAll(" ", "").equals(a.getRg().replaceAll(" ", ""))
                         && turma.toString().equals(a.getTurma().toString())
                         && MetodosUteis.toString(dataNascimento).equals(MetodosUteis.toString(a.getDataNascimento()))) {
                     JOptionPane.showMessageDialog(this, "Altere algum campo para editar!");
@@ -278,16 +253,29 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
                 }
 
                 a.setNome(nome);
-                a.setRg(rg);
                 a.setTurma(turma);
                 a.setDataNascimento(dataNascimento);
-                DAOMethods.update(a);
+
+                for (Aluno aluno : alunos) {
+                    if (aluno.equals(a)) {
+                        JOptionPane.showMessageDialog(this, "Aluno já existe!");
+                        return;
+                    }
+                }
+
+                guiManager.getDbManager().alterarAluno(a);
                 JOptionPane.showMessageDialog(this, "Aluno editado com sucesso!");
                 setVisible(false);
                 return;
             }
 
-            Aluno novoAluno = new Aluno(rg, nome, dataNascimento, turma);
+            Aluno novoAluno = new Aluno(nome, dataNascimento, turma);
+            for (Aluno aluno : alunos) {
+                if (aluno.equals(novoAluno)) {
+                    JOptionPane.showMessageDialog(this, "Aluno já existe!");
+                    return;
+                }
+            }
             guiManager.getDbManager().inserirAluno(novoAluno);
             JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!");
             limparCampos();
@@ -301,7 +289,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private void btnLimparAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparAlunoActionPerformed
         if (btnLimparAluno.getText().equals("Excluir")) {
             try {
-                DAOMethods.delete(guiManager.getAlunSelec());
+                guiManager.getDbManager().excluirAluno(guiManager.getAlunSelec());
                 JOptionPane.showMessageDialog(this, "Aluno excluído com sucesso!");
                 setVisible(false);
             } catch (Exception ex) {
@@ -314,10 +302,6 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         limparCampos();
     }//GEN-LAST:event_btnLimparAlunoActionPerformed
 
-    private void txtRGAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRGAlunoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRGAlunoActionPerformed
-
     private void ftxDataNascimentoAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftxDataNascimentoAlunoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ftxDataNascimentoAlunoActionPerformed
@@ -328,8 +312,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
 
     private void limparCampos() {
         txtNomeAluno.setText("");
-        txtRGAluno.setText("");
-        cbbTurmaAluno.setSelectedIndex(-1);
+        cbbTurmaAluno.setSelectedIndex(0);
         ftxDataNascimentoAluno.setText("");
     }
 
@@ -339,7 +322,6 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbbTurmaAluno;
     private javax.swing.JFormattedTextField ftxDataNascimentoAluno;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
@@ -347,13 +329,11 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private javax.swing.JPanel pnlPrincipalAluno;
     private javax.swing.JTextField txtCodigoAluno;
     private javax.swing.JTextField txtNomeAluno;
-    private javax.swing.JFormattedTextField txtRGAluno;
     // End of variables declaration//GEN-END:variables
 
     private void setAlunSelec(Aluno alunSelec) {
         txtCodigoAluno.setText(Long.toString(alunSelec.getCodigoAluno()));
         txtNomeAluno.setText(alunSelec.getNome());
-        txtRGAluno.setText(alunSelec.getRg());
         cbbTurmaAluno.setSelectedItem(alunSelec.getTurma());
         ftxDataNascimentoAluno.setText(new SimpleDateFormat("dd/MM/yyyy").format(alunSelec.getDataNascimento()));
     }

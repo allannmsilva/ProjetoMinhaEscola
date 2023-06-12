@@ -5,7 +5,6 @@
 package gui.Cadastros;
 
 import controller.GUIManager;
-import dao.DAOMethods;
 import domain.Ano;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -201,7 +200,7 @@ public class DialogCadastroAno extends javax.swing.JDialog {
             if (jaExiste) {
                 JOptionPane.showMessageDialog(btnAdicionarAno, "Ano já existe!");
             } else {
-                if (DAOMethods.findList(Ano.class).isEmpty()) {
+                if (guiManager.getDbManager().listarAnos().isEmpty()) {
                     guiManager.getMenu().getMenuTurmas().setEnabled(true);
                 }
                 if (guiManager.getDbManager().listarAnos().isEmpty() && !guiManager.getDbManager().listarDisciplinas().isEmpty()) {

@@ -24,13 +24,10 @@ public class Aluno implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long codigoAluno;
 
-    @Column(name = "rg", nullable = true)
-    private String rg;
-
     @Column(name = "nome", nullable = false, length = 100)
     private String nome;
 
-    @Column(name = "dataNascimento", nullable = true)
+    @Column(name = "dataNascimento", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date dataNascimento;
 
@@ -44,8 +41,7 @@ public class Aluno implements Serializable {
     public Aluno() {
     }
 
-    public Aluno(String rg, String nome, Date dataNascimento, Turma turma) {
-        this.rg = rg;
+    public Aluno(String nome, Date dataNascimento, Turma turma) {
         this.nome = nome;
         this.dataNascimento = dataNascimento;
         this.turma = turma;
@@ -57,14 +53,6 @@ public class Aluno implements Serializable {
 
     public void setCodigoAluno(long codigoAluno) {
         this.codigoAluno = codigoAluno;
-    }
-
-    public String getRg() {
-        return rg;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
     }
 
     public String getNome() {
@@ -101,20 +89,14 @@ public class Aluno implements Serializable {
             return false;
         }
 
+        final Aluno objMirror = (Aluno) obj;
+
         if (getClass() != obj.getClass()) {
             return false;
         }
 
-        final Aluno objMirror = (Aluno) obj;
-
         if (!objMirror.getNome().equals(this.getNome())) {
             return false;
-        }
-
-        if (!this.getRg().replaceAll(" ", "").equals("..")) {
-            if (objMirror.getRg().equals(this.getRg())) {
-                return true;
-            }
         }
 
         return this.getTurma().equals(objMirror.getTurma());
@@ -133,7 +115,7 @@ public class Aluno implements Serializable {
     }
 
     public Object[] toArray() {
-        return new Object[]{codigoAluno, rg, nome, turma.toString(), new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento)};
+        return new Object[]{codigoAluno, nome, turma.toString(), new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento)};
     }
 
 }

@@ -5,7 +5,6 @@
 package gui.Cadastros;
 
 import controller.GUIManager;
-import dao.DAOMethods;
 import domain.Aluno;
 import domain.Ano;
 import domain.Turma;
@@ -314,14 +313,10 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                         return;
                     }
                 }
-                DAOMethods.update(t);
+                guiManager.getDbManager().alterarTurma(t);
                 JOptionPane.showMessageDialog(this, "Turma editada com sucesso!");
                 setVisible(false);
                 return;
-            }
-
-            if (DAOMethods.findList(Turma.class).isEmpty()) {
-                guiManager.getMenu().getMenuAlunos().setEnabled(true);
             }
 
             for (Turma t : turmas) {
@@ -329,6 +324,10 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                     JOptionPane.showMessageDialog(this, "Turma já existe!");
                     return;
                 }
+            }
+
+            if (guiManager.getDbManager().listarTurmas().isEmpty()) {
+                guiManager.getMenu().getMenuAlunos().setEnabled(true);
             }
 
             guiManager.getDbManager().inserirTurma(turma);
@@ -363,14 +362,14 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
         if (btnLimparTurma.getText().equals("Excluir")) {
             try {
                 Turma t = guiManager.getTurmSelec();
-                List<Aluno> alunos = DAOMethods.findList(Aluno.class);
+                List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
                 for (Aluno aluno : alunos) {
                     if (aluno.getTurma().equals(t)) {
                         JOptionPane.showMessageDialog(this, "Existem alunos nessa turma!");
                         return;
                     }
                 }
-                DAOMethods.delete(t);
+                guiManager.getDbManager().excluirTurma(t);
                 if (guiManager.getDbManager().listarTurmas().isEmpty()) {
                     guiManager.getMenu().getMenuAlunos().setEnabled(false);
                 }

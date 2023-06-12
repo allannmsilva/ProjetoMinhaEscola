@@ -5,7 +5,6 @@
 package gui.Cadastros;
 
 import controller.GUIManager;
-import dao.DAOMethods;
 import domain.Ano;
 import domain.Disciplina;
 import domain.Grade;
@@ -252,7 +251,7 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
                 }
 
                 g.setPlanoEstudos(planoEstudos);
-                DAOMethods.update(g);
+                guiManager.getDbManager().alterarGrade(g);
                 JOptionPane.showMessageDialog(this, "Grade editada com sucesso!");
                 setVisible(false);
                 return;
@@ -274,7 +273,7 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
         if (btnLimparGrade.getText().equals("Excluir")) {
             try {
                 Grade g = guiManager.getGradSelec();
-                DAOMethods.delete(g);
+                guiManager.getDbManager().excluirGrade(g);
                 JOptionPane.showMessageDialog(this, "Grade excluída com sucesso!");
                 setVisible(false);
             } catch (Exception ex) {
