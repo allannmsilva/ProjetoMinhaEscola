@@ -8,7 +8,6 @@ import domain.Aluno;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.HibernateException;
@@ -65,6 +64,14 @@ public class AlunoDAO extends DAOMethods {
         }
 
         return lista;
+    }
+
+    public static List<Aluno> findList() throws Exception {
+        return findList(Aluno.class);
+    }
+
+    public static Aluno findById(long id) {
+        return (Aluno) findById(Aluno.class, id);
     }
 
     public static List<Aluno> pesquisarPorNome(String nome) {

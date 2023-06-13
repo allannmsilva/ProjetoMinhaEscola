@@ -3,6 +3,7 @@ package controller;
 import dao.AlunoDAO;
 import dao.ConexaoHibernate;
 import dao.DAOMethods;
+import dao.DisciplinaDAO;
 import domain.Aluno;
 import domain.Ano;
 import domain.Disciplina;
@@ -33,11 +34,11 @@ public class DAOManager {
 
     //DISCIPLINA
     public Disciplina findByIdDisciplina(long id) throws Exception {
-        return (Disciplina) DAOMethods.findById(Disciplina.class, id);
+        return DisciplinaDAO.findById(id);
     }
 
     public List<Disciplina> listarDisciplinas() throws Exception {
-        return DAOMethods.findList(Disciplina.class);
+        return DisciplinaDAO.findList();
     }
 
     public void inserirDisciplina(Disciplina d) throws Exception {
@@ -52,13 +53,17 @@ public class DAOManager {
         DAOMethods.delete(d);
     }
 
+    public List<Disciplina> pesquisarDisciplinaPorDescricao(String descricao) {
+        return DisciplinaDAO.pesquisarPorDescricao(descricao);
+    }
+
     //ALUNO
     public Aluno findByIdAluno(long id) throws Exception {
-        return (Aluno) DAOMethods.findById(Aluno.class, id);
+        return AlunoDAO.findById(id);
     }
 
     public List<Aluno> listarAlunos() throws Exception {
-        return DAOMethods.findList(Aluno.class);
+        return AlunoDAO.findList();
     }
 
     public void inserirAluno(Aluno a) throws Exception {

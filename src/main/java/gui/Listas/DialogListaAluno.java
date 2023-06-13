@@ -11,8 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -31,6 +29,10 @@ public class DialogListaAluno extends javax.swing.JDialog {
         super(parent, modal);
         this.guiManager = guiManager;
         initComponents();
+        List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
+        for (Aluno aluno : alunos) {
+            ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
+        }
 
         try {
             List<Turma> turmas = this.guiManager.getDbManager().listarTurmas();
@@ -178,8 +180,13 @@ public class DialogListaAluno extends javax.swing.JDialog {
     private void btnPesquisarAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarAlunosActionPerformed
         ((DefaultTableModel) tblAlunos.getModel()).setNumRows(0);
 
+        String nome = txtPesqAlunoNome.getText();
+        boolean nomeVazio = txtPesqAlunoNome.getText().isEmpty();
+        String turma = (String) cbbPesqAlunoTurma.getSelectedItem();
+        boolean turmaVazia = cbbPesqAlunoTurma.getSelectedIndex() < 1;
+
         try {
-            if (txtPesqAlunoNome.getText().isEmpty() && cbbPesqAlunoTurma.getSelectedIndex() < 1) {
+            if (nomeVazio && turmaVazia) {
                 List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
                 for (Aluno aluno : alunos) {
                     ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
@@ -187,24 +194,24 @@ public class DialogListaAluno extends javax.swing.JDialog {
                 return;
             }
 
-            if (!txtPesqAlunoNome.getText().isEmpty() && cbbPesqAlunoTurma.getSelectedIndex() > 0) {
-                List<Aluno> alunos = guiManager.getDbManager().pesquisarAlunoPorNomeETurma(txtPesqAlunoNome.getText(), (String) cbbPesqAlunoTurma.getSelectedItem());
+            if (!nomeVazio && !turmaVazia) {
+                List<Aluno> alunos = guiManager.getDbManager().pesquisarAlunoPorNomeETurma(nome.trim(), turma);
                 for (Aluno aluno : alunos) {
                     ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
                 }
                 return;
             }
 
-            if (cbbPesqAlunoTurma.getSelectedIndex() > 0) {
-                List<Aluno> alunos = guiManager.getDbManager().pesquisarAlunoPorTurma((String) cbbPesqAlunoTurma.getSelectedItem());
+            if (!turmaVazia) {
+                List<Aluno> alunos = guiManager.getDbManager().pesquisarAlunoPorTurma(turma);
                 for (Aluno aluno : alunos) {
                     ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
                 }
                 return;
             }
 
-            if (!txtPesqAlunoNome.getText().isEmpty()) {
-                List<Aluno> alunos = guiManager.getDbManager().pesquisarAlunoPorNome(txtPesqAlunoNome.getText().trim());
+            if (!nomeVazio) {
+                List<Aluno> alunos = guiManager.getDbManager().pesquisarAlunoPorNome(nome.trim());
                 for (Aluno aluno : alunos) {
                     ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
                 }

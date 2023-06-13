@@ -9,6 +9,8 @@ import domain.Disciplina;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -18,10 +20,10 @@ import javax.swing.table.DefaultTableModel;
  * @author Allan Neves Melquíades Silva
  */
 public class DialogListaDisciplina extends javax.swing.JDialog {
-
+    
     private GUIManager guiManager;
     private Disciplina discSelec;
-
+    
     public DialogListaDisciplina(java.awt.Frame parent, boolean modal, GUIManager guiManager) throws Exception {
         super(parent, modal);
         this.guiManager = guiManager;
@@ -31,7 +33,7 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
         for (Disciplina disciplina : disciplinas) {
             ((DefaultTableModel) tblDisciplinas.getModel()).addRow(disciplina.toArray());
         }
-
+        
         tblDisciplinas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -50,7 +52,7 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
             }
         });
     }
-
+    
     public Disciplina getDiscSelec() {
         return discSelec;
     }
@@ -67,6 +69,9 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
         pnlListaDisciplinas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDisciplinas = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtPesqDisciplinaDescricao = new javax.swing.JTextField();
+        btnDisciplinaPesq = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -104,31 +109,78 @@ public class DialogListaDisciplina extends javax.swing.JDialog {
 
         pnlListaDisciplinas.add(jScrollPane1);
 
+        jLabel1.setText("Descrição");
+
+        btnDisciplinaPesq.setText("Pesquisar");
+        btnDisciplinaPesq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDisciplinaPesqActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 379, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPesqDisciplinaDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDisciplinaPesq)
+                .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(pnlListaDisciplinas, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(pnlListaDisciplinas, javax.swing.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 323, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtPesqDisciplinaDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDisciplinaPesq))
+                .addContainerGap(354, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
+                    .addGap(61, 61, 61)
                     .addComponent(pnlListaDisciplinas, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDisciplinaPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisciplinaPesqActionPerformed
+        ((DefaultTableModel) tblDisciplinas.getModel()).setNumRows(0);
+        
+        String descricao = txtPesqDisciplinaDescricao.getText();
+        
+        try {
+            if (descricao.isEmpty()) {
+                List<Disciplina> disciplinas = guiManager.getDbManager().listarDisciplinas();
+                for (Disciplina disciplina : disciplinas) {
+                    ((DefaultTableModel) tblDisciplinas.getModel()).addRow(disciplina.toArray());
+                }
+                return;
+            }
+            
+            List<Disciplina> disciplinas = guiManager.getDbManager().pesquisarDisciplinaPorDescricao(descricao);
+            for (Disciplina disciplina : disciplinas) {
+                ((DefaultTableModel) tblDisciplinas.getModel()).addRow(disciplina.toArray());
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar disciplinas!\n");
+        }
+    }//GEN-LAST:event_btnDisciplinaPesqActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDisciplinaPesq;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlListaDisciplinas;
     private javax.swing.JTable tblDisciplinas;
+    private javax.swing.JTextField txtPesqDisciplinaDescricao;
     // End of variables declaration//GEN-END:variables
 }
