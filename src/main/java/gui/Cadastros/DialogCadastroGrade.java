@@ -254,6 +254,7 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
                 guiManager.getDbManager().alterarGrade(g);
                 JOptionPane.showMessageDialog(this, "Grade editada com sucesso!");
                 setVisible(false);
+                guiManager.abrirListaGrade();
                 return;
             }
 
@@ -276,6 +277,7 @@ public class DialogCadastroGrade extends javax.swing.JDialog {
                 guiManager.getDbManager().excluirGrade(g);
                 JOptionPane.showMessageDialog(this, "Grade excluída com sucesso!");
                 setVisible(false);
+                guiManager.abrirListaGrade();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao excluir grade!");
             }

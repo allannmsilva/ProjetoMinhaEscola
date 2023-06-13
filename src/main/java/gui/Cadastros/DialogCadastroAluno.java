@@ -266,6 +266,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
                 guiManager.getDbManager().alterarAluno(a);
                 JOptionPane.showMessageDialog(this, "Aluno editado com sucesso!");
                 setVisible(false);
+                guiManager.abrirListaAluno();
                 return;
             }
 
@@ -292,6 +293,7 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
                 guiManager.getDbManager().excluirAluno(guiManager.getAlunSelec());
                 JOptionPane.showMessageDialog(this, "Aluno excluído com sucesso!");
                 setVisible(false);
+                guiManager.abrirListaAluno();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao excluir aluno!");
             }

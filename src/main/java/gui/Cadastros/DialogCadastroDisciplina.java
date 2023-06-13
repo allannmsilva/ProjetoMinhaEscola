@@ -192,6 +192,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
                 guiManager.getDbManager().alterarDisciplina(d);
                 JOptionPane.showMessageDialog(this, "Disciplina editada com sucesso!");
                 setVisible(false);
+                guiManager.abrirListaDisciplina();
                 return;
             }
             Disciplina d = new Disciplina(txtDescricaoDisciplina.getText());
@@ -228,6 +229,7 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
                 }
                 JOptionPane.showMessageDialog(this, "Disciplina excluída com sucesso!");
                 setVisible(false);
+                guiManager.abrirListaDisciplina();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao excluir disciplina!\n");
             }

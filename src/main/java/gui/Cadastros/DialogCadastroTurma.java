@@ -316,6 +316,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                 guiManager.getDbManager().alterarTurma(t);
                 JOptionPane.showMessageDialog(this, "Turma editada com sucesso!");
                 setVisible(false);
+                guiManager.abrirListaTurma();
                 return;
             }
 
@@ -375,6 +376,7 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                 }
                 JOptionPane.showMessageDialog(this, "Turma excluída com sucesso!");
                 setVisible(false);
+                guiManager.abrirListaTurma();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao excluir turma!");
             }
