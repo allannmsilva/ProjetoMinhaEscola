@@ -4,6 +4,8 @@ import dao.AlunoDAO;
 import dao.ConexaoHibernate;
 import dao.DAOMethods;
 import dao.DisciplinaDAO;
+import dao.GradeDAO;
+import dao.TurmaDAO;
 import domain.Aluno;
 import domain.Ano;
 import domain.Disciplina;
@@ -113,11 +115,11 @@ public class DAOManager {
 
     //GRADE
     public Grade findByIdGrade(GradePK id) throws Exception {
-        return Grade.findById(id);
+        return GradeDAO.findById(id);
     }
 
     public List<Grade> listarGrades() throws Exception {
-        return DAOMethods.findList(Grade.class);
+        return GradeDAO.findList();
     }
 
     public void inserirGrade(Grade g) throws Exception {
@@ -132,13 +134,17 @@ public class DAOManager {
         DAOMethods.delete(g);
     }
 
+    public List<Grade> pesquisarGradePorDisciplina(String disciplina) {
+        return GradeDAO.pesquisarPorDisciplina(disciplina);
+    }
+
     //TURMA
     public Turma findByIdTurma(long id) throws Exception {
-        return (Turma) DAOMethods.findById(Turma.class, id);
+        return (Turma) TurmaDAO.findById(id);
     }
 
     public List<Turma> listarTurmas() throws Exception {
-        return DAOMethods.findList(Turma.class);
+        return TurmaDAO.findList();
     }
 
     public void inserirTurma(Turma t) throws Exception {
@@ -151,6 +157,18 @@ public class DAOManager {
 
     public void excluirTurma(Turma t) throws Exception {
         DAOMethods.delete(t);
+    }
+
+    public List<Turma> pesquisarTurmaPorDescricao(String descricao) {
+        return TurmaDAO.pesquisar(descricao, null, 0);
+    }
+
+    public List<Turma> pesquisarTurmaPorTurno(String turno) {
+        return TurmaDAO.pesquisar(null, turno, 1);
+    }
+
+    public List<Turma> pesquisarTurmaPorDescricaoETurno(String descricao, String turno) {
+        return TurmaDAO.pesquisar(descricao, turno, 2);
     }
 
     //AVALIAÇÃO

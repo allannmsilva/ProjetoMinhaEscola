@@ -62,6 +62,11 @@ public class DialogListaTurma extends javax.swing.JDialog {
         pnlListaTurmas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTurmas = new javax.swing.JTable();
+        txtPesqTurmaDescricao = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        cbbPesqTurmaTurno = new javax.swing.JComboBox<>();
+        btnPesquisarTurmas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -98,29 +103,119 @@ public class DialogListaTurma extends javax.swing.JDialog {
 
         pnlListaTurmas.add(jScrollPane1);
 
+        jLabel2.setText("Descrição");
+
+        jLabel1.setText("Turno");
+
+        cbbPesqTurmaTurno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MATUTINO", "VESPERTINO", "NOTURNO", "<<TODOS>>" }));
+        cbbPesqTurmaTurno.setSelectedIndex(3);
+
+        btnPesquisarTurmas.setText("Pesquisar");
+        btnPesquisarTurmas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarTurmasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(184, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbbPesqTurmaTurno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtPesqTurmaDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
+                .addComponent(btnPesquisarTurmas)
+                .addGap(184, 184, 184))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlListaTurmas, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE))
+                .addComponent(pnlListaTurmas, javax.swing.GroupLayout.DEFAULT_SIZE, 905, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 323, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPesqTurmaDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbbPesqTurmaTurno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(btnPesquisarTurmas)))
+                .addContainerGap(397, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addComponent(pnlListaTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(85, 85, 85)
+                    .addComponent(pnlListaTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnPesquisarTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarTurmasActionPerformed
+        ((DefaultTableModel) tblTurmas.getModel()).setNumRows(0);
+
+        String descricao = txtPesqTurmaDescricao.getText();
+        boolean descricaoVazia = txtPesqTurmaDescricao.getText().isEmpty();
+        String turno = (String) Integer.toString(cbbPesqTurmaTurno.getSelectedIndex());
+        boolean turnoVazio = cbbPesqTurmaTurno.getSelectedIndex() > 2;
+
+        try {
+            if (descricaoVazia && turnoVazio) {
+                List<Turma> alunos = guiManager.getDbManager().listarTurmas();
+                for (Turma aluno : alunos) {
+                    ((DefaultTableModel) tblTurmas.getModel()).addRow(aluno.toArray());
+                }
+                return;
+            }
+
+            if (!descricaoVazia && !turnoVazio) {
+                List<Turma> alunos = guiManager.getDbManager().pesquisarTurmaPorDescricaoETurno(descricao.trim(), turno);
+                for (Turma aluno : alunos) {
+                    ((DefaultTableModel) tblTurmas.getModel()).addRow(aluno.toArray());
+                }
+                return;
+            }
+
+            if (!turnoVazio) {
+                List<Turma> alunos = guiManager.getDbManager().pesquisarTurmaPorTurno(turno);
+                for (Turma aluno : alunos) {
+                    ((DefaultTableModel) tblTurmas.getModel()).addRow(aluno.toArray());
+                }
+                return;
+            }
+
+            if (!descricaoVazia) {
+                List<Turma> alunos = guiManager.getDbManager().pesquisarTurmaPorDescricao(descricao.trim());
+                for (Turma aluno : alunos) {
+                    ((DefaultTableModel) tblTurmas.getModel()).addRow(aluno.toArray());
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao listar alunos!\n");
+        }
+    }//GEN-LAST:event_btnPesquisarTurmasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPesquisarTurmas;
+    private javax.swing.JComboBox<String> cbbPesqTurmaTurno;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlListaTurmas;
     private javax.swing.JTable tblTurmas;
+    private javax.swing.JTextField txtPesqTurmaDescricao;
     // End of variables declaration//GEN-END:variables
 
     public Turma getTurmSelec() {

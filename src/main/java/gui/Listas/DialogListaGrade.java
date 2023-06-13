@@ -8,6 +8,7 @@ import controller.GUIManager;
 import domain.Ano;
 import domain.Disciplina;
 import domain.Grade;
+import domain.Grade;
 import domain.GradePK;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -66,6 +67,9 @@ public class DialogListaGrade extends javax.swing.JDialog {
         pnlListaGrades = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblGrades = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtPesqGradeDisciplina = new javax.swing.JTextField();
+        btnDisciplinaPesq = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -102,30 +106,79 @@ public class DialogListaGrade extends javax.swing.JDialog {
 
         pnlListaGrades.add(jScrollPane1);
 
+        jLabel1.setText("Disciplina");
+
+        btnDisciplinaPesq.setText("Pesquisar");
+        btnDisciplinaPesq.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDisciplinaPesqActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 708, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(184, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPesqGradeDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnDisciplinaPesq)
+                .addGap(184, 184, 184))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(pnlListaGrades, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE))
+                .addComponent(pnlListaGrades, javax.swing.GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 323, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtPesqGradeDisciplina, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDisciplinaPesq))
+                .addContainerGap(369, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(pnlListaGrades, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(57, Short.MAX_VALUE)
+                    .addComponent(pnlListaGrades, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnDisciplinaPesqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisciplinaPesqActionPerformed
+        ((DefaultTableModel) tblGrades.getModel()).setNumRows(0);
+
+        String descricao = txtPesqGradeDisciplina.getText();
+
+        try {
+            if (descricao.isEmpty()) {
+                List<Grade> grades = guiManager.getDbManager().listarGrades();
+                for (Grade grade : grades) {
+                    ((DefaultTableModel) tblGrades.getModel()).addRow(grade.toArray());
+                }
+                return;
+            }
+
+            List<Grade> grades = guiManager.getDbManager().pesquisarGradePorDisciplina(descricao);
+            for (Grade grade : grades) {
+                ((DefaultTableModel) tblGrades.getModel()).addRow(grade.toArray());
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar grades!\n");
+        }
+    }//GEN-LAST:event_btnDisciplinaPesqActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDisciplinaPesq;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlListaGrades;
     private javax.swing.JTable tblGrades;
+    private javax.swing.JTextField txtPesqGradeDisciplina;
     // End of variables declaration//GEN-END:variables
 
     public Grade getGradSelec() {

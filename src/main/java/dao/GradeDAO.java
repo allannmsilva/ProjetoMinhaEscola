@@ -6,7 +6,8 @@ package dao;
 
 import static dao.DAOMethods.findById;
 import static dao.DAOMethods.findList;
-import domain.Turma;
+import domain.Grade;
+import domain.GradePK;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -19,9 +20,9 @@ import org.hibernate.Session;
  *
  * @author Allan Neves Melquíades Silva
  */
-public class TurmaDAO extends DAOMethods {
+public class GradeDAO extends DAOMethods {
 
-    public static List<Turma> pesquisar(String descricaoTurma, String turno, int tipo) throws HibernateException {
+    public static List<Grade> pesquisarPorDisciplina(String descricaoDisciplina) throws HibernateException {
         List lista = null;
         Session sessao = null;
         try {
@@ -30,27 +31,13 @@ public class TurmaDAO extends DAOMethods {
 
             // Construtor da CONSULTA
             CriteriaBuilder builder = sessao.getCriteriaBuilder();
-            CriteriaQuery consulta = builder.createQuery(Turma.class);
+            CriteriaQuery consulta = builder.createQuery(Grade.class);
 
             // FROM
-            Root tabela = consulta.from(Turma.class);
+            Root tabela = consulta.from(Grade.class);
 
             // RESTRIÇÕES
-            Predicate restricoes = null;
-
-            switch (tipo) {
-                case 0:
-                    restricoes = builder.like(tabela.get("descricaoTurma"), descricaoTurma + "%");
-                    break;
-                case 1:
-                    restricoes = builder.like(tabela.get("turno"), turno + "%");
-                    break;
-                case 2:
-                    Predicate restricaoDescricao = builder.like(tabela.get("descricaoTurma"), descricaoTurma + "%");
-                    Predicate restricaoTurno = builder.like(tabela.get("turno"), turno + "%");
-                    restricoes = builder.and(restricaoDescricao, restricaoTurno);
-                    break;
-            }
+            Predicate restricoes = builder.like(tabela.get("chaveComposta").get("disciplina").get("descricaoDisciplina"), descricaoDisciplina + "%");
 
             consulta.where(restricoes);
             lista = sessao.createQuery(consulta).getResultList();
@@ -68,11 +55,30 @@ public class TurmaDAO extends DAOMethods {
         return lista;
     }
 
-    public static List<Turma> findList() throws Exception {
-        return findList(Turma.class);
+    public static List<Grade> findList() throws Exception {
+        return findList(Grade.class);
     }
 
-    public static Turma findById(long id) {
-        return (Turma) findById(Turma.class, id);
+    public static Grade findById(GradePK id) throws Exception {
+        Session sessao = null;
+        Grade obj = null;
+
+        try {
+            sessao = ConexaoHibernate.getSessionFactory().openSession();
+            sessao.getTransaction().begin();
+
+            obj = sessao.get(Grade.class, id);
+
+            sessao.getTransaction().commit();
+            sessao.close();
+        } catch (HibernateException hex) {
+            if (sessao != null) {
+                sessao.getTransaction().rollback();
+                sessao.close();
+            }
+            throw new HibernateException(hex);
+        }
+
+        return obj;
     }
 }

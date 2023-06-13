@@ -73,28 +73,4 @@ public class Grade implements Serializable {
     public Object[] toArray() {
         return new Object[]{chaveComposta.getAno(), chaveComposta.getDisciplina(), planoEstudos};
     }
-
-    public static Grade findById(GradePK id) throws Exception {
-        Session sessao = null;
-        Grade obj = null;
-
-        try {
-            sessao = ConexaoHibernate.getSessionFactory().openSession();
-            sessao.getTransaction().begin();
-
-            obj = sessao.get(Grade.class, id);
-
-            sessao.getTransaction().commit();
-            sessao.close();
-        } catch (HibernateException hex) {
-            if (sessao != null) {
-                sessao.getTransaction().rollback();
-                sessao.close();
-            }
-            throw new HibernateException(hex);
-        }
-
-        return obj;
-    }
-
 }
