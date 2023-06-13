@@ -1,5 +1,6 @@
 package controller;
 
+import dao.AlunoDAO;
 import dao.ConexaoHibernate;
 import dao.DAOMethods;
 import domain.Aluno;
@@ -70,6 +71,18 @@ public class DAOManager {
 
     public void excluirAluno(Aluno a) throws Exception {
         DAOMethods.delete(a);
+    }
+
+    public List<Aluno> pesquisarAlunoPorNome(String nome) {
+        return AlunoDAO.pesquisarPorNome(nome);
+    }
+
+    public List<Aluno> pesquisarAlunoPorTurma(String turma) {
+        return AlunoDAO.pesquisarPorTurma(turma);
+    }
+
+    public List<Aluno> pesquisarAlunoPorNomeETurma(String nome, String turma) {
+        return AlunoDAO.pesquisarPorNomeETurma(nome, turma);
     }
 
     //ANO

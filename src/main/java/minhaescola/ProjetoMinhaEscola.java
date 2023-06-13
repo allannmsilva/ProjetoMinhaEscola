@@ -12,9 +12,9 @@ import controller.GUIManager;
  */
 public class ProjetoMinhaEscola {
 
-    public static void main(String[] args) {
-        GUIManager guiController = GUIManager.getInstance();
-        guiController.abrirMenu();
+    public static void main(String[] args) throws Exception {
+        GUIManager guiManager = GUIManager.getInstance();
+        guiManager.abrirMenu();
     }
 
 }

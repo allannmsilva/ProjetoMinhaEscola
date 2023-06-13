@@ -6,9 +6,14 @@ package gui.Listas;
 
 import controller.GUIManager;
 import domain.Aluno;
+import domain.Turma;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -26,9 +31,20 @@ public class DialogListaAluno extends javax.swing.JDialog {
         super(parent, modal);
         this.guiManager = guiManager;
         initComponents();
-        List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
-        for (Aluno aluno : alunos) {
-            ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
+
+        try {
+            List<Turma> turmas = this.guiManager.getDbManager().listarTurmas();
+            List<String> descricoesTurmas = new LinkedList<>();
+            for (Turma turma : turmas) {
+                descricoesTurmas.add(turma.getDescricaoTurma());
+            }
+            ((DefaultComboBoxModel) cbbPesqAlunoTurma.getModel()).addAll(descricoesTurmas);
+
+            if (!descricoesTurmas.isEmpty()) {
+                cbbPesqAlunoTurma.setSelectedIndex(0);
+            }
+        } catch (Exception he) {
+            JOptionPane.showMessageDialog(this, "Erro ao carregar turmas!\n");
         }
 
         tblAlunos.addMouseListener(new MouseAdapter() {
@@ -62,6 +78,11 @@ public class DialogListaAluno extends javax.swing.JDialog {
         pnlListaAlunos = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblAlunos = new javax.swing.JTable();
+        cbbPesqAlunoTurma = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        btnPesquisarAlunos = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        txtPesqAlunoNome = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 204));
@@ -99,26 +120,109 @@ public class DialogListaAluno extends javax.swing.JDialog {
 
         pnlListaAlunos.add(jScrollPane1);
 
+        cbbPesqAlunoTurma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<<TODAS>>" }));
+
+        jLabel1.setText("Turma");
+
+        btnPesquisarAlunos.setText("Pesquisar");
+        btnPesquisarAlunos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarAlunosActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Nome");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlListaAlunos, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
+            .addComponent(pnlListaAlunos, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(184, 184, 184)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cbbPesqAlunoTurma, 0, 351, Short.MAX_VALUE)
+                    .addComponent(txtPesqAlunoNome))
+                .addGap(49, 49, 49)
+                .addComponent(btnPesquisarAlunos)
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 24, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtPesqAlunoNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbbPesqAlunoTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(btnPesquisarAlunos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(pnlListaAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPesquisarAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarAlunosActionPerformed
+        ((DefaultTableModel) tblAlunos.getModel()).setNumRows(0);
+
+        try {
+            if (txtPesqAlunoNome.getText().isEmpty() && cbbPesqAlunoTurma.getSelectedIndex() < 1) {
+                List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
+                for (Aluno aluno : alunos) {
+                    ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
+                }
+                return;
+            }
+
+            if (!txtPesqAlunoNome.getText().isEmpty() && cbbPesqAlunoTurma.getSelectedIndex() > 0) {
+                List<Aluno> alunos = guiManager.getDbManager().pesquisarAlunoPorNomeETurma(txtPesqAlunoNome.getText(), (String) cbbPesqAlunoTurma.getSelectedItem());
+                for (Aluno aluno : alunos) {
+                    ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
+                }
+                return;
+            }
+
+            if (cbbPesqAlunoTurma.getSelectedIndex() > 0) {
+                List<Aluno> alunos = guiManager.getDbManager().pesquisarAlunoPorTurma((String) cbbPesqAlunoTurma.getSelectedItem());
+                for (Aluno aluno : alunos) {
+                    ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
+                }
+                return;
+            }
+
+            if (!txtPesqAlunoNome.getText().isEmpty()) {
+                List<Aluno> alunos = guiManager.getDbManager().pesquisarAlunoPorNome(txtPesqAlunoNome.getText().trim());
+                for (Aluno aluno : alunos) {
+                    ((DefaultTableModel) tblAlunos.getModel()).addRow(aluno.toArray());
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao listar alunos!\n");
+        }
+    }//GEN-LAST:event_btnPesquisarAlunosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnPesquisarAlunos;
+    private javax.swing.JComboBox<String> cbbPesqAlunoTurma;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlListaAlunos;
     private javax.swing.JTable tblAlunos;
+    private javax.swing.JTextField txtPesqAlunoNome;
     // End of variables declaration//GEN-END:variables
 
     public Aluno getAlunSelec() {
