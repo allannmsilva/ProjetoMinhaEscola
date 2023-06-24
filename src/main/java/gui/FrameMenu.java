@@ -1,38 +1,43 @@
 package gui;
 
 import controller.GUIManager;
+import domain.Aluno;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Allan Neves Melquíades Silva
  */
 public class FrameMenu extends javax.swing.JFrame {
-    
-    private GUIManager guiController;
-    
-    public FrameMenu(GUIManager guiController) throws Exception {
-        this.guiController = guiController;
+
+    private GUIManager guiManager;
+
+    public FrameMenu(GUIManager guiManager) throws Exception {
+        this.guiManager = guiManager;
         initComponents();
-        if (!this.guiController.getDbManager().listarDisciplinas().isEmpty() && !this.guiController.getDbManager().listarAnos().isEmpty()) {
+        if (!this.guiManager.getDbManager().listarDisciplinas().isEmpty() && !this.guiManager.getDbManager().listarAnos().isEmpty()) {
             menuGrade.setEnabled(true);
         }
-        if (!this.guiController.getDbManager().listarAnos().isEmpty()) {
+        if (!this.guiManager.getDbManager().listarAnos().isEmpty()) {
             menuTurmas.setEnabled(true);
         }
-        if (!this.guiController.getDbManager().listarTurmas().isEmpty()) {
+        if (!this.guiManager.getDbManager().listarTurmas().isEmpty()) {
             menuAlunos.setEnabled(true);
         }
     }
-    
+
     public JMenu getMenuAlunos() {
         return menuAlunos;
     }
-    
+
     public JMenu getMenuTurmas() {
         return menuTurmas;
     }
-    
+
     public JMenu getMenuGrades() {
         return menuGrade;
     }
@@ -56,6 +61,7 @@ public class FrameMenu extends javax.swing.JFrame {
         menuAlunos = new javax.swing.JMenu();
         mnuCadAluno = new javax.swing.JMenuItem();
         mnuListAluno = new javax.swing.JMenuItem();
+        mnuAlunosAnivMes = new javax.swing.JMenuItem();
         menuDisciplinas = new javax.swing.JMenu();
         mnuCadDisc = new javax.swing.JMenuItem();
         mnuListDisciplina = new javax.swing.JMenuItem();
@@ -151,6 +157,14 @@ public class FrameMenu extends javax.swing.JFrame {
         });
         menuAlunos.add(mnuListAluno);
 
+        mnuAlunosAnivMes.setText("Aniversariantes do Mês");
+        mnuAlunosAnivMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAlunosAnivMesActionPerformed(evt);
+            }
+        });
+        menuAlunos.add(mnuAlunosAnivMes);
+
         mbarMenu.add(menuAlunos);
 
         menuDisciplinas.setMnemonic('D');
@@ -234,11 +248,11 @@ public class FrameMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mnuCadTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadTurmaActionPerformed
-        guiController.abrirCadastroTurma();
+        guiManager.abrirCadastroTurma();
     }//GEN-LAST:event_mnuCadTurmaActionPerformed
 
     private void mnuListTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListTurmaActionPerformed
-        guiController.abrirListaTurma();
+        guiManager.abrirListaTurma();
     }//GEN-LAST:event_mnuListTurmaActionPerformed
 
     private void mnuSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSairActionPerformed
@@ -246,32 +260,41 @@ public class FrameMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuSairActionPerformed
 
     private void mnuCadDiscActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadDiscActionPerformed
-        guiController.abrirCadastroDisciplina();
+        guiManager.abrirCadastroDisciplina();
     }//GEN-LAST:event_mnuCadDiscActionPerformed
 
     private void mnuListDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListDisciplinaActionPerformed
-        guiController.abrirListaDisciplina();
+        guiManager.abrirListaDisciplina();
     }//GEN-LAST:event_mnuListDisciplinaActionPerformed
 
     private void mnuCadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadAlunoActionPerformed
-        guiController.abrirCadastroAluno();
+        guiManager.abrirCadastroAluno();
     }//GEN-LAST:event_mnuCadAlunoActionPerformed
 
     private void mnuListAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListAlunoActionPerformed
-        guiController.abrirListaAluno();
+        guiManager.abrirListaAluno();
     }//GEN-LAST:event_mnuListAlunoActionPerformed
 
     private void mnuCadAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadAnoActionPerformed
-        guiController.abrirCadastroAno();
+        guiManager.abrirCadastroAno();
     }//GEN-LAST:event_mnuCadAnoActionPerformed
 
     private void mnuCadGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCadGradeActionPerformed
-        guiController.abrirCadastroGrade();
+        guiManager.abrirCadastroGrade();
     }//GEN-LAST:event_mnuCadGradeActionPerformed
 
     private void mnuListGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListGradeActionPerformed
-        guiController.abrirListaGrade();
+        guiManager.abrirListaGrade();
     }//GEN-LAST:event_mnuListGradeActionPerformed
+
+    private void mnuAlunosAnivMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAlunosAnivMesActionPerformed
+        try {
+            List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
+            guiManager.getRelManager().getListRel(alunos, "relAlunosAnivMes.jasper");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_mnuAlunosAnivMesActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
@@ -282,6 +305,7 @@ public class FrameMenu extends javax.swing.JFrame {
     private javax.swing.JMenu menuDisciplinas;
     private javax.swing.JMenu menuGrade;
     private javax.swing.JMenu menuTurmas;
+    private javax.swing.JMenuItem mnuAlunosAnivMes;
     private javax.swing.JMenuItem mnuCadAluno;
     private javax.swing.JMenuItem mnuCadAno;
     private javax.swing.JMenuItem mnuCadDisc;

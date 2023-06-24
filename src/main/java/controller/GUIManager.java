@@ -35,6 +35,7 @@ public class GUIManager {
     private DialogListaGrade dialogListaGrade = null;
 
     DAOManager dbManager;
+    RPManager relManager;
     Aluno alunSelec = null;
     Disciplina discSelec = null;
     Grade gradSelec = null;
@@ -44,6 +45,7 @@ public class GUIManager {
     private GUIManager() {
         try {
             dbManager = DAOManager.getInstance();
+            relManager = new RPManager();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(frameMenu, ex);
             System.exit(-1);
@@ -61,6 +63,10 @@ public class GUIManager {
 
     public DAOManager getDbManager() {
         return dbManager;
+    }
+
+    public RPManager getRelManager() {
+        return relManager;
     }
 
     public boolean cadastrando() {
