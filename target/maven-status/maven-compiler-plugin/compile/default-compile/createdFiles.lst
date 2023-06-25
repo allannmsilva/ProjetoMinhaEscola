@@ -15,7 +15,6 @@ gui\Listas\DialogListaAluno$1.class
 gui\FrameMenu$1.class
 gui\Cadastros\DialogCadastroAno$2.class
 domain\Avaliacao.class
-gui\Cadastros\DialogCadastroAluno$6.class
 controller\MetodosUteis.class
 domain\Turma.class
 gui\Cadastros\DialogCadastroAluno$3.class

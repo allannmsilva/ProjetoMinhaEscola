@@ -8,8 +8,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -28,7 +26,12 @@ public class RPManager {
 
     public void getListRel(List list, String name) {
         // Path
-        InputStream rel = getClass().getResourceAsStream("../reports/" + name);
+        InputStream rel = getClass().getResourceAsStream("/reports/" + name);
+
+        if (rel == null) {
+            JOptionPane.showMessageDialog(null, "CU!");
+            return;
+        }
 
         // Params
         Map params = new HashMap();
@@ -46,7 +49,7 @@ public class RPManager {
                 JOptionPane.showMessageDialog(null, "Relatório de aniversariantes vazio!");
             }
         } catch (JRException ex) {
-            JOptionPane.showMessageDialog(null, "Deu ruim!");
+            ex.printStackTrace();
         }
     }
 }

@@ -6,20 +6,17 @@
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="turma" class="domain.Turma">
-		<fieldDescription><![CDATA[turma]]></fieldDescription>
-	</field>
-	<field name="nome" class="java.lang.String">
-		<fieldDescription><![CDATA[nome]]></fieldDescription>
+	<field name="codigoAluno" class="java.lang.Long">
+		<fieldDescription><![CDATA[codigoAluno]]></fieldDescription>
 	</field>
 	<field name="dataNascimento" class="java.util.Date">
 		<fieldDescription><![CDATA[dataNascimento]]></fieldDescription>
 	</field>
-	<field name="codigoAluno" class="java.lang.Long">
-		<fieldDescription><![CDATA[codigoAluno]]></fieldDescription>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[nome]]></fieldDescription>
 	</field>
-	<field name="class" class="java.lang.Class">
-		<fieldDescription><![CDATA[class]]></fieldDescription>
+	<field name="turma" class="domain.Turma">
+		<fieldDescription><![CDATA[turma]]></fieldDescription>
 	</field>
 	<background>
 		<band splitType="Stretch"/>
