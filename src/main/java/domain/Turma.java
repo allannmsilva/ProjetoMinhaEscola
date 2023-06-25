@@ -131,13 +131,14 @@ public class Turma implements Serializable, Comparable<Turma> {
 
     @Override
     public int compareTo(Turma o) {
-        if (o.getDescricaoTurma().compareTo(this.getDescricaoTurma()) > 0) {
-            return -1;
-        } else if (o.getDescricaoTurma().compareTo(this.getDescricaoTurma()) < 0) {
-            return 1;
+        if (this.getAno().getGrauDescr().compareTo(o.getAno().getGrauDescr()) == 0) {
+            if (this.getAno().getOrdinalDescr().compareTo(o.getAno().getOrdinalDescr()) == 0) {
+                return this.getTurno() > o.getTurno() ? 1 : (this.getTurno() < o.getTurno() ? -1 : 0);
+            }
+
+            return this.getAno().getOrdinalDescr().compareTo(o.getAno().getOrdinalDescr());
         }
 
-        return 0;
+        return this.getAno().getGrauDescr().compareTo(o.getAno().getGrauDescr());
     }
-
 }

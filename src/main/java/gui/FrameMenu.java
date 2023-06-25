@@ -2,6 +2,7 @@ package gui;
 
 import controller.GUIManager;
 import domain.Aluno;
+import domain.Grade;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,6 +72,7 @@ public class FrameMenu extends javax.swing.JFrame {
         menuGrade = new javax.swing.JMenu();
         mnuCadGrade = new javax.swing.JMenuItem();
         mnuListGrade = new javax.swing.JMenuItem();
+        mnuPlanosEstudos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 204, 204));
@@ -240,6 +242,15 @@ public class FrameMenu extends javax.swing.JFrame {
         });
         menuGrade.add(mnuListGrade);
 
+        mnuPlanosEstudos.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
+        mnuPlanosEstudos.setText("Planos de Estudos");
+        mnuPlanosEstudos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuPlanosEstudosActionPerformed(evt);
+            }
+        });
+        menuGrade.add(mnuPlanosEstudos);
+
         mbarMenu.add(menuGrade);
 
         setJMenuBar(mbarMenu);
@@ -317,6 +328,16 @@ public class FrameMenu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuAlunosPorTurmaActionPerformed
 
+    private void mnuPlanosEstudosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPlanosEstudosActionPerformed
+        try {
+            List<Grade> grades = guiManager.getDbManager().listarGrades();
+            guiManager.getRelManager().getListRel(grades, "relPlanoEstudos.jasper");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao executar relatório!");
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_mnuPlanosEstudosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
@@ -337,6 +358,7 @@ public class FrameMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuListDisciplina;
     private javax.swing.JMenuItem mnuListGrade;
     private javax.swing.JMenuItem mnuListTurma;
+    private javax.swing.JMenuItem mnuPlanosEstudos;
     private javax.swing.JMenuItem mnuSair;
     // End of variables declaration//GEN-END:variables
 }

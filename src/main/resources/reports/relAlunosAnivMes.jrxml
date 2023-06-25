@@ -18,7 +18,7 @@
 	<field name="turma" class="java.lang.Object">
 		<fieldDescription><![CDATA[turma]]></fieldDescription>
 	</field>
-	<sortField name="diaNascimento" type="Variable"/>
+	<sortField name="dataNascimento"/>
 	<filterExpression><![CDATA[new SimpleDateFormat("MM").format($F{dataNascimento}).equals(new SimpleDateFormat("MM").format(new Date()))]]></filterExpression>
 	<background>
 		<band splitType="Stretch"/>
