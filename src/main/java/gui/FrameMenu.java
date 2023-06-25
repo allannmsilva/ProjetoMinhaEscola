@@ -157,6 +157,7 @@ public class FrameMenu extends javax.swing.JFrame {
         });
         menuAlunos.add(mnuListAluno);
 
+        mnuAlunosAnivMes.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
         mnuAlunosAnivMes.setText("Aniversariantes do Mês");
         mnuAlunosAnivMes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -115,6 +115,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuAlunosAnivMes">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Malgun Gothic" size="12" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Aniversariantes do M&#xea;s"/>
               </Properties>
               <Events>

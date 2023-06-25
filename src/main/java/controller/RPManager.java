@@ -28,11 +28,6 @@ public class RPManager {
         // Path
         InputStream rel = getClass().getResourceAsStream("/reports/" + name);
 
-        if (rel == null) {
-            JOptionPane.showMessageDialog(null, "CU!");
-            return;
-        }
-
         // Params
         Map params = new HashMap();
 
@@ -42,14 +37,14 @@ public class RPManager {
             JasperPrint print;
             print = JasperFillManager.fillReport(rel, params, data);
 
-            if (print.getPages().size() > 0) {
-                JasperViewer jrViewer = new JasperViewer(print, true);
+            if (!print.getPages().isEmpty()) {
+                JasperViewer jrViewer = new JasperViewer(print, false);
                 jrViewer.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Relatório de aniversariantes vazio!");
+                JOptionPane.showMessageDialog(null, "Ninguém faz aniversário esse mês!");
             }
         } catch (JRException ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado!");
         }
     }
 }
