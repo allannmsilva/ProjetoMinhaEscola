@@ -56,6 +56,7 @@ public class FrameMenu extends javax.swing.JFrame {
         menuTurmas = new javax.swing.JMenu();
         mnuCadTurma = new javax.swing.JMenuItem();
         mnuListTurma = new javax.swing.JMenuItem();
+        mnuAlunosPorTurma = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuSair = new javax.swing.JMenuItem();
         menuAlunos = new javax.swing.JMenu();
@@ -118,6 +119,15 @@ public class FrameMenu extends javax.swing.JFrame {
             }
         });
         menuTurmas.add(mnuListTurma);
+
+        mnuAlunosPorTurma.setFont(new java.awt.Font("Malgun Gothic", 0, 12)); // NOI18N
+        mnuAlunosPorTurma.setText("Alunos por Turma");
+        mnuAlunosPorTurma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAlunosPorTurmaActionPerformed(evt);
+            }
+        });
+        menuTurmas.add(mnuAlunosPorTurma);
         menuTurmas.add(jSeparator1);
 
         mnuSair.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
@@ -293,9 +303,19 @@ public class FrameMenu extends javax.swing.JFrame {
             List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
             guiManager.getRelManager().getListRel(alunos, "relAlunosAnivMes.jasper");
         } catch (Exception ex) {
-            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Erro ao executar relatório!");
         }
     }//GEN-LAST:event_mnuAlunosAnivMesActionPerformed
+
+    private void mnuAlunosPorTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAlunosPorTurmaActionPerformed
+        try {
+            List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
+            guiManager.getRelManager().getListRel(alunos, "relAlunosPorTurma.jasper");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao executar relatório!");
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_mnuAlunosPorTurmaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
@@ -307,6 +327,7 @@ public class FrameMenu extends javax.swing.JFrame {
     private javax.swing.JMenu menuGrade;
     private javax.swing.JMenu menuTurmas;
     private javax.swing.JMenuItem mnuAlunosAnivMes;
+    private javax.swing.JMenuItem mnuAlunosPorTurma;
     private javax.swing.JMenuItem mnuCadAluno;
     private javax.swing.JMenuItem mnuCadAno;
     private javax.swing.JMenuItem mnuCadDisc;

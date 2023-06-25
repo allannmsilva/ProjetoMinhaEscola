@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Turma implements Serializable {
+public class Turma implements Serializable, Comparable<Turma> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -127,6 +127,17 @@ public class Turma implements Serializable {
 
     public Object[] toArray() {
         return new Object[]{codigoTurma, descricaoTurma, ano, this.getTurnoDesc()};
+    }
+
+    @Override
+    public int compareTo(Turma o) {
+        if (o.getDescricaoTurma().compareTo(this.getDescricaoTurma()) > 0) {
+            return -1;
+        } else if (o.getDescricaoTurma().compareTo(this.getDescricaoTurma()) < 0) {
+            return 1;
+        }
+
+        return 0;
     }
 
 }
