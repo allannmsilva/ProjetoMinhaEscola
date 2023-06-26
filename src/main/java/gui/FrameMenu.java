@@ -4,8 +4,6 @@ import controller.GUIManager;
 import domain.Aluno;
 import domain.Grade;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 

@@ -6,7 +6,6 @@ package gui.Cadastros;
 
 import controller.GUIManager;
 import domain.Ano;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 
@@ -185,31 +184,20 @@ public class DialogCadastroAno extends javax.swing.JDialog {
     private void btnAdicionarAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAnoActionPerformed
         int ordinal = (int) spnOrdinalAno.getValue();
         int grau = cbbGrauAno.getSelectedIndex();
-        boolean jaExiste = false;
 
         Ano novoAno = new Ano(ordinal, grau);
         try {
-            List<Ano> anosExistentes = guiManager.getDbManager().listarAnos();
-
-            for (Ano ano : anosExistentes) {
-                if (ano.getGrau() == grau && ano.getOrdinal() == ordinal) {
-                    jaExiste = true;
-                }
+            if (guiManager.getDbManager().listarAnos().isEmpty()) {
+                guiManager.getMenu().getMenuTurmas().setEnabled(true);
             }
-
-            if (jaExiste) {
-                JOptionPane.showMessageDialog(btnAdicionarAno, "Ano já existe!");
-            } else {
-                if (guiManager.getDbManager().listarAnos().isEmpty()) {
-                    guiManager.getMenu().getMenuTurmas().setEnabled(true);
-                }
-                if (guiManager.getDbManager().listarAnos().isEmpty() && !guiManager.getDbManager().listarDisciplinas().isEmpty()) {
-                    guiManager.getMenu().getMenuGrades().setEnabled(true);
-                }
-                guiManager.getDbManager().inserirAno(novoAno);
-                JOptionPane.showMessageDialog(this, "Ano cadastrado com sucesso!");
-                limparCampos();
+            if (guiManager.getDbManager().listarAnos().isEmpty() && !guiManager.getDbManager().listarDisciplinas().isEmpty()) {
+                guiManager.getMenu().getMenuGrades().setEnabled(true);
             }
+            guiManager.getDbManager().inserirAno(novoAno);
+            JOptionPane.showMessageDialog(this, "Ano cadastrado com sucesso!");
+            limparCampos();
+        } catch (IllegalArgumentException iae) {
+            JOptionPane.showMessageDialog(btnAdicionarAno, "Ano já existe!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(btnAdicionarAno, "Erro ao inserir ano! Verifique os campos.");
         }

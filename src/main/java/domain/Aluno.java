@@ -1,6 +1,5 @@
 package domain;
 
-import dao.ConexaoHibernate;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -96,6 +95,10 @@ public class Aluno implements Serializable {
         }
 
         if (!objMirror.getNome().equals(this.getNome())) {
+            return false;
+        }
+
+        if (!objMirror.getDataNascimento().equals(this.getDataNascimento())) {
             return false;
         }
 

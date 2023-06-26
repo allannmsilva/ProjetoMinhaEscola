@@ -6,8 +6,7 @@ package gui.Cadastros;
 
 import controller.GUIManager;
 import domain.Disciplina;
-import domain.Grade;
-import java.util.List;
+import java.util.InputMismatchException;
 import javax.swing.JOptionPane;
 
 /**
@@ -182,13 +181,6 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
                     return;
                 }
                 d.setDescricaoDisciplina(txtDescricaoDisciplina.getText());
-                List<Disciplina> disciplinas = guiManager.getDbManager().listarDisciplinas();
-                for (Disciplina disc : disciplinas) {
-                    if (disc.equals(d)) {
-                        JOptionPane.showMessageDialog(this, "Disciplina já existe!");
-                        return;
-                    }
-                }
                 guiManager.getDbManager().alterarDisciplina(d);
                 JOptionPane.showMessageDialog(this, "Disciplina editada com sucesso!");
                 setVisible(false);
@@ -196,19 +188,21 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
                 return;
             }
             Disciplina d = new Disciplina(txtDescricaoDisciplina.getText());
-            d.setDescricaoDisciplina(d.getDescricaoDisciplina().substring(0, 1).toUpperCase() + d.getDescricaoDisciplina().substring(1, d.getDescricaoDisciplina().length()));
+            if (!d.getDescricaoDisciplina().isEmpty()) {
+                d.setDescricaoDisciplina(d.getDescricaoDisciplina().substring(0, 1).toUpperCase() + d.getDescricaoDisciplina().substring(1, d.getDescricaoDisciplina().length()));
+            }
             if (!guiManager.getDbManager().listarAnos().isEmpty() && guiManager.getDbManager().listarDisciplinas().isEmpty()) {
                 guiManager.getMenu().getMenuGrades().setEnabled(true);
             }
             guiManager.getDbManager().inserirDisciplina(d);
             JOptionPane.showMessageDialog(this, "Disciplina cadastrada com sucesso!");
             limparCampos();
+        } catch (NullPointerException npe) {
+            JOptionPane.showMessageDialog(this, "Descrição deve ser preenchida!\n");
+        } catch (InputMismatchException ime) {
+            JOptionPane.showMessageDialog(this, "Disciplina já existe!\n");
         } catch (Exception ex) {
-            if (txtDescricaoDisciplina.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Descrição deve ser preenchida!\n");
-            } else {
-                JOptionPane.showMessageDialog(this, "Disciplina já existe!\n");
-            }
+            JOptionPane.showMessageDialog(this, "Erro ao inserir disciplina!\n");
         }
     }//GEN-LAST:event_btnAdicionarDisciplinaActionPerformed
 
@@ -216,13 +210,6 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
         if (btnLimparDisciplina.getText().equals("Excluir")) {
             try {
                 Disciplina d = guiManager.getDiscSelec();
-                List<Grade> grades = guiManager.getDbManager().listarGrades();
-                for (Grade grade : grades) {
-                    if (grade.getChaveComposta().getDisciplina().equals(d)) {
-                        JOptionPane.showMessageDialog(this, "Existem grades com essa disciplina!\n");
-                        return;
-                    }
-                }
                 guiManager.getDbManager().excluirDisciplina(d);
                 if (guiManager.getDbManager().listarDisciplinas().isEmpty()) {
                     guiManager.getMenu().getMenuGrades().setEnabled(false);
@@ -230,6 +217,8 @@ public class DialogCadastroDisciplina extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Disciplina excluída com sucesso!");
                 setVisible(false);
                 guiManager.abrirListaDisciplina();
+            } catch (IllegalArgumentException iae) {
+                JOptionPane.showMessageDialog(this, "Existem grades com essa disciplina!\n");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao excluir disciplina!\n");
             }

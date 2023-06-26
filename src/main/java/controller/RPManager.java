@@ -41,7 +41,7 @@ public class RPManager {
                 JasperViewer jrViewer = new JasperViewer(print, false);
                 jrViewer.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Ninguém faz aniversário esse mês!");
+                JOptionPane.showMessageDialog(null, "Não há dados a serem exibidos!");
             }
         } catch (JRException ex) {
             JOptionPane.showMessageDialog(null, "Ocorreu um erro inesperado!");

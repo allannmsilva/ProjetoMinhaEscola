@@ -6,7 +6,9 @@ package dao;
 
 import static dao.DAOMethods.findById;
 import static dao.DAOMethods.findList;
+import domain.Aluno;
 import domain.Turma;
+import java.util.InputMismatchException;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -72,7 +74,50 @@ public class TurmaDAO extends DAOMethods {
         return findList(Turma.class);
     }
 
+    public static void insert(Turma t) throws Exception {
+        validaTurma(t, false);
+        DAOMethods.insert(t);
+    }
+
+    public static void update(Turma t) throws Exception {
+        validaTurma(t, false);
+        DAOMethods.update(t);
+    }
+
+    public static void delete(Turma t) throws Exception {
+        validaTurma(t, true);
+        DAOMethods.delete(t);
+    }
+
     public static Turma findById(long id) {
         return (Turma) findById(Turma.class, id);
+    }
+
+    private static void validaTurma(Turma t, boolean delete) throws Exception {
+        if (delete) {
+            List<Aluno> alunos = AlunoDAO.findList();
+            for (Aluno aluno : alunos) {
+                if (aluno.getTurma().equals(t)) {
+                    throw new IllegalArgumentException();
+                }
+            }
+
+            return;
+        }
+
+        if (t.getDescricaoTurma().isEmpty()) {
+            throw new NullPointerException();
+        }
+
+        if (t.getTurno() < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        List<Turma> turmas = TurmaDAO.findList();
+        for (Turma turma : turmas) {
+            if (turma.equals(t)) {
+                throw new InputMismatchException();
+            }
+        }
     }
 }

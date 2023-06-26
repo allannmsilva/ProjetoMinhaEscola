@@ -11,6 +11,7 @@ import domain.Turma;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -231,15 +232,9 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
     private void btnAdicionarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarAlunoActionPerformed
 
         String nome = txtNomeAluno.getText();
-
-        if (campoInvalido(nome)) {
-            return;
-        }
-
         Turma turma = (Turma) cbbTurmaAluno.getSelectedItem();
 
         try {
-            List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
             Date dataNascimento = MetodosUteis.toDate(ftxDataNascimentoAluno.getText());
 
             if (btnAdicionarAluno.getText().equals("Editar")) {
@@ -255,13 +250,6 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
                 a.setTurma(turma);
                 a.setDataNascimento(dataNascimento);
 
-                for (Aluno aluno : alunos) {
-                    if (aluno.equals(a)) {
-                        JOptionPane.showMessageDialog(this, "Aluno já existe!");
-                        return;
-                    }
-                }
-
                 guiManager.getDbManager().alterarAluno(a);
                 JOptionPane.showMessageDialog(this, "Aluno editado com sucesso!");
                 setVisible(false);
@@ -270,17 +258,15 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
             }
 
             Aluno novoAluno = new Aluno(nome, dataNascimento, turma);
-            for (Aluno aluno : alunos) {
-                if (aluno.equals(novoAluno)) {
-                    JOptionPane.showMessageDialog(this, "Aluno já existe!");
-                    return;
-                }
-            }
             guiManager.getDbManager().inserirAluno(novoAluno);
             JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!");
             limparCampos();
         } catch (ParseException pe) {
             JOptionPane.showMessageDialog(this, "Data inválida!");
+        } catch (InputMismatchException ime) {
+            JOptionPane.showMessageDialog(this, "Aluno já existe!");
+        } catch (NullPointerException npe) {
+            JOptionPane.showMessageDialog(this, "Nome não pode estar vazio!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(btnAdicionarAluno, "Erro ao cadastrar/editar aluno! Verifique os campos.");
         }
@@ -337,16 +323,6 @@ public class DialogCadastroAluno extends javax.swing.JDialog {
         txtNomeAluno.setText(alunSelec.getNome());
         cbbTurmaAluno.setSelectedItem(alunSelec.getTurma());
         ftxDataNascimentoAluno.setText(new SimpleDateFormat("dd/MM/yyyy").format(alunSelec.getDataNascimento()));
-    }
-
-    private boolean campoInvalido(String nome) {
-
-        if (nome.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Preencha o nome!");
-            return true;
-        }
-
-        return false;
     }
 
 }

@@ -44,15 +44,15 @@ public class DAOManager {
     }
 
     public void inserirDisciplina(Disciplina d) throws Exception {
-        DAOMethods.insert(d);
+        DisciplinaDAO.insert(d);
     }
 
     public void alterarDisciplina(Disciplina d) throws Exception {
-        DAOMethods.update(d);
+        DisciplinaDAO.update(d);
     }
 
     public void excluirDisciplina(Disciplina d) throws Exception {
-        DAOMethods.delete(d);
+        DisciplinaDAO.delete(d);
     }
 
     public List<Disciplina> pesquisarDisciplinaPorDescricao(String descricao) {
@@ -69,15 +69,15 @@ public class DAOManager {
     }
 
     public void inserirAluno(Aluno a) throws Exception {
-        DAOMethods.insert(a);
+        AlunoDAO.insert(a);
     }
 
     public void alterarAluno(Aluno a) throws Exception {
-        DAOMethods.update(a);
+        AlunoDAO.update(a);
     }
 
     public void excluirAluno(Aluno a) throws Exception {
-        DAOMethods.delete(a);
+        AlunoDAO.delete(a);
     }
 
     public List<Aluno> pesquisarAlunoPorNome(String nome) {
@@ -102,6 +102,14 @@ public class DAOManager {
     }
 
     public void inserirAno(Ano a) throws Exception {
+        List<Ano> anosExistentes = this.listarAnos();
+
+        for (Ano ano : anosExistentes) {
+            if (ano.getGrau() == a.getGrau() && ano.getOrdinal() == a.getOrdinal()) {
+                throw new IllegalArgumentException();
+            }
+        }
+
         DAOMethods.insert(a);
     }
 
@@ -123,15 +131,15 @@ public class DAOManager {
     }
 
     public void inserirGrade(Grade g) throws Exception {
-        DAOMethods.insert(g);
+        GradeDAO.insert(g);
     }
 
     public void alterarGrade(Grade g) throws Exception {
-        DAOMethods.update(g);
+        GradeDAO.update(g);
     }
 
     public void excluirGrade(Grade g) throws Exception {
-        DAOMethods.delete(g);
+        GradeDAO.delete(g);
     }
 
     public List<Grade> pesquisarGradePorDisciplina(String disciplina) {
@@ -148,15 +156,15 @@ public class DAOManager {
     }
 
     public void inserirTurma(Turma t) throws Exception {
-        DAOMethods.insert(t);
+        TurmaDAO.insert(t);
     }
 
     public void alterarTurma(Turma t) throws Exception {
-        DAOMethods.update(t);
+        TurmaDAO.update(t);
     }
 
     public void excluirTurma(Turma t) throws Exception {
-        DAOMethods.delete(t);
+        TurmaDAO.delete(t);
     }
 
     public List<Turma> pesquisarTurmaPorDescricao(String descricao) {

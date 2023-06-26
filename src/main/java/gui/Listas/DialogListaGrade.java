@@ -8,7 +8,6 @@ import controller.GUIManager;
 import domain.Ano;
 import domain.Disciplina;
 import domain.Grade;
-import domain.Grade;
 import domain.GradePK;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

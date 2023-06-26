@@ -4,7 +4,6 @@
  */
 package dao;
 
-import static dao.DAOMethods.findById;
 import static dao.DAOMethods.findList;
 import domain.Grade;
 import domain.GradePK;

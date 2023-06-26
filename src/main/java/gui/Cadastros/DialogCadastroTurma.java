@@ -5,9 +5,9 @@
 package gui.Cadastros;
 
 import controller.GUIManager;
-import domain.Aluno;
 import domain.Ano;
 import domain.Turma;
+import java.util.InputMismatchException;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
@@ -268,35 +268,25 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
     private void btnAdicionarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarTurmaActionPerformed
 
         String descricao = txtDescricaoTurma.getText();
-
-        if (descricao.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Descrição não pode estar vazia!");
-            return;
-        }
-
         Ano ano = (Ano) cbbSerieAnoTurma.getSelectedItem();
         int turno = -1;
 
-        if (grpTurno.getSelection() == null) {
-            JOptionPane.showMessageDialog(this, "Selecione um turno!");
-            return;
+        if (grpTurno.getSelection() != null) {
+            switch (grpTurno.getSelection().getMnemonic()) {
+                case 'M':
+                    turno = 0;
+                    break;
+                case 'V':
+                    turno = 1;
+                    break;
+                case 'N':
+                    turno = 2;
+                    break;
+            }
         }
 
-        switch (grpTurno.getSelection().getMnemonic()) {
-            case 'M':
-                turno = 0;
-                break;
-            case 'V':
-                turno = 1;
-                break;
-            case 'N':
-                turno = 2;
-                break;
-        }
         Turma turma = new Turma(descricao, ano, turno);
         try {
-            List<Turma> turmas = guiManager.getDbManager().listarTurmas();
-
             if (btnAdicionarTurma.getText().equals("Editar")) {
                 Turma t = guiManager.getTurmSelec();
                 if (t.getDescricaoTurma().equals(descricao) && t.getAno().equals(ano) && t.getTurno() == turno) {
@@ -306,25 +296,11 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                 t.setDescricaoTurma(descricao);
                 t.setAno(ano);
                 t.setTurno(turno);
-
-                for (Turma tu : turmas) {
-                    if (t.equals(tu)) {
-                        JOptionPane.showMessageDialog(this, "Turma já existe!");
-                        return;
-                    }
-                }
                 guiManager.getDbManager().alterarTurma(t);
                 JOptionPane.showMessageDialog(this, "Turma editada com sucesso!");
                 setVisible(false);
                 guiManager.abrirListaTurma();
                 return;
-            }
-
-            for (Turma t : turmas) {
-                if (t.equals(turma)) {
-                    JOptionPane.showMessageDialog(this, "Turma já existe!");
-                    return;
-                }
             }
 
             if (guiManager.getDbManager().listarTurmas().isEmpty()) {
@@ -334,6 +310,12 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
             guiManager.getDbManager().inserirTurma(turma);
             JOptionPane.showMessageDialog(this, "Turma cadastrada com sucesso!");
             limparCampos();
+        } catch (NullPointerException npe) {
+            JOptionPane.showMessageDialog(this, "Descrição não pode estar vazia!");
+        } catch (InputMismatchException ime) {
+            JOptionPane.showMessageDialog(this, "Turma já existe!");
+        } catch (IllegalArgumentException iae) {
+            JOptionPane.showMessageDialog(this, "Selecione um turno!");
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, "Erro ao cadastrar/editar turma! Verifique os campos.");
         }
@@ -363,13 +345,6 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
         if (btnLimparTurma.getText().equals("Excluir")) {
             try {
                 Turma t = guiManager.getTurmSelec();
-                List<Aluno> alunos = guiManager.getDbManager().listarAlunos();
-                for (Aluno aluno : alunos) {
-                    if (aluno.getTurma().equals(t)) {
-                        JOptionPane.showMessageDialog(this, "Existem alunos nessa turma!");
-                        return;
-                    }
-                }
                 guiManager.getDbManager().excluirTurma(t);
                 if (guiManager.getDbManager().listarTurmas().isEmpty()) {
                     guiManager.getMenu().getMenuAlunos().setEnabled(false);
@@ -377,6 +352,8 @@ public class DialogCadastroTurma extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Turma excluída com sucesso!");
                 setVisible(false);
                 guiManager.abrirListaTurma();
+            } catch (IllegalArgumentException iae) {
+                JOptionPane.showMessageDialog(this, "Existem alunos nessa turma!");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, "Erro ao excluir turma!");
             }

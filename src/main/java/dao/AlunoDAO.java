@@ -5,6 +5,7 @@
 package dao;
 
 import domain.Aluno;
+import java.util.InputMismatchException;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -72,6 +73,29 @@ public class AlunoDAO extends DAOMethods {
 
     public static Aluno findById(long id) {
         return (Aluno) findById(Aluno.class, id);
+    }
+
+    public static void insert(Aluno a) throws Exception {
+        validaAluno(a);
+        DAOMethods.insert(a);
+    }
+
+    public static void update(Aluno a) throws Exception {
+        validaAluno(a);
+        DAOMethods.update(a);
+    }
+
+    private static void validaAluno(Aluno a) throws Exception {
+        if (a.getNome().isEmpty()) {
+            throw new NullPointerException();
+        }
+
+        List<Aluno> alunos = AlunoDAO.findList();
+        for (Aluno aluno : alunos) {
+            if (aluno.equals(a)) {
+                throw new InputMismatchException();
+            }
+        }
     }
 
     public static List<Aluno> pesquisarPorNome(String nome) {
