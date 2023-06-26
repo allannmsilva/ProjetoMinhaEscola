@@ -19,7 +19,7 @@ import org.hibernate.query.Query;
  */
 
 //MÉTODOS GENÉRICOS PARA TRANSAÇÕES DE BANCO DE DADOS
-public class DAOMethods {
+public abstract class DAOMethods {
 
     public static List findList(Class c) throws Exception {
         Session sessao = null;
